@@ -12,14 +12,15 @@ The data set utilized in this project are random generated integers that adheres
 
 ## Authors
 
-De Torres, John Rey
-Jasmin, Ramon Emmiel 
-Lacanilao, Marvin Patrick 
-Roxas, Johan Rickardo 
-Tank, Rithik 
-Tolentino, Shyra Monique 
-Siccuan, Sebastian 
-Urbiztondo, Karl Jasper
+- De Torres, John Rey
+- Jasmin, Ramon Emmiel 
+- Lacanilao, Marvin Patrick 
+- Roxas, Johan Rickardo 
+- Tank, Rithik 
+- Tolentino, Shyra Monique 
+- Siccuan, Sebastian 
+- Urbiztondo, Karl Jasper
+
 
 ## License
 This project is for academic purposes only.

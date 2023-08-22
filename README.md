@@ -11,7 +11,7 @@ This project aims to compare the Bubble Sort, Insertion Sort, and Selection Sort
 The data set utilized in this project are random generated integers that adheres to the input sizes required to be processed. For the best-case analysis, the generated integers are sorted already. For the worst-case analysis, the generated data set is arranged in descending order. For the average-case analysis, the dataset is generated and arranged randomly.
 
 ## Authors
-Show your appreciation to those who have contributed to the project.
+
 
 ## License
 This project is for academic purposes only.

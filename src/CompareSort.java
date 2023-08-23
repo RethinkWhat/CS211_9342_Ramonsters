@@ -101,7 +101,20 @@ public class CompareSort implements SortingAlgorithms{
      */
     public String[] selectionSort(String[] arr){
         String[] sorted = copyArray(arr);
+        int n = sorted.length;
 
+        for (int i = 0; i < n - 1; i++) {
+            int minIndex = i;
+            for (int j = i + 1; j < n; j++) {
+                if (sorted[j].compareTo(sorted[minIndex]) < 0) {
+                    minIndex = j;
+                }
+            }
+
+            String temp = sorted[i];
+            sorted[i] = sorted[minIndex];
+            sorted[minIndex] = temp;
+        }
         //Selection Sort Algorithm Here :)))
 
         return sorted;

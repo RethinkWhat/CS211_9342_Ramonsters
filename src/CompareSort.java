@@ -82,6 +82,7 @@ public class CompareSort implements SortingAlgorithms{
      */
     public String[] bubbleSort(String[] arr){
         String[] sorted = copyArray(arr);
+
         for (int i = 0; i < arr.length-1; i++) {
             for (int j= 0; j<arr.length-1-i; j++) {
                 if (arr[j].compareToIgnoreCase(arr[j+1])>0) {
@@ -101,21 +102,18 @@ public class CompareSort implements SortingAlgorithms{
      */
     public String[] selectionSort(String[] arr){
         String[] sorted = copyArray(arr);
-        int n = sorted.length;
 
-        for (int i = 0; i < n - 1; i++) {
+        for (int i = 0; i < sorted.length - 1; i++) {
             int minIndex = i;
-            for (int j = i + 1; j < n; j++) {
+            for (int j = i + 1; j < sorted.length; j++) {
                 if (sorted[j].compareTo(sorted[minIndex]) < 0) {
                     minIndex = j;
                 }
             }
-
             String temp = sorted[i];
             sorted[i] = sorted[minIndex];
             sorted[minIndex] = temp;
         }
-        //Selection Sort Algorithm Here :)))
 
         return sorted;
     }

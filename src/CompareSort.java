@@ -65,23 +65,6 @@ public class CompareSort implements SortingAlgorithms {
      * @param arr
      * @return
      */
-        /*
-        Algorithm:
-            1. Accept a String arr as a parameter
-            22. Create a copy of String arr by calling copyArray() method passing in arr
-            3. Create an int variable minIndex
-            4. Create a for loop to iterate till arr.length -1 where iterator starts at 0 (x as increment value)
-            5. Set minIndex equal to x
-            6. Create a for loop to iterate  till arr.length -1 where iterator starts at 1 (y as increment value)
-            7. Create an if statement to check if a condition is true
-            8. If true set minIndex equal to y
-            9. Exit the for loops and check whether minIndex not equal to x
-            10. If so:
-                10.1. Create a temp variable and assign it the value of arr[x]
-                10.2. Set arr[x] equal to arr[y]
-                10.3. Set arr[y] to the temp variable
-            11. Return the sorted arr
-     */
     public String[] selectionSort(String[] arr){
         String[] sorted = copyArray(arr);
 

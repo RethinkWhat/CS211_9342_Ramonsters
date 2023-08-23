@@ -82,13 +82,12 @@ public class CompareSort implements SortingAlgorithms{
      */
     public String[] bubbleSort(String[] arr){
         String[] sorted = copyArray(arr);
-        String temp;
-        for (int x = 0; x < arr.length-1; x++) {
-            for (int y=0; y<arr.length-1-x; y++) {
-                if (arr[x].compareToIgnoreCase(arr[y])>0) {
-                    temp = arr[x];
-                    arr[x] = arr[y];
-                    arr[y] = temp;
+        for (int i = 0; i < arr.length-1; i++) {
+            for (int j= 0; j<arr.length-1-i; j++) {
+                if (arr[j].compareToIgnoreCase(arr[j+1])>0) {
+                    String temp = arr[j];
+                    arr[j] = arr[j+1];
+                    arr[j+1] = temp;
                 }
             }
         }

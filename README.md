@@ -8,7 +8,7 @@ This project aims to compare the Bubble Sort, Insertion Sort, and Selection Sort
 
 ## Dataset
 
-The data set utilized in this project are random generated integers that adheres to the input sizes required to be processed. For the best-case analysis, the generated integers are sorted already. For the worst-case analysis, the generated data set is arranged in descending order. For the average-case analysis, the dataset is generated and arranged randomly.
+The study draws upon a dataset comprising 1,000,000 company names sourced from [source]. To facilitate a comprehensive analysis of algorithmic performance, the dataset was subjected to sorting in various orders: random, ascending, and descending. These distinct orders allowed for the examination of average-case, best-case, and worst-case scenarios for each algorithm under analysis.
 
 ## Authors
 

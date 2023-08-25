@@ -128,7 +128,6 @@ public class CompareSort implements SortingAlgorithms{
         int declareCount = 0;
         int changeIndexCount = 0;
         int statementsCount = 0;
-
         String[] sorted = copyArray(arr);
         int i = 0;
         int j;
@@ -167,11 +166,25 @@ public class CompareSort implements SortingAlgorithms{
      * @return
      */
     public String[] insertionSort(String[] arr){
-        String[] sorted = copyArray(arr);
 
-        for (int i = 0; i < sorted.length; i++) {
-            String key = sorted[i];
-            int j = i - 1;
+        // Counters
+        int outerLoopCount = 0;
+        int innerLoopCount = 0;
+        int comparisonCount = 0;
+        int swapCount = 0;
+        int declareCount = 0;
+        int changeIndexCount = 0;
+        int statementsCount = 0;
+
+        String[] sorted = copyArray(arr);
+        int i = 0;
+        int j = 0;
+        String key = "";
+        declareCount +=1;                                   // Deals with the i j declared and the sorted variable
+
+        for (; i < sorted.length; i++) {
+            key = sorted[i];
+            j = i - 1;
             while (j >= 0) {
                 if (key.compareToIgnoreCase(sorted[j]) < 0) {
                     sorted[i + 1] = sorted[j];

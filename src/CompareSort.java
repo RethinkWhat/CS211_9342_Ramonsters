@@ -18,23 +18,23 @@ public class CompareSort implements SortingAlgorithms{
     }
 
     public void run() throws Exception{
-        String[] bc10k = populate(bestCase,10000);
-        String[] bc50k = populate(bestCase, 50000);
-        String[] bc200k = populate(bestCase, 200000);
-        String[] bc500k = populate(bestCase, 500000);
-        String[] bc1m = populate(bestCase, 1000000);
+        String[] bestCase10K = populate(bestCase,10000);
+        String[] bestCase50K = populate(bestCase, 50000);
+        String[] bestCase200K = populate(bestCase, 200000);
+        String[] bestCase500K = populate(bestCase, 500000);
+        String[] bestCase1M = populate(bestCase, 1000000);
 
-        String[] ac10k = populate(averageCase,10000);
-        String[] ac50k = populate(averageCase, 50000);
-        String[] ac200k = populate(averageCase, 200000);
-        String[] ac500k = populate(averageCase, 500000);
-        String[] ac1m = populate(averageCase, 1000000);
+        String[] averageCase10K = populate(averageCase,10000);
+        String[] averageCase50K = populate(averageCase, 50000);
+        String[] averageCase200K = populate(averageCase, 200000);
+        String[] averageCase500K = populate(averageCase, 500000);
+        String[] averageCase1M = populate(averageCase, 1000000);
 
-        String[] wc10k = populate(worstCase,10000);
-        String[] wc50k = populate(worstCase, 50000);
-        String[] wc200k = populate(worstCase, 200000);
-        String[] wc500k = populate(worstCase, 500000);
-        String[] wc1m = populate(worstCase, 1000000);
+        String[] worstCase10K = populate(worstCase,10000);
+        String[] worstCase50K = populate(worstCase, 50000);
+        String[] worstCase200K = populate(worstCase, 200000);
+        String[] worstCase500K = populate(worstCase, 500000);
+        String[] worstCase1M = populate(worstCase, 1000000);
     }
 
     public String[] populate(File file, int lines) throws FileNotFoundException{
@@ -119,15 +119,25 @@ public class CompareSort implements SortingAlgorithms{
     }
 
     /**
-     * @author JOHAN
-     * @param arr
+     * @author JOHAN RICKARDO A. ROXAS
+     * @param arr given array
      * @return
      */
     public String[] insertionSort(String[] arr){
         String[] sorted = copyArray(arr);
+        int size = sorted.length;
 
-        //Insertion Sort Algorithm Here :)))
-
+        for (int x = 0; x < size; x++) {
+            String key = sorted[x];
+            int y = x - 1;
+            while (y >= 0) {
+                if (key.compareToIgnoreCase(sorted[y]) < 0) {
+                    sorted[x + 1] = sorted[y];
+                    y = y -1 ;
+                } // end of if
+            } // end of while
+            sorted[y + 1] = key;
+        } // end of for
         return sorted;
-    }
-}
+    } // end of insertionSort method
+} // end of class CompareSort

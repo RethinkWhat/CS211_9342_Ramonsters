@@ -119,15 +119,25 @@ public class CompareSort implements SortingAlgorithms{
     }
 
     /**
-     * @author JOHAN
-     * @param arr
+     * @author JOHAN RICKARDO A. ROXAS
+     * @param arr given array
      * @return
      */
     public String[] insertionSort(String[] arr){
         String[] sorted = copyArray(arr);
+        int size = sorted.length;
 
-        //Insertion Sort Algorithm Here :)))
-
+        for (int x = 0; x < size; x++) {
+            String key = sorted[x];
+            int y = x - 1;
+            while (y >= 0) {
+                if (key.compareToIgnoreCase(sorted[y]) < 0) {
+                    sorted[x + 1] = sorted[y];
+                    y = y -1 ;
+                } // end of if
+            } // end of while
+            sorted[y + 1] = key;
+        } // end of for
         return sorted;
-    }
-}
+    } // end of insertionSort method
+} // end of class CompareSort

@@ -81,17 +81,34 @@ public class CompareSort implements SortingAlgorithms{
             9. Return the sorted array
      */
     public String[] bubbleSort(String[] arr){
-        String[] sorted = copyArray(arr);
+        int outerLoopCount = 0;
+        int innerLoopCount = 0;
+        int comparisonCount = 0;
+        int swapCount = 0;
+        int statementsCount = 0;
 
-        for (int i = 0; i < arr.length-1; i++) {
-            for (int j= 0; j<arr.length-1-i; j++) {
+        int i = 0;
+        int j = 0;
+        String[] sorted = copyArray(arr);
+        int declareCount = 3;                                   // Deals with the i and j declared and the sorted variable
+
+        for (; i < arr.length-1; i++) {
+            outerLoopCount+=2;                                  // Deals with the 2 statements executed in the for loop above it
+            for (; j<arr.length-1-i; j++) {
+                innerLoopCount+=2;                              // Deals with the 2 statements executed in the for loop above it
+                comparisonCount++;                              // Deals with the comparison done below
                 if (arr[j].compareToIgnoreCase(arr[j+1])>0) {
                     String temp = arr[j];
                     arr[j] = arr[j+1];
                     arr[j+1] = temp;
+                    swapCount+=3;                               // Deals with the three switch statements above
                 }
             }
         }
+        statementsCount = outerLoopCount + innerLoopCount + comparisonCount + swapCount + statementsCount + declareCount + 1;
+        // +1 because of the return sorted statement below
+
+        System.out.println("The total number of executed statements are " + statementsCount + ".");
         return sorted;
     }
 
@@ -101,7 +118,9 @@ public class CompareSort implements SortingAlgorithms{
      * @return
      */
     public String[] selectionSort(String[] arr){
+
         String[] sorted = copyArray(arr);
+
 
         for (int i = 0; i < sorted.length - 1; i++) {
             int minIndex = i;

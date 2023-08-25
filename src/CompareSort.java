@@ -105,7 +105,9 @@ public class CompareSort implements SortingAlgorithms{
                     swapCount+=3;                               // Deals with the three switch statements above
                 }
             }
+            innerLoopCount +=1;                                 // Add 1 to innerLoopCount for when the condition is checked and it is not true
         }
+        outerLoopCount++;                                       // Add 1 to outerLoopCount for when the condition is checked and it is not true
         statementsCount = outerLoopCount + innerLoopCount + comparisonCount + swapCount + statementsCount + declareCount + 1;
         // +1 because of the return sorted statement below
 
@@ -147,11 +149,13 @@ public class CompareSort implements SortingAlgorithms{
                     changeIndexCount +=1;                           // minIndex value changes each time the statement above is reached thus the plus 1
                 }
             }
+            innerLoopCount +=1;                                     // Add 1 to innerLoopCount for when the condition is checked and it is not true
             String temp = sorted[i];
             sorted[i] = sorted[minIndex];
             sorted[minIndex] = temp;
             swapCount += 3;                                         // Deals with the three switch statements above
         }
+        outerLoopCount +=1;                                          // Add 1 to outerLoopCount for when the condition is checked and it is not true
 
         statementsCount = outerLoopCount + innerLoopCount + comparisonCount + swapCount + statementsCount + declareCount + changeIndexCount + 1;
         // +1 because of the return sorted statement below
@@ -169,30 +173,45 @@ public class CompareSort implements SortingAlgorithms{
 
         // Counters
         int outerLoopCount = 0;
-        int innerLoopCount = 0;
+        int outerLoopIndexSetCount = 0;
         int comparisonCount = 0;
         int swapCount = 0;
         int declareCount = 0;
-        int changeIndexCount = 0;
+        int whileStatementCondition = 0;
         int statementsCount = 0;
 
         String[] sorted = copyArray(arr);
         int i = 0;
         int j = 0;
         String key = "";
-        declareCount +=1;                                   // Deals with the i j declared and the sorted variable
+        declareCount +=4;                                   // Deals with the i, j, key, sorted
 
         for (; i < sorted.length; i++) {
+            outerLoopCount +=2;                             // Deals with the 2 statements executed in the for loop above it
             key = sorted[i];
             j = i - 1;
+            outerLoopIndexSetCount +=2;                      // key and j value changes each time the statement above is reached thus the plus 2
+
+            whileStatementCondition++;                      // Increment 1 for when the while statement is checked
             while (j >= 0) {
+
+
+                comparisonCount++;                           // Increment 1 for when the if statement is checked
                 if (key.compareToIgnoreCase(sorted[j]) < 0) {
                     sorted[i + 1] = sorted[j];
                     j = j -1 ;
+                    swapCount+=2;                           // Deals with the two switch statements above
                 }
             }
             sorted[j + 1] = key;
+            swapCount++;                                    // Deals with the switch statement above
+
         }
+        statementsCount = outerLoopCount + outerLoopIndexSetCount + comparisonCount + swapCount + declareCount + whileStatementCondition + statementsCount + 1;
+        // +1 because of the return sorted statement below
+
+        System.out.println("The total number of executed statements are " + statementsCount + ".");
+
         return sorted;
     }
 }

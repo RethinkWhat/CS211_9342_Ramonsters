@@ -85,8 +85,8 @@ public class CompareSort implements SortingAlgorithms{
         int innerLoopCount = 0;
         int comparisonCount = 0;
         int swapCount = 0;
-        int statementsCount = 0;
         int declareCount = 0;
+        int statementsCount = 0;
 
         int i = 0;
         int j = 0;
@@ -125,14 +125,14 @@ public class CompareSort implements SortingAlgorithms{
         int innerLoopCount = 0;
         int comparisonCount = 0;
         int swapCount = 0;
-        int statementsCount = 0;
         int declareCount = 0;
         int changeIndexCount = 0;
+        int statementsCount = 0;
 
         String[] sorted = copyArray(arr);
         int i = 0;
         int j;
-        declareCount = 3;
+        declareCount = 3;                                            // Deals with the i and j declared and the sorted variable
 
 
         for (; i < sorted.length - 1; i++) {
@@ -145,15 +145,19 @@ public class CompareSort implements SortingAlgorithms{
                 comparisonCount +=1;                                // Deals with the comparison done below
                 if (sorted[j].compareTo(sorted[minIndex]) < 0) {
                     minIndex = j;
-                    changeIndexCount +=1;
+                    changeIndexCount +=1;                           // minIndex value changes each time the statement above is reached thus the plus 1
                 }
             }
             String temp = sorted[i];
             sorted[i] = sorted[minIndex];
             sorted[minIndex] = temp;
-            swapCount += 3;                                  // Deals with the three switch statements above
+            swapCount += 3;                                         // Deals with the three switch statements above
         }
 
+        statementsCount = outerLoopCount + innerLoopCount + comparisonCount + swapCount + statementsCount + declareCount + changeIndexCount + 1;
+        // +1 because of the return sorted statement below
+
+        System.out.println("The total number of executed statements are " + statementsCount + ".");
         return sorted;
     }
 

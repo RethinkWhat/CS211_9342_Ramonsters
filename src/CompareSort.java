@@ -142,7 +142,7 @@ public class CompareSort implements SortingAlgorithms{
             int minIndex = i;
             changeIndexCount +=1;                                   // minIndex value changes each time the statement above is reached thus the plus 1
             for (j = i + 1; j < sorted.length; j++) {
-                innerLoopCount +=3;                                 // Deals with the 3 statements executed in the for loop above it
+                innerLoopCount +=2;                                 // Deals with the 3 statements executed in the for loop above it
                 comparisonCount +=1;                                // Deals with the comparison done below
                 if (sorted[j].compareTo(sorted[minIndex]) < 0) {
                     minIndex = j;

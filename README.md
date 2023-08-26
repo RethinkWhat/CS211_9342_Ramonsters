@@ -20,6 +20,9 @@ In Version 3, the vanilla version of the sorting algorithms are coded.
 ### Version 4
 In Version 4, the sorting algorithms have their own counter to keep track of the execution counts.
 
+### Verison 5
+In Version, algorithms are fixed and tested, ready to run with the real dataset.
+
 ## Dataset
 
 The study draws upon a dataset comprising 1,000,000 company names sourced from [source]. To facilitate a comprehensive analysis of algorithmic performance, the dataset was subjected to sorting in various orders: random, ascending, and descending. These distinct orders allowed for the examination of average-case, best-case, and worst-case scenarios for each algorithm under analysis.

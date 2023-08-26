@@ -4,6 +4,7 @@ import java.io.*;
 
 public class CompareSort implements SortingAlgorithms{
 
+    Random rand = new Random();
     public final File bestCase = new File("res/best-case.txt");
     public final File averageCase = new File("res/average-case.txt");
     public final File worstCase = new File("res/worst-case.txt");
@@ -35,6 +36,7 @@ public class CompareSort implements SortingAlgorithms{
         String[] worstCase200K = populate(worstCase, 200000);
         String[] worstCase500K = populate(worstCase, 500000);
         String[] worstCase1M = populate(worstCase, 1000000);
+
     }
 
     public String[] populate(File file, int lines) throws FileNotFoundException{
@@ -88,14 +90,12 @@ public class CompareSort implements SortingAlgorithms{
         int declareCount = 0;
         int statementsCount = 0;
 
-        int i = 0;
-        int j = 0;
         String[] sorted = copyArray(arr);
         declareCount = 3;                                   // Deals with the i and j declared and the sorted variable
 
-        for (; i < sorted.length-1; i++) {
+        for (int i = 0; i < sorted.length-1; i++) {
             outerLoopCount+=2;                                  // Deals with the 2 statements executed in the for loop above it
-            for (; j<sorted.length-1-i; j++) {
+            for (int j = 0; j<sorted.length-1-i; j++) {
                 innerLoopCount+=2;                              // Deals with the 2 statements executed in the for loop above it
                 comparisonCount++;                              // Deals with the comparison done below
                 if (sorted[j].compareToIgnoreCase(sorted[j+1])>0) {
@@ -181,7 +181,7 @@ public class CompareSort implements SortingAlgorithms{
         int statementsCount = 0;
 
         String[] sorted = copyArray(arr);
-        int i = 0;
+        int i = 1;
         int j = 0;
         String key = "";
         declareCount = 4;                                   // Deals with the i, j, key, sorted
@@ -192,16 +192,11 @@ public class CompareSort implements SortingAlgorithms{
             j = i - 1;
             outerLoopIndexSetCount +=3;                      // key and j value changes each time the statement above is reached thus the plus 2
 
-            whileStatementCondition++;                      // Increment 1 for when the while statement is checked
-            while (j >= 0) {
-
-
-                comparisonCount++;                           // Increment 1 for when the if statement is checked
-                if (key.compareToIgnoreCase(sorted[j]) < 0) {
-                    sorted[i + 1] = sorted[j];
-                    j = j -1 ;
-                    swapCount+=3;                           // Deals with the two switch statements above
-                }
+            whileStatementCondition+=2;                      // Increment 1 for when the while statement is checked
+            while (j >= 0 && key.compareToIgnoreCase(sorted[j]) < 0) {
+                sorted[j + 1] = sorted[j];
+                j = j - 1;
+                swapCount+=3;
             }
             sorted[j + 1] = key;
             swapCount++;                                    // Deals with the switch statement above

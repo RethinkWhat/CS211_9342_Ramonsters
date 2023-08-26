@@ -88,14 +88,12 @@ public class CompareSort implements SortingAlgorithms{
         int declareCount = 0;
         int statementsCount = 0;
 
-        int i = 0;
-        int j = 0;
         String[] sorted = copyArray(arr);
         declareCount = 3;                                   // Deals with the i and j declared and the sorted variable
 
-        for (; i < sorted.length-1; i++) {
+        for (int i = 0; i < sorted.length-1; i++) {
             outerLoopCount+=2;                                  // Deals with the 2 statements executed in the for loop above it
-            for (; j<sorted.length-1-i; j++) {
+            for (int j = 0; j<sorted.length-1-i; j++) {
                 innerLoopCount+=2;                              // Deals with the 2 statements executed in the for loop above it
                 comparisonCount++;                              // Deals with the comparison done below
                 if (sorted[j].compareToIgnoreCase(sorted[j+1])>0) {

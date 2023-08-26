@@ -64,11 +64,11 @@ public class CompareSort implements SortingAlgorithms{
     }
 
     /**
+     * STATUS: WORKING
      * @author RITHIK
      * @param arr
      * @return
-     */
-     /*
+     *
         Algorithm:
             1. Accept an ArrayList as parameters
             2. Create a copy of arr by calling copyArray() method
@@ -114,6 +114,7 @@ public class CompareSort implements SortingAlgorithms{
     }
 
     /**
+     * STATUS: WORKING
      * @author PATRICK
      * @param arr
      * @return
@@ -163,11 +164,10 @@ public class CompareSort implements SortingAlgorithms{
     }
 
     /**
+     * STATUS: WORKING
      * @author JOHAN RICKARDO A. ROXAS
      * @param arr given array
      * @return
-     *
-     * STATUS: WORKING
      */
     public String[] insertionSort(String[] arr){
 

@@ -64,11 +64,11 @@ public class CompareSort implements SortingAlgorithms{
     }
 
     /**
-     * STATUS: WORKING
      * @author RITHIK
      * @param arr
      * @return
-     *
+     */
+     /*
         Algorithm:
             1. Accept an ArrayList as parameters
             2. Create a copy of arr by calling copyArray() method
@@ -81,12 +81,12 @@ public class CompareSort implements SortingAlgorithms{
             9. Return the sorted array
      */
     public String[] bubbleSort(String[] arr){
-        int outerLoopCount = 0;
-        int innerLoopCount = 0;
-        int comparisonCount = 0;
-        int swapCount = 0;
-        int declareCount = 0;
-        int statementsCount = 0;
+        long outerLoopCount = 0;
+        long innerLoopCount = 0;
+        long comparisonCount = 0;
+        long swapCount = 0;
+        long declareCount = 0;
+        long statementsCount = 0;
 
         String[] sorted = copyArray(arr);
         declareCount = 3;                                   // Deals with the i and j declared and the sorted variable
@@ -114,7 +114,6 @@ public class CompareSort implements SortingAlgorithms{
     }
 
     /**
-     * STATUS: WORKING
      * @author PATRICK
      * @param arr
      * @return
@@ -164,10 +163,11 @@ public class CompareSort implements SortingAlgorithms{
     }
 
     /**
-     * STATUS: WORKING
      * @author JOHAN RICKARDO A. ROXAS
      * @param arr given array
      * @return
+     *
+     * STATUS: WORKING
      */
     public String[] insertionSort(String[] arr){
 

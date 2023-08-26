@@ -35,12 +35,6 @@ public class CompareSort implements SortingAlgorithms{
         String[] worstCase200K = populate(worstCase, 200000);
         String[] worstCase500K = populate(worstCase, 500000);
         String[] worstCase1M = populate(worstCase, 1000000);
-
-        String[] test = bubbleSort(averageCase1M);
-
-        for (int i = 0; i < 5; i++){
-            System.out.println(test[i]);
-        }
     }
 
     public String[] populate(File file, int lines) throws FileNotFoundException{

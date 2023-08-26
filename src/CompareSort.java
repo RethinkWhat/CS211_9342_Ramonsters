@@ -184,13 +184,13 @@ public class CompareSort implements SortingAlgorithms{
         int i = 0;
         int j = 0;
         String key = "";
-        declareCount +=4;                                   // Deals with the i, j, key, sorted
+        declareCount = 4;                                   // Deals with the i, j, key, sorted
 
         for (; i < sorted.length; i++) {
             outerLoopCount +=2;                             // Deals with the 2 statements executed in the for loop above it
             key = sorted[i];
             j = i - 1;
-            outerLoopIndexSetCount +=2;                      // key and j value changes each time the statement above is reached thus the plus 2
+            outerLoopIndexSetCount +=3;                      // key and j value changes each time the statement above is reached thus the plus 2
 
             whileStatementCondition++;                      // Increment 1 for when the while statement is checked
             while (j >= 0) {
@@ -200,13 +200,14 @@ public class CompareSort implements SortingAlgorithms{
                 if (key.compareToIgnoreCase(sorted[j]) < 0) {
                     sorted[i + 1] = sorted[j];
                     j = j -1 ;
-                    swapCount+=2;                           // Deals with the two switch statements above
+                    swapCount+=3;                           // Deals with the two switch statements above
                 }
             }
             sorted[j + 1] = key;
             swapCount++;                                    // Deals with the switch statement above
-
         }
+        outerLoopCount +=1;
+
         statementsCount = outerLoopCount + outerLoopIndexSetCount + comparisonCount + swapCount + declareCount + whileStatementCondition + statementsCount + 1;
         // +1 because of the return sorted statement below
 

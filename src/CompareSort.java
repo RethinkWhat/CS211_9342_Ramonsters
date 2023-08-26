@@ -172,13 +172,13 @@ public class CompareSort implements SortingAlgorithms{
     public String[] insertionSort(String[] arr){
 
         // Counters
-        int outerLoopCount = 0;
-        int outerLoopIndexSetCount = 0;
-        int comparisonCount = 0;
-        int swapCount = 0;
-        int declareCount = 0;
-        int whileStatementCondition = 0;
-        int statementsCount = 0;
+        long outerLoopCount = 0;
+        long outerLoopIndexSetCount = 0;
+        long comparisonCount = 0;
+        long swapCount = 0;
+        long declareCount = 0;
+        long whileStatementCondition = 0;
+        long statementsCount = 0;
 
         String[] sorted = copyArray(arr);
         int j = 0;

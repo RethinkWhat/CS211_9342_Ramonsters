@@ -121,13 +121,13 @@ public class CompareSort implements SortingAlgorithms{
     public String[] selectionSort(String[] arr){
 
         // Counters
-        int outerLoopCount = 0;
-        int innerLoopCount = 0;
-        int comparisonCount = 0;
-        int swapCount = 0;
-        int declareCount = 0;
-        int changeIndexCount = 0;
-        int statementsCount = 0;
+        long outerLoopCount = 0;
+        long innerLoopCount = 0;
+        long comparisonCount = 0;
+        long swapCount = 0;
+        long declareCount = 0;
+        long changeIndexCount = 0;
+        long statementsCount = 0;
         String[] sorted = copyArray(arr);
         int i = 0;
         int j;

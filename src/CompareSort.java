@@ -35,6 +35,12 @@ public class CompareSort implements SortingAlgorithms{
         String[] worstCase200K = populate(worstCase, 200000);
         String[] worstCase500K = populate(worstCase, 500000);
         String[] worstCase1M = populate(worstCase, 1000000);
+
+        String[] test = bubbleSort(averageCase1M);
+
+        for (int i = 0; i < 5; i++){
+            System.out.println(test[i]);
+        }
     }
 
     public String[] populate(File file, int lines) throws FileNotFoundException{
@@ -93,15 +99,15 @@ public class CompareSort implements SortingAlgorithms{
         String[] sorted = copyArray(arr);
         declareCount = 3;                                   // Deals with the i and j declared and the sorted variable
 
-        for (; i < arr.length-1; i++) {
+        for (; i < sorted.length-1; i++) {
             outerLoopCount+=2;                                  // Deals with the 2 statements executed in the for loop above it
-            for (; j<arr.length-1-i; j++) {
+            for (; j<sorted.length-1-i; j++) {
                 innerLoopCount+=2;                              // Deals with the 2 statements executed in the for loop above it
                 comparisonCount++;                              // Deals with the comparison done below
-                if (arr[j].compareToIgnoreCase(arr[j+1])>0) {
-                    String temp = arr[j];
-                    arr[j] = arr[j+1];
-                    arr[j+1] = temp;
+                if (sorted[j].compareToIgnoreCase(sorted[j+1])>0) {
+                    String temp = sorted[j];
+                    sorted[j] = sorted[j+1];
+                    sorted[j+1] = temp;
                     swapCount+=3;                               // Deals with the three switch statements above
                 }
             }

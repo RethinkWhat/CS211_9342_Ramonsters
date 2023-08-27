@@ -35,6 +35,17 @@ public class CompareSort implements SortingAlgorithms{
         String[] worstCase200K = populate(worstCase, 200000);
         String[] worstCase500K = populate(worstCase, 500000);
         String[] worstCase1M = populate(worstCase, 1000000);
+
+
+        String[] tempArray = {"Rithik", "Ramon", "Johan", "Patrick"};
+
+        String[] test = selectionSort(worstCase1M);
+
+        int x = 1;
+        //for (String element:test) {
+      //      System.out.println(x + ". " + element);
+        //    x++;
+      //  }
     }
 
     public String[] populate(File file, int lines) throws FileNotFoundException{

@@ -4,7 +4,7 @@
 
 ## Description
 
-This project aims to compare the Bubble Sort, Insertion Sort, and Selection Sort algorithms in different data sizes ranging from 10,000 to 1,00,000 inputs. The project will then compare the counts of statements executed in each algorithm within the respected input size.
+This project aims to compare the Bubble Sort, Insertion Sort, and Selection Sort algorithms in different data sizes ranging from 10,000 to 1,000,000 inputs. The project will then compare the counts of statements executed in each algorithm within the respected input size.
 
 ## Versions
 
@@ -25,7 +25,7 @@ In Version, algorithms are fixed and tested, ready to run with the real dataset.
 
 ## Dataset
 
-The study draws upon a dataset comprising 1,000,000 company names sourced from [source]. To facilitate a comprehensive analysis of algorithmic performance, the dataset was subjected to sorting in various orders: random, ascending, and descending. These distinct orders allowed for the examination of average-case, best-case, and worst-case scenarios for each algorithm under analysis.
+The study draws upon a dataset comprising 1,000,000 company names (Datablist, n.d.). To facilitate a comprehensive analysis of algorithmic performance, the dataset was subjected to sorting in various orders: random, ascending, and descending. These distinct orders allowed for the examination of average-case, best-case, and worst-case scenarios for each algorithm under analysis. The dataset was also split into 5 groups that differ in sizes, which are 10 thousand, 50 thousand, 200 thousand, 500 thousand, and 1 million, to facilitate the comparative analysis of the study. 
 
 ## Authors
 

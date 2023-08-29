@@ -118,6 +118,21 @@ public class CompareSort implements SortingAlgorithms{
      * @param arr
      * @return
      */
+    /*
+    Author: Shyra Monique Tolentino
+    Algorithm:
+        1. Define a method named selectionSort that takes an array of strings as input.
+        2. Initialize counters for different operations: - outerLoopCount: Count of iterations in the outer loop. innerLoopCount: Count of iterations in the inner loop. comparisonCount: Count of string comparisons. swapCount: Count of element swaps. declareCount: Count of variable declarations. changeIndexCount: Count of times minIndex is updated. - statementsCount: Total count of executed statements.
+        3. Create a copy of the input array and assign it to sorted.
+        4. Initialize integer variable i as 0.
+        5. Run an outer loop while i is less than sorted. length - 1:
+            5.1. Initialize minIndex as i.
+            5.2. Run an inner loop with j starting from i + 1 to sorted.length - 1: - Compare sorted[]] with sorted[minIndex]. - If sorted[J] is smaller, update minIndex to j. - Increment innerLoopCount and comparisonCount.
+            5.3 Swap the elements at indices i and minIndex in the sorted array.
+            5.4 Increment swapCount.
+        6. Print the total number of executed statements.
+        7. Return the sorted array.
+ * */
     public String[] selectionSort(String[] arr){
 
         // Counters

@@ -38,19 +38,19 @@ public class CompareSort implements SortingAlgorithms{
     }
 
     public String[] populate(File file, int lines) throws FileNotFoundException{
-        Scanner fileScanner = new Scanner(file);
-        String[] populated = new String[lines];
+        Scanner fileScanner = new Scanner(file);                // Creates Scanner to read the file
+        String[] populated = new String[lines];                 // Creates new string array to store populated lines
 
-        int index = 0;
+        int index = 0;                                          // Initialize an index to keep track of array posiiton
 
         while (fileScanner.hasNextLine() && index < lines){
             populated[index] = fileScanner.nextLine();
-            index++;
+            index++;                                          // Read files from the line and populate array
         }
 
-        fileScanner.close();
+        fileScanner.close();                                  // Close the file Scanner
 
-        return populated;
+        return populated;                                      // Return the populated string array
     }
 
     public String[] copyArray(String[] arr){

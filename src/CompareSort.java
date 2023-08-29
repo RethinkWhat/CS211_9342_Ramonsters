@@ -16,7 +16,17 @@ public class CompareSort implements SortingAlgorithms{
             e.printStackTrace();
         }
     }
-
+    /**
+     @author Jasper
+     */
+    /*
+        Algorithm:
+            1. Populate array with data files by calling the populate method
+            2. Populate bestCase array with best-case datafiles
+            3. Populate averageCase array with average-case datafiles
+            4. Populate worstCase array with worst-case datafiles
+            5. Sort each case with bubble, selection, and insertion sort
+     */
     public void run() throws Exception{
         String[] bestCase10K = populate(bestCase,10000);
         String[] bestCase50K = populate(bestCase, 50000);
@@ -52,7 +62,18 @@ public class CompareSort implements SortingAlgorithms{
 
         return populated;
     }
-
+    /**
+     @author Jasper
+     */
+    /*
+        Algorithm:
+            1. Create variable 'copied' as an array of string
+            2. Create new array object
+            3. Set the new array with a length equal 'arr'
+            4. Make a for loop to run all its iterations
+            5. Create a duplicate of the input array to the new array
+            6. Return the copied array
+     */
     public String[] copyArray(String[] arr){
         String[] copied = new String[arr.length];
 

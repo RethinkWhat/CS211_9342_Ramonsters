@@ -169,6 +169,22 @@ public class CompareSort implements SortingAlgorithms{
      *
      * STATUS: WORKING
      */
+
+    /**
+     * Algorithm:
+     * 1. Make a copy of the input array called "sorted".
+     * 2. Setup counters to monitor what is happening.
+     * 3. Go through each element in the "sorted" array, starting from the first element (index 0)
+     * 4. Pick the current element and call it "key", note its position with a marker called "j."
+     * 5. Compare the "key" with the elements to the left (the ones that are sorted already.'
+     * 6. If the "key" is smaller, shift those larger elements to the right to make room for the "key".
+     * 7. Place the "key in the correct spot within the sorted part of the array.
+     * 8. Repeat the process until the elements are sorted.
+     * 9. Print out the total number of operations.
+     * 10. Return the sorted array.
+     */
+
+
     public String[] insertionSort(String[] arr){
 
         // Counters

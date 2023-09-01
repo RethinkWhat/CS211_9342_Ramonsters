@@ -43,4 +43,4 @@ The study draws upon a dataset comprising 1,000,000 company names (Datablist, n.
 This project is for academic purposes only.
 
 ## Project status
-The project is currently being developed.
+The Project is fully developed.

@@ -1,3 +1,19 @@
+/**
+ * Year and Block: BSCS 2-1
+ * Class Code: 9342-CS211/CS211L
+ * Activity:  Comparative Analysis of Algorithms Group Project
+ * Group Name: Ramonsters
+ * Group Members:
+ *      De Torres, John Rey
+ *      Jasmin, Ramon Emmiel
+ *      Lacanilao, Marvin Patrick
+ *      Roxas, Johan Rickardo
+ *      Siccuan, Sebastian
+ *      Tank, Rithik
+ *      Tolentino, Shyra Monique
+ *      Urbiztondo, Karl Jasper
+ */
+
 import java.lang.*;
 import java.util.*;
 import java.io.*;
@@ -8,6 +24,10 @@ public class CompareSort implements SortingAlgorithms{
     public final File averageCase = new File("res/average-case.txt");
     public final File worstCase = new File("res/worst-case.txt");
 
+    /**
+     * @author Ramon Emmiel Jasmin
+     * @param args
+     */
     public static void main(String[] args) {
         try{
             CompareSort program = new CompareSort();
@@ -47,9 +67,25 @@ public class CompareSort implements SortingAlgorithms{
         String[] worstCase1M = populate(worstCase, 1000000);
     }
 
+    /**
+     * @authour Ramon John Rey
+     * @param file
+     * @param lines
+     * @return
+     * @throws FileNotFoundException
+     * Algorithm:
+     *      1. Create a Scanner object and pass in file
+     *      2. Create a new String array object and pass in the lines variable
+     *      3. Create an index variable
+     *      4. Create a while loop to iterate while file has a line
+     *      5. Add each line of the file to the String array objecy
+     *      6. Increment index variable
+     *      7. Close Scanner object
+     *      8. Return populated String array object
+     */
     public String[] populate(File file, int lines) throws FileNotFoundException{
         Scanner fileScanner = new Scanner(file);                // Creates Scanner to read the file
-        String[] populated = new String[lines];                 // Creates new string array to store populated lines
+        String[] populated = new String[lines];                 // Create a new String object and pass in the lines variable
 
         int index = 0;                                          // Initialize an index to keep track of array posiiton
 
@@ -87,18 +123,16 @@ public class CompareSort implements SortingAlgorithms{
      * @author RITHIK
      * @param arr
      * @return
-     */
-     /*
-        Algorithm:
-            1. Accept an ArrayList as parameters
-            2. Create a copy of arr by calling copyArray() method
-            3. Create a for loop to iterate till nameList.length -1 (x as increment value)
-            4. Create a for loop to iterate  till nameList.length -1 - x(y as increment value)
-            5. Create an if statement to check if a condition is true
-            6. Create a temp variable and assign it the value of arr[x]
-            7. Set arr[x] equal to arr[y]
-            8. Set arr[y] to the temp variable
-            9. Return the sorted array
+     * Algorithm:
+     *      1. Accept an array as parameters
+     *      2. Create a copy of arr by calling copyArray() method
+     *      3. Create a for loop to iterate till nameList.length -1 (x as increment value)
+     *      4. Create a for loop to iterate  till nameList.length -1 - x(y as increment value)
+     *      5. Create an if statement to check if a condition is true
+     *      6. Create a temp variable and assign it the value of arr[x]
+     *      7. Set arr[x] equal to arr[y]
+     *      8. Set arr[y] to the temp variable
+     *      9. Return the sorted array
      */
     public String[] bubbleSort(String[] arr){
         long outerLoopCount = 0;

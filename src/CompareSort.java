@@ -65,6 +65,54 @@ public class CompareSort implements SortingAlgorithms{
         String[] worstCase200K = populate(worstCase, 200000);
         String[] worstCase500K = populate(worstCase, 500000);
         String[] worstCase1M = populate(worstCase, 1000000);
+        
+        bubbleSort(bestCase10K);
+        bubbleSort(bestCase50K);
+        bubbleSort(bestCase200K);
+        bubbleSort(bestCase500K);
+        bubbleSort(bestCase1M);
+        bubbleSort(averageCase10K);
+        bubbleSort(averageCase50K);
+        bubbleSort(averageCase200K);
+        bubbleSort(averageCase500K);
+        bubbleSort(averageCase1M);
+        bubbleSort(worstCase10K);
+        bubbleSort(worstCase50K);
+        bubbleSort(worstCase200K);
+        bubbleSort(worstCase500K);
+        bubbleSort(worstCase1M);
+
+        selectionSort(bestCase10K);
+        selectionSort(bestCase50K);
+        selectionSort(bestCase200K);
+        selectionSort(bestCase500K);
+        selectionSort(bestCase1M);
+        selectionSort(averageCase10K);
+        selectionSort(averageCase50K);
+        selectionSort(averageCase200K);
+        selectionSort(averageCase500K);
+        selectionSort(averageCase1M);
+        selectionSort(worstCase10K);
+        selectionSort(worstCase50K);
+        selectionSort(worstCase200K);
+        selectionSort(worstCase500K);
+        selectionSort(worstCase1M);
+
+        insertionSort(bestCase10K);
+        insertionSort(bestCase50K);
+        insertionSort(bestCase200K);
+        insertionSort(bestCase500K);
+        insertionSort(bestCase1M);
+        insertionSort(averageCase10K);
+        insertionSort(averageCase50K);
+        insertionSort(averageCase200K);
+        insertionSort(averageCase500K);
+        insertionSort(averageCase1M);
+        insertionSort(worstCase10K);
+        insertionSort(worstCase50K);
+        insertionSort(worstCase200K);
+        insertionSort(worstCase500K);
+        insertionSort(worstCase1M);
     }
 
     /**

@@ -6,33 +6,15 @@ import java.awt.*;
 /**
  * @author ROXAS, Johan Rickardo
  * @version 1.00 (16 September 2023)
+ * Template for object LoginForm.
+ * Populates the UI components of the Login Form.
  */
 public class LoginForm extends JFrame {
 
     /**
-     * An object of Resources that are used to invoke UI resources.
+     * An object of Resources that is used to invoke UI resources and elements.
      */
     private final Resources resources = new Resources();
-
-    /**
-    Thin Montserrat font
-     */
-    Font montserratThin;
-
-    /**
-     * Regular Montserrat font
-     */
-    Font montserrat;
-
-    /**
-     * Bold Montserrat font
-     */
-    Font montserratBold;
-
-    /**
-     * Black Montserrat font
-     */
-    Font montserratBlack;
 
     /**
      * Constructs an object of LoginForm.
@@ -77,7 +59,7 @@ public class LoginForm extends JFrame {
         middlePanel.setLayout(new BorderLayout());
         middlePanel.setBackground(resources.antiflashWhite);
         middlePanel.setBorder(resources.normalPadding);
-        middlePanel.setPreferredSize(new Dimension(700,530));
+        middlePanel.setPreferredSize(new Dimension(300,530));
         mainPanel.add(middlePanel, BorderLayout.CENTER);
 
         // !! Middle Panel Components
@@ -135,7 +117,7 @@ public class LoginForm extends JFrame {
         JPanel buttonsPanel = new JPanel();
         buttonsPanel.setLayout(new FlowLayout());
         buttonsPanel.setBackground(resources.antiflashWhite);
-        buttonsPanel.setPreferredSize(new Dimension(300, 70));
+        buttonsPanel.setPreferredSize(new Dimension(200, 70));
         middlePanel.add(buttonsPanel, BorderLayout.SOUTH);
 
         // !!!! Buttons Panel Components

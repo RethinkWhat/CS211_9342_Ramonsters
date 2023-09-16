@@ -1,5 +1,6 @@
 package project2.frontend;
 
+import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.io.File;
@@ -89,6 +90,11 @@ public class Resources {
      */
     final Color battleshipGray = new Color(139,140,137);
 
+    /**
+     * Official logo and seal of Saint Louis University
+     */
+    ImageIcon sluLogo = new ImageIcon("img/slu-logo.png");
+
     void loadFonts() {
         try {
             GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
@@ -119,4 +125,25 @@ public class Resources {
             fontError.printStackTrace();
         } // end of try-catch
     } // end of loadFonts method
+
+    /**
+     * Resizes an image according to desired dimensions
+     * @param sourceImage given image to be resized
+     * @param width desired width in pixels
+     * @param height desired height in pixels
+     * @return scaled ImageIcon
+     */
+    ImageIcon scaleImage(ImageIcon sourceImage, int width, int height) {
+        int newWidth = sourceImage.getIconWidth();
+        int newHeight = sourceImage.getIconHeight();
+
+        if (sourceImage.getIconWidth() > width) {
+            newWidth = width;
+            newHeight = (newWidth * sourceImage.getIconHeight()) / sourceImage.getIconWidth();
+        } else if (newHeight > height) {
+            newHeight = height;
+            newWidth = (sourceImage.getIconWidth() * newHeight) / sourceImage.getIconHeight();
+        } // end of if-else
+        return new ImageIcon(sourceImage.getImage().getScaledInstance(newWidth, newHeight, Image.SCALE_SMOOTH));
+    } // end of scaleImage method
 } // end of class Resources

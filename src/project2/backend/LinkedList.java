@@ -5,7 +5,7 @@ import project2.backend.interfaces.ListInterface;
 
 import java.util.NoSuchElementException;
 
-public class LinkedList<T> implements ListInterface {
+public class LinkedList<T> implements ListInterface<T> {
     private Node<T> head;
 
     private int size;

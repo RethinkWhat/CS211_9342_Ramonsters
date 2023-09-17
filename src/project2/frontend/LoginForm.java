@@ -1,5 +1,8 @@
 package project2.frontend;
 
+import project2.backend.LoginBackend;
+import project2.backend.MainBackend;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
@@ -222,6 +225,15 @@ public class LoginForm extends JFrame {
             } // end of mouseEntered method
 
             @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                boolean confirmed = new LoginBackend().validate(usernameTextField.getText(),passwordField.getPassword());
+                if (confirmed)
+                    new MainBackend();
+
+            }
+
+            @Override
             public void mouseExited(MouseEvent e) {
                 setCursor(resources.defaultCursor);
                 loginButton.setFont(resources.montserrat.deriveFont(15f));
@@ -277,11 +289,4 @@ public class LoginForm extends JFrame {
         setVisible(true);
     } // end of loginForm constructor
 
-    /*
-    To be removed.
-    Used only to test and debug the login form
-     */
-    public static void main(String[] args) {
-        new LoginForm();
-    } // end of main method
 } // end of class LoginForm

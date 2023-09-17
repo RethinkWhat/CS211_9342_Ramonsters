@@ -14,6 +14,10 @@ public class Node<T> {
         this.next = next;
     }
 
+    public Node() {
+
+    }
+
     public T getData() {
         return data;
     }
@@ -30,8 +34,7 @@ public class Node<T> {
         this.next = next;
     }
 
-    @Override
-    public boolean equals(Object obj) {
+    public boolean equals(Node<T> obj) {
         return super.equals(obj);
     }
 

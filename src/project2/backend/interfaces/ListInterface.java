@@ -1,11 +1,10 @@
 package project2.backend.interfaces;
 
-import project2.backend.exceptions.ListOverflowException;
 import java.util.NoSuchElementException;
 
 public interface ListInterface<T> {
     public int getSize();
-    public void insert(T data) throws ListOverflowException;
+    public void insert(T data);
     public T getElement(T data) throws NoSuchElementException;
     public boolean delete(T data);
     public int search(T data);

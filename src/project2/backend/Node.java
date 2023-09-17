@@ -30,7 +30,7 @@ public class Node<T> {
         this.next = next;
     }
 
-    public boolean equals(Node<T> obj) {
+    public boolean equals(Object obj) {
         return super.equals(obj);
     }
 

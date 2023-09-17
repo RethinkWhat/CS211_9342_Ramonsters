@@ -67,12 +67,12 @@ public class LinkedList<T> implements ListInterface<T> {
      * @throws NoSuchElementException If the specified data is not found in the list.
      */
     @Override
-    public T getElement(T data) throws NoSuchElementException {
+    public Object getElement(Object data) throws NoSuchElementException {
         Node<T> curr = this.head;
 
         while (curr != null){
             if (curr.getData().equals(data)){
-                return curr.getData();
+                return curr;
             }
             curr = curr.getNext();
         }

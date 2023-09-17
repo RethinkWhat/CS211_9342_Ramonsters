@@ -1,5 +1,6 @@
 package project2.backend;
 
+import project2.frontend.LoginForm;
 import project2.referenceclasses.Admin;
 
 import java.io.FileNotFoundException;
@@ -7,6 +8,9 @@ import java.util.Scanner;
 import java.io.File;
 
 public class LoginBackend {
+    public static void main(String[] args) {
+        LoginForm login = new LoginForm();
+    }
     public boolean validate(String userName, char[] password){
         LinkedList<Admin> adminLinkedList = new LinkedList<Admin>();
         try {
@@ -21,9 +25,9 @@ public class LoginBackend {
         }
         Node<Admin> tempPointer = adminLinkedList.getHead();
         Admin checkAccount = new Admin(userName,String.valueOf(password));
-        Node<Admin> adminNode= new Node<Admin>(checkAccount,null);
-        while (tempPointer.getNext()!=null) {
-            if (tempPointer.getData() == adminNode.getData()) {
+        while (tempPointer!=null) {
+            if (checkAccount.equals(tempPointer)) {
+                new MainBackend().display();
                 return true;
             }
             tempPointer = tempPointer.getNext();

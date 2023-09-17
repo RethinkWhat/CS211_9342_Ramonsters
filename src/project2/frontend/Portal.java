@@ -539,6 +539,56 @@ public class Portal extends JFrame {
 
         // !! Container 2 Components
 
+        // !!! Heading Panel
+        JPanel headingPanel = new JPanel();
+        headingPanel.setLayout(new BorderLayout());
+        headingPanel.setBorder(resources.thinPadding);
+        headingPanel.setBackground(resources.yinmnBlue);
+        headingPanel.setPreferredSize(new Dimension(910,30));
+        containerPanel2.add(headingPanel, BorderLayout.NORTH);
+
+        // !!!! Heading Panel Components
+
+        // !!!! Transcript of Records Label
+        JLabel torLabel = new JLabel();
+        torLabel.setText("Transcript of Records");
+        torLabel.setIcon(torButton.getIcon());
+        torLabel.setFont(resources.montserratBold.deriveFont(11f));
+        torLabel.setForeground(resources.antiflashWhite);
+        torLabel.setHorizontalAlignment(SwingConstants.LEFT);
+        headingPanel.add(torLabel, BorderLayout.WEST);
+
+        // !!! Body Panel
+        JPanel bodyPanel = new JPanel();
+        bodyPanel.setLayout(cardLayout2);
+        bodyPanel.setBorder(resources.normalPadding);
+        bodyPanel.setBackground(Color.WHITE);
+        containerPanel2.add(bodyPanel, BorderLayout.CENTER);
+
+        // !!!! Body Panel Components
+
+        // FIXME: 9/18/2023 - The JTable needs to be fixed.
+
+        // !!!!! Table
+        String[][] data = {
+                {"CS 211","Data Structures","99","3"}
+        };
+        String[] columnNames = {"Course Number","Descriptive Title","Final Grade","Units"};
+
+        JTable records = new JTable(data, columnNames);
+        records.getTableHeader().setFont(resources.montserratBold.deriveFont(12f));
+        records.getTableHeader().setOpaque(false);
+        records.getTableHeader().setBackground(resources.uranianBlue);
+        records.getTableHeader().setForeground(Color.BLACK);
+        records.setFont(resources.montserrat.deriveFont(10f));
+        records.setShowVerticalLines(true);
+        records.setShowHorizontalLines(false);
+        records.setShowGrid(false);
+
+        JScrollPane scrollPane = new JScrollPane(records);
+        scrollPane.setOpaque(false);
+        bodyPanel.add(scrollPane);
+
 
         // Action Listeners
         // FIXME: 9/17/2023

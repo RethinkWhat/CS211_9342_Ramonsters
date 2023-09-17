@@ -46,7 +46,7 @@ public class LinkedList<T> implements ListInterface<T> {
      * @param data The data to be inserted.
      */
     @Override
-    public void insert(T data){
+    public void insert(T data) {
         Node<T> newNode = new Node<T>(data);
 
         if (this.head == null){
@@ -72,7 +72,7 @@ public class LinkedList<T> implements ListInterface<T> {
 
         while (curr != null){
             if (curr.getData().equals(data)){
-                return curr;
+                return curr.getData();
             }
             curr = curr.getNext();
         }

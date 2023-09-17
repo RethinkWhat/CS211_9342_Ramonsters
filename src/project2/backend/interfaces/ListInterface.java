@@ -1,6 +1,5 @@
 package project2.backend.interfaces;
 
-import project2.backend.exceptions.ListOverflowException;
 import java.util.NoSuchElementException;
 
 public interface ListInterface<T> {

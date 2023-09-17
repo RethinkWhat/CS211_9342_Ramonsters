@@ -1,6 +1,5 @@
 package project2.backend;
 
-import project2.backend.exceptions.ListOverflowException;
 import project2.backend.interfaces.ListInterface;
 import java.util.NoSuchElementException;
 
@@ -45,10 +44,9 @@ public class LinkedList<T> implements ListInterface<T> {
      * Insert a new element at the beginning of the linked list.
      *
      * @param data The data to be inserted.
-     * @throws ListOverflowException If the list overflows and cannot accommodate the new element.
      */
     @Override
-    public void insert(T data) throws ListOverflowException {
+    public void insert(T data) {
         Node<T> newNode = new Node<T>(data);
 
         if (this.head == null){

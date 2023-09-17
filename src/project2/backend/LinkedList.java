@@ -9,7 +9,7 @@ import java.util.NoSuchElementException;
  *
  * @param <T> The type of elements stored in the linked list.
  */
-public class LinkedList<T> implements ListInterface {
+public class LinkedList<T> implements ListInterface<T> {
     private Node<T> head;
     private int size;
 
@@ -48,8 +48,8 @@ public class LinkedList<T> implements ListInterface {
      * @throws ListOverflowException If the list overflows and cannot accommodate the new element.
      */
     @Override
-    public void insert(Object data) throws ListOverflowException {
-        Node<T> newNode = new Node(data);
+    public void insert(T data) throws ListOverflowException {
+        Node<T> newNode = new Node<T>(data);
 
         if (this.head == null){
             this.head = newNode;
@@ -69,12 +69,12 @@ public class LinkedList<T> implements ListInterface {
      * @throws NoSuchElementException If the specified data is not found in the list.
      */
     @Override
-    public Object getElement(Object data) throws NoSuchElementException {
+    public T getElement(Object data) throws NoSuchElementException {
         Node<T> curr = this.head;
 
         while (curr != null){
             if (curr.getData().equals(data)){
-                return curr;
+                return curr.getData();
             }
             curr = curr.getNext();
         }
@@ -115,7 +115,7 @@ public class LinkedList<T> implements ListInterface {
      * @return The index of the element in the linked list, or -1 if not found.
      */
     @Override
-    public int search(Object data) {
+    public int search(T data) {
         Node<T> curr = this.head;
 
         for (int i = 0; i < this.size; i++) {

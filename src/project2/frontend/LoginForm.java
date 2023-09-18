@@ -93,7 +93,6 @@ public class LoginForm extends JFrame {
         userLoginLabel.setHorizontalAlignment(JLabel.CENTER);
         formPanel.add(userLoginLabel, gbc);
 
-
         // !!!! Field Panel
         gbc.gridy = 1;
         JPanel fieldPanel = new JPanel();
@@ -146,6 +145,35 @@ public class LoginForm extends JFrame {
             } // end of focusLost method
         }); // end of Focus Listener for usernameTextField
 
+        // !!!!! Error Label
+        gbc.gridy = 2;
+
+        JLabel errorLabel = new JLabel();
+        errorLabel.setForeground(Color.RED);
+        errorLabel.setFont(resources.montserrat.deriveFont(12f));
+        errorLabel.setVisible(false);
+        fieldPanel.add(errorLabel, gbc);
+
+        // !!! Buttons Panel
+        JPanel buttonsPanel = new JPanel();
+        buttonsPanel.setLayout(new GridBagLayout());
+        buttonsPanel.setBackground(resources.antiflashWhite);
+        buttonsPanel.setPreferredSize(new Dimension(200, 70));
+        buttonsPanel.setBorder(resources.thinPadding);
+        middlePanel.add(buttonsPanel, BorderLayout.SOUTH);
+
+        // !!!! Buttons Panel Components
+        ImageIcon loginIcon = new ImageIcon("icons/login-icon-black.png");
+        JButton loginButton = new JButton();
+        loginButton.setText("Login");
+        loginButton.setIcon(loginIcon);
+        loginButton.setFont(resources.montserrat.deriveFont(15f));
+        loginButton.setOpaque(true);
+        loginButton.setBorderPainted(false);
+        loginButton.setBackground(resources.airSuperiorityBlue);
+        loginButton.setForeground(Color.BLACK);
+        loginButton.requestFocus();
+
         // !!!!! Password Label
         gbc.gridx = 0;
         gbc.gridy = 1;
@@ -164,7 +192,27 @@ public class LoginForm extends JFrame {
         passwordField.setEchoChar((char) 0);
         passwordField.setColumns(14);
         fieldPanel.add(passwordField, gbc);
-
+        passwordField.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                boolean isValid = new LoginFormUtility().validate(usernameTextField.getText(), passwordField.getPassword());
+                if (!isValid) {
+                    errorLabel.setText("Wrong Password. Try again.");
+                    errorLabel.setVisible(true);
+                } else {
+                    errorLabel.setVisible(false);
+                }
+                loginButton.setBackground(Color.LIGHT_GRAY);
+                Timer timer = new Timer(300, new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        loginButton.setBackground(resources.airSuperiorityBlue);
+                    }
+                });
+                timer.setRepeats(false);
+                timer.start();
+            }
+        });
         passwordField.addFocusListener(new FocusListener() {
             @Override
             public void focusGained(FocusEvent e) {
@@ -184,36 +232,12 @@ public class LoginForm extends JFrame {
             } // end of focusLost method
         }); // end of Focus Listener for passwordField
 
-        // !!!!! Error Label
-        gbc.gridy = 2;
-
-        JLabel errorLabel = new JLabel();
-        errorLabel.setForeground(Color.RED);
-        errorLabel.setFont(resources.montserrat.deriveFont(12f));
-        fieldPanel.add(errorLabel, gbc);
-
-        errorLabel.setText("Wrong Password. Try again.");
-
-        // !!! Buttons Panel
-        JPanel buttonsPanel = new JPanel();
-        buttonsPanel.setLayout(new FlowLayout());
-        buttonsPanel.setBackground(resources.antiflashWhite);
-        buttonsPanel.setPreferredSize(new Dimension(200, 70));
-        buttonsPanel.setBorder(resources.thinPadding);
-        middlePanel.add(buttonsPanel, BorderLayout.SOUTH);
-
-        // !!!! Buttons Panel Components
-        ImageIcon loginIcon = new ImageIcon("icons/login-icon-black.png");
-        JButton loginButton = new JButton();
-        loginButton.setText("Login");
-        loginButton.setIcon(loginIcon);
-        loginButton.setFont(resources.montserrat.deriveFont(15f));
-        loginButton.setOpaque(true);
-        loginButton.setBorderPainted(false);
-        loginButton.setBackground(resources.airSuperiorityBlue);
-        loginButton.setForeground(Color.BLACK);
-        loginButton.requestFocus();
-        buttonsPanel.add(loginButton);
+        GridBagConstraints gbcButton = new GridBagConstraints();
+        gbcButton.gridx = 0;
+        gbcButton.gridy = 0;
+        gbcButton.insets = new Insets(5, 5, 5, 5); // Add some padding
+        gbcButton.fill = GridBagConstraints.CENTER; // Center the button
+        buttonsPanel.add(loginButton, gbcButton);
 
         loginButton.addMouseListener(new MouseAdapter() {
             public void mouseEntered(MouseEvent e) {
@@ -224,7 +248,13 @@ public class LoginForm extends JFrame {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                new LoginFormUtility().validate(usernameTextField.getText(),passwordField.getPassword());
+                boolean isValid = new LoginFormUtility().validate(usernameTextField.getText(), passwordField.getPassword());
+                if (!isValid) {
+                    errorLabel.setText("Wrong Password. Try again.");
+                    errorLabel.setVisible(true);
+                } else {
+                    errorLabel.setVisible(false);
+                }
             }
 
             @Override
@@ -234,31 +264,6 @@ public class LoginForm extends JFrame {
                 loginButton.setBackground(resources.airSuperiorityBlue);
             } // end of mouseExited method
         }); // end MouseListener for loginButton
-
-        ImageIcon signupIcon = new ImageIcon("icons/signup-icon-black.png");
-        JButton signupButton = new JButton();
-        signupButton.setText("Signup");
-        signupButton.setIcon(signupIcon);
-        signupButton.setFont(resources.montserrat.deriveFont(15f));
-        signupButton.setOpaque(true);
-        signupButton.setBorderPainted(false);
-        signupButton.setBackground(resources.airSuperiorityBlue);
-        signupButton.setForeground(Color.BLACK);
-        buttonsPanel.add(signupButton);
-
-        signupButton.addMouseListener(new MouseAdapter() {
-            public void mouseEntered(MouseEvent e) {
-                setCursor(resources.handCursor);
-                signupButton.setBackground(resources.uranianBlue);
-            } // end of mouseEntered method
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-                setCursor(resources.defaultCursor);
-                signupButton.setFont(resources.montserrat.deriveFont(15f));
-                signupButton.setBackground(resources.airSuperiorityBlue);
-            } // end of mouseExited method
-        }); // end MouseListener for signupButton
 
         // ! Footer Panel
         JPanel footerPanel = new JPanel();

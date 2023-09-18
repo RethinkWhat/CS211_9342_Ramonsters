@@ -454,7 +454,6 @@ public class Portal extends JFrame {
         linkLabel4.setText("- view link");
         linkLabel4.setFont(resources.montserrat.deriveFont(12f));
         linkLabel4.setForeground(resources.lipstickRed);
-        linkLabel4.add(linkLabel3, BorderLayout.SOUTH);
         pinPanel4.add(linkLabel4, BorderLayout.SOUTH);
 
         // !!!! Pin Panel 5
@@ -773,6 +772,23 @@ public class Portal extends JFrame {
 
         return torPanel;
     } // end of populateTorPanel
+
+    /**
+     * TODO: Documentation
+     * @return
+     */
+    private JPanel populateChecklistPanel() {
+        // Checklist Panel
+        JPanel checklistPanel = new JPanel();
+        checklistPanel.setLayout(new BorderLayout());
+        checklistPanel.setBackground(resources.antiflashWhite);
+        checklistPanel.setPreferredSize(new Dimension(910,700));
+
+        // ! Checklist Panel Components
+        // TODO: Supporting Code
+
+        return checklistPanel;
+    } // end of populateChecklistPanel method
 
     /*
     To be removed.

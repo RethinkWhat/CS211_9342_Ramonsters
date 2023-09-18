@@ -1,8 +1,5 @@
 package project2.frontend;
 
-import project2.backend.LoginBackend;
-import project2.backend.MainBackend;
-
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
@@ -227,10 +224,7 @@ public class LoginForm extends JFrame {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                boolean confirmed = new LoginBackend().validate(usernameTextField.getText(),passwordField.getPassword());
-                if (confirmed)
-                    new MainBackend();
-
+                new LoginFormUtility().validate(usernameTextField.getText(),passwordField.getPassword());
             }
 
             @Override

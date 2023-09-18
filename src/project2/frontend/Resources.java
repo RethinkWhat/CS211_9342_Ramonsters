@@ -91,6 +91,12 @@ public class Resources {
     final Color battleshipGray = new Color(139,140,137);
 
     /**
+     * Lipstick Red.
+     * Color used for links.
+     */
+    final Color lipstickRed = new Color(230, 57, 70);
+
+    /**
      * Official logo and seal of Saint Louis University
      */
     ImageIcon sluLogo = new ImageIcon("img/slu-logo.png");

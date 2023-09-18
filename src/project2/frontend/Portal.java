@@ -1,6 +1,7 @@
 package project2.frontend;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -332,7 +333,7 @@ public class Portal extends JFrame {
     private JPanel populateHomePanel() {
         // Home Panel
         JPanel homePanel = new JPanel();
-        homePanel.setLayout(new GridLayout(1, 2));
+        homePanel.setLayout(new GridLayout(1, 2,15,0));
         homePanel.setBorder(resources.normalPadding);
         homePanel.setBackground(resources.antiflashWhite);
         homePanel.setPreferredSize(new Dimension(910, 700));
@@ -341,23 +342,197 @@ public class Portal extends JFrame {
 
         // ! Bulletin Board Panel
         JPanel bulletinPanel = new JPanel();
-        bulletinPanel.setLayout(new GridLayout(5,1));
-        bulletinPanel.setBorder(resources.normalPadding);
+        bulletinPanel.setLayout(new BorderLayout());
         bulletinPanel.setBackground(resources.uranianBlue);
         homePanel.add(bulletinPanel);
 
         // !! Bulletin Board Components
-        // TODO: Supporting code
+
+        // !! Heading Panel 1
+        JPanel headingPanel1 = new JPanel();
+        headingPanel1.setLayout(new BorderLayout());
+        headingPanel1.setBackground(resources.yinmnBlue);
+        headingPanel1.setBorder(resources.thinPadding);
+        headingPanel1.setPreferredSize(new Dimension(910,40));
+        bulletinPanel.add(headingPanel1, BorderLayout.NORTH);
+
+        // !!! Heading Panel Components
+        ImageIcon headingIcon = new ImageIcon("icons/news-icon-black.png");
+
+        JLabel headingLabel = new JLabel();
+        headingLabel.setText("News, Events, and Announcements");
+        headingLabel.setIcon(headingIcon);
+        headingLabel.setFont(resources.montserratBold.deriveFont(12f));
+        headingLabel.setForeground(resources.antiflashWhite);
+        headingPanel1.add(headingLabel, BorderLayout.WEST);
+
+        // !! Bulletin Pins Panel
+        JPanel bulletinPinsPanel = new JPanel();
+        bulletinPinsPanel.setLayout(new GridLayout(5,1));
+        bulletinPinsPanel.setBackground(resources.antiflashWhite);
+        bulletinPinsPanel.setBorder(new EmptyBorder(0,5,0,5));
+        bulletinPinsPanel.setPreferredSize(new Dimension(405, 700));
+        bulletinPanel.add(bulletinPinsPanel, BorderLayout.CENTER);
+
+        // !!! Bulletin Pins Components
+
+        // !!!! Pin Panel 1
+        JPanel pinPanel1 = new JPanel();
+        pinPanel1.setLayout(new BorderLayout());
+        pinPanel1.setBackground(resources.uranianBlue);
+        pinPanel1.setBorder(resources.normalPadding);
+        bulletinPinsPanel.add(pinPanel1);
+
+        // !!!!! Pin Panel 1 Components
+        JLabel remindersLabel1 = new JLabel();
+        remindersLabel1.setText("Reminders for the Recollection");
+        remindersLabel1.setFont(resources.montserrat.deriveFont(14f));
+        remindersLabel1.setForeground(Color.BLACK);
+        pinPanel1.add(remindersLabel1, BorderLayout.NORTH);
+
+        JLabel linkLabel1 = new JLabel();
+        linkLabel1.setText("- view link");
+        linkLabel1.setFont(resources.montserrat.deriveFont(12f));
+        linkLabel1.setForeground(resources.lipstickRed);
+        pinPanel1.add(linkLabel1, BorderLayout.SOUTH);
+
+        // !!!! Pin Panel 2
+        JPanel pinPanel2 = new JPanel();
+        pinPanel2.setLayout(new BorderLayout());
+        pinPanel2.setBackground(resources.airSuperiorityBlue);
+        pinPanel2.setBorder(resources.normalPadding);
+        bulletinPinsPanel.add(pinPanel2);
+
+        // !!!!! Pin Panel 2 Components
+        JLabel remindersLabel2 = new JLabel();
+        remindersLabel2.setText("Navigating SLU");
+        remindersLabel2.setFont(resources.montserratBold.deriveFont(16f));
+        remindersLabel2.setForeground(Color.BLACK);
+        pinPanel2.add(remindersLabel2, BorderLayout.NORTH);
+
+        JLabel linkLabel2 = new JLabel();
+        linkLabel2.setText("- view link");
+        linkLabel2.setFont(resources.montserrat.deriveFont(12f));
+        linkLabel2.setForeground(resources.lipstickRed);
+        pinPanel2.add(linkLabel2, BorderLayout.SOUTH);
+
+        // !!!! Pin Panel 3
+        JPanel pinPanel3 = new JPanel();
+        pinPanel3.setLayout(new BorderLayout());
+        pinPanel3.setBackground(resources.uranianBlue);
+        pinPanel3.setBorder(resources.normalPadding);
+        bulletinPinsPanel.add(pinPanel3);
+
+        // !!!!! Pin Panel 3 Components
+        JLabel remindersLabel3 = new JLabel();
+        remindersLabel3.setText("Link to SLU Pertinent Information");
+        remindersLabel3.setFont(resources.montserrat.deriveFont(14f));
+        remindersLabel3.setForeground(Color.BLACK);
+        pinPanel3.add(remindersLabel3, BorderLayout.NORTH);
+
+        JLabel linkLabel3 = new JLabel();
+        linkLabel3.setText("- view link");
+        linkLabel3.setFont(resources.montserrat.deriveFont(12f));
+        linkLabel3.setForeground(resources.lipstickRed);
+        pinPanel3.add(linkLabel3, BorderLayout.SOUTH);
+
+        // !!!! Pin Panel 4
+        JPanel pinPanel4 = new JPanel();
+        pinPanel4.setLayout(new BorderLayout());
+        pinPanel4.setBackground(resources.airSuperiorityBlue);
+        pinPanel4.setBorder(resources.normalPadding);
+        bulletinPinsPanel.add(pinPanel4);
+
+        // !!!!! Pin Panel 4 Components
+        JLabel remindersLabel4 = new JLabel();
+        remindersLabel4.setText("SLU OSA Absence Slip");
+        remindersLabel4.setFont(resources.montserrat.deriveFont(14f));
+        remindersLabel4.setForeground(Color.BLACK);
+        pinPanel4.add(remindersLabel4, BorderLayout.NORTH);
+
+        JLabel linkLabel4 = new JLabel();
+        linkLabel4.setText("- view link");
+        linkLabel4.setFont(resources.montserrat.deriveFont(12f));
+        linkLabel4.setForeground(resources.lipstickRed);
+        linkLabel4.add(linkLabel3, BorderLayout.SOUTH);
+        pinPanel4.add(linkLabel4, BorderLayout.SOUTH);
+
+        // !!!! Pin Panel 5
+        JPanel pinPanel5 = new JPanel();
+        pinPanel5.setLayout(new BorderLayout());
+        pinPanel5.setBackground(resources.uranianBlue);
+        pinPanel5.setBorder(resources.normalPadding);
+        bulletinPinsPanel.add(pinPanel5);
+
+        // !!!!! Pin Panel 5 Components
+        JLabel remindersLabel5 = new JLabel();
+        remindersLabel5.setText("<html><u>ACADEMIC CALENDAR 2023-2024</u>");
+        remindersLabel5.setFont(resources.montserrat.deriveFont(14f));
+        remindersLabel5.setForeground(Color.BLACK);
+        pinPanel5.add(remindersLabel5, BorderLayout.NORTH);
+
+        JLabel linkLabel5 = new JLabel();
+        linkLabel5.setText("- view link");
+        linkLabel5.setFont(resources.montserrat.deriveFont(12f));
+        linkLabel5.setForeground(resources.lipstickRed);
+        linkLabel5.add(linkLabel3, BorderLayout.SOUTH);
+        pinPanel5.add(linkLabel5, BorderLayout.SOUTH);
 
         // ! Student Panel
         JPanel studentPanel = new JPanel();
         studentPanel.setLayout(new BorderLayout());
-        studentPanel.setBorder(resources.normalPadding);
-        studentPanel.setBackground(resources.battleshipGray);
+        studentPanel.setBackground(resources.antiflashWhite);
         homePanel.add(studentPanel);
 
-        // !! Student Panel Components
-        // TODO: Supporting code
+        // !! Student Components
+
+        // !! Heading Panel 2
+        JPanel headingPanel2 = new JPanel();
+        headingPanel2.setLayout(new BorderLayout());
+        headingPanel2.setBackground(resources.battleshipGray);
+        headingPanel2.setBorder(resources.thinPadding);
+        headingPanel2.setPreferredSize(new Dimension(910,40));
+        studentPanel.add(headingPanel2, BorderLayout.NORTH);
+
+        // !!! Heading Panel 2 Components
+        ImageIcon studentIcon = new ImageIcon("icons/students-icon-black.png");
+
+        JLabel studentsLabel = new JLabel();
+        studentsLabel.setText("Students Dashboard");
+        studentsLabel.setIcon(studentIcon);
+        studentsLabel.setFont(resources.montserratBold.deriveFont(12f));
+        studentsLabel.setForeground(Color.BLACK);
+        headingPanel2.add(studentsLabel, BorderLayout.WEST);
+
+        // !! Student Pin Panel
+        JPanel studentPinPanel = new JPanel();
+        studentPinPanel.setLayout(new GridLayout(3,1));
+        studentPinPanel.setBackground(resources.antiflashWhite);
+        studentPinPanel.setBorder(new EmptyBorder(0,5,0,5));
+        studentPinPanel.setPreferredSize(new Dimension(405,700));
+        studentPanel.add(studentPinPanel, BorderLayout.CENTER);
+
+        // !!! Student Pin Components
+
+        // !!!! Student Counter Panel
+        JPanel studentCounterPanel = new JPanel();
+        studentCounterPanel.setLayout(new BorderLayout());
+        studentCounterPanel.setBackground(resources.airSuperiorityBlue);
+        studentCounterPanel.setBorder(resources.normalPadding);
+        studentPinPanel.add(studentCounterPanel);
+
+        // !!!!! Student Counter Components
+        JLabel studentHeader = new JLabel();
+        studentHeader.setText("Number of Students:");
+        studentHeader.setFont(resources.montserratBlack.deriveFont(20f));
+        studentHeader.setForeground(resources.antiflashWhite);
+        studentCounterPanel.add(studentHeader, BorderLayout.NORTH);
+
+        JLabel studentCountLabel = new JLabel();
+        studentCountLabel.setText("69420"); // use getter or similar method to count nodes of students
+        studentCountLabel.setFont(resources.montserrat.deriveFont(50f));
+        studentCountLabel.setForeground(resources.antiflashWhite);
+        studentCounterPanel.add(studentCountLabel, BorderLayout.CENTER);
 
         return homePanel;
     } // end of populateHomePanel method

@@ -1,9 +1,9 @@
 package project2.frontend;
 
-import javax.swing.*;
-import java.awt.*;
-import java.io.File;
-import java.io.IOException;
+import project2.backend.LinkedList;
+import project2.referenceclasses.Course;
+import project2.referenceclasses.Student;
+import project2.referenceclasses.Year;
 
 /**
  * @author ROXAS, LACANILAO, JASMIN, TANK
@@ -35,6 +35,11 @@ public class Main {
      */
     private void run() {
         resources.loadFonts();
+        LinkedList<Year> computerScience = StudentUtility.createYearLinkedList("BSCS");
+
+
+        Student studObj = new Student("2233293","Rithik","Tank",computerScience);
+
         // TODO: Supporting methods/code.
     } // end of run method
 } // end of class Main

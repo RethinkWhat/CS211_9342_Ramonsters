@@ -586,80 +586,21 @@ public class Portal extends JFrame {
         
         // !! Search Panel
         JPanel searchPanel = new JPanel();
-        searchPanel.setLayout(new GridBagLayout());
+        searchPanel.setLayout(new BorderLayout());
         searchPanel.setBorder(resources.normalPadding);
         searchPanel.setBackground(Color.darkGray);
         searchPanel.setPreferredSize(new Dimension(800,600));
         containerPanel1.add(searchPanel, BorderLayout.CENTER);
         
         // !!! Search Panel Components
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(5,20,5,20);
-        gbc.weightx = 1;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
 
-        // !!! Student Panel
-        gbc.gridy = 0;
-        gbc.gridwidth = 2;
-
+        // !!!! Student Panel
         JPanel studentPanel = new JPanel();
+        studentPanel.setBackground(Color.GRAY);
         studentPanel.setLayout(new BorderLayout());
-        studentPanel.setBackground(Color.darkGray);
-        studentPanel.setPreferredSize(new Dimension(800, 200));
-        searchPanel.add(studentPanel, gbc);
-
-        // !!!! Student Panel Components
-        ImageIcon studentIcon = new ImageIcon("icons/student-icon-black.png");
-
-        JLabel studentLabel = new JLabel();
-        studentLabel.setText("LAST NAME, FIRST NAME");
-        studentLabel.setIcon(studentIcon);
-        studentLabel.setFont(resources.montserratBold.deriveFont(15f));
-        studentLabel.setForeground(resources.antiflashWhite);
-        studentLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        studentLabel.setVerticalAlignment(SwingConstants.BOTTOM);
-        studentPanel.add(studentLabel, BorderLayout.CENTER);
-
-        JLabel idLabel = new JLabel();
-        idLabel.setText("2230000");
-        idLabel.setFont(resources.montserratBold.deriveFont(15f));
-        idLabel.setForeground(resources.antiflashWhite);
-        idLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        idLabel.setVerticalAlignment(SwingConstants.CENTER);
-        studentPanel.add(idLabel, BorderLayout.SOUTH);
-
-
-        // !!! Name Text Field
-        gbc.gridy = 1;
-
-        JTextField nameTextField = new JTextField();
-        nameTextField.setFont(resources.montserrat.deriveFont(15f));
-        nameTextField.setText("Search by Name");
-        nameTextField.setColumns(14);
-        nameTextField.setForeground(Color.BLACK);
-        searchPanel.add(nameTextField, gbc);
-
-        // !!! ID Number Text Field
-        gbc.gridy = 2;
-        gbc.gridwidth = 1;
-        gbc.gridx = 0;
-
-        JTextField idTextField = new JTextField();
-        idTextField.setFont(resources.montserrat.deriveFont(15f));
-        idTextField.setText("Search by SLU ID Number");
-        idTextField.setColumns(14);
-        idTextField.setForeground(Color.BLACK);
-        searchPanel.add(idTextField, gbc);
-
-        // !!! Course Combo Box
-        gbc.gridx = 1;
-
-        String[] courses = {"BSCS","BSIT"}; // tentative array of courses
-
-        JComboBox<String> programComboBox = new JComboBox<>(courses);
-        programComboBox.setFont(resources.montserrat.deriveFont(15f));
-        programComboBox.setForeground(Color.BLACK);
-        searchPanel.add(programComboBox, gbc);
+        studentPanel.setBorder(resources.normalPadding);
+        studentPanel.setPreferredSize(new Dimension(800,200));
+        searchPanel.add(studentPanel, BorderLayout.NORTH);
 
         // !! Buttons Panel
         JPanel buttonsPanel = new JPanel();

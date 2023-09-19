@@ -578,6 +578,7 @@ public class Portal extends JFrame {
         // ! Container 1
         JPanel containerPanel1 = new JPanel();
         containerPanel1.setLayout(new BorderLayout());
+        containerPanel1.setBorder(resources.normalPadding);
         containerPanel1.setBackground(resources.antiflashWhite);
         containerPanel1.setPreferredSize(new Dimension(910,700));
         torPanel.add(containerPanel1, "1");
@@ -589,36 +590,48 @@ public class Portal extends JFrame {
         searchPanel.setLayout(new BorderLayout());
         searchPanel.setBorder(resources.normalPadding);
         searchPanel.setBackground(Color.darkGray);
-        searchPanel.setPreferredSize(new Dimension(800,600));
+        searchPanel.setPreferredSize(new Dimension(800,400));
         containerPanel1.add(searchPanel, BorderLayout.CENTER);
         
         // !!! Search Panel Components
 
         // !!!! Student Panel
         JPanel studentPanel = new JPanel();
-        studentPanel.setBackground(Color.GRAY);
+        studentPanel.setBackground(Color.darkGray);
         studentPanel.setLayout(new BorderLayout());
         studentPanel.setBorder(resources.normalPadding);
         studentPanel.setPreferredSize(new Dimension(800,200));
         searchPanel.add(studentPanel, BorderLayout.NORTH);
 
-        // !! Buttons Panel
-        JPanel buttonsPanel = new JPanel();
-        buttonsPanel.setLayout(new GridBagLayout());
-        buttonsPanel.setBackground(resources.antiflashWhite);
-        buttonsPanel.setPreferredSize(new Dimension(500, 100));
-        containerPanel1.add(buttonsPanel, BorderLayout.SOUTH);
+        // !!!!! Student Icon Label
+        ImageIcon studentIcon = new ImageIcon("icons/student-icon-black.png");
 
-        // !!! Buttons Panel Components
-        gbc.insets = new Insets(5,200,5,200);
-        gbc.weightx = 1;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.gridwidth = 2;
+        JLabel studentIconLabel = new JLabel();
+        studentIconLabel.setIcon(studentIcon);
+        studentIconLabel.setVerticalAlignment(SwingConstants.CENTER);
+        studentIconLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        studentIconLabel.setFont(resources.montserrat.deriveFont(50f));
+        studentPanel.add(studentIconLabel, BorderLayout.NORTH);
+
+        // !!!!! Student Label
+
+        // !!! ID Text Field
+        JTextField idTextField = new JTextField();
+        idTextField.setText("ID Number");
+        idTextField.setFont(resources.montserrat.deriveFont(12f));
+        idTextField.setColumns(15);
+
+        // !! Buttons Panel 1
+        JPanel buttonsPanel1 = new JPanel();
+        buttonsPanel1.setLayout(new FlowLayout());
+        buttonsPanel1.setBackground(Color.darkGray);
+        buttonsPanel1.setPreferredSize(new Dimension(500, 100));
+        searchPanel.add(buttonsPanel1, BorderLayout.SOUTH);
+
+        // !!! Buttons Panel 1 Components
 
         // !!! Search Button
         ImageIcon searchIcon = new ImageIcon("icons/person-search-icon-black.png");
-
-        gbc.gridy = 0;
 
         JButton searchButton = new JButton();
         searchButton.setText("Search");
@@ -626,24 +639,55 @@ public class Portal extends JFrame {
         searchButton.setFont(resources.montserrat.deriveFont(15f));
         searchButton.setOpaque(true);
         searchButton.setBorderPainted(false);
-        searchButton.setBackground(resources.airSuperiorityBlue);
+        searchButton.setBackground(resources.uranianBlue);
         searchButton.setForeground(Color.BLACK);
-        buttonsPanel.add(searchButton, gbc);
+        buttonsPanel1.add(searchButton);
 
         // !!! Clear Button
         ImageIcon clearIcon = new ImageIcon("icons/clear_all-icon-black.png");
 
-        gbc.gridy = 1;
-
         JButton clearButton = new JButton();
-        clearButton.setText("Clear All");
+        clearButton.setText("Clear");
         clearButton.setIcon(clearIcon);
         clearButton.setFont(resources.montserrat.deriveFont(15f));
         clearButton.setOpaque(true);
         clearButton.setBorderPainted(false);
-        clearButton.setBackground(resources.airSuperiorityBlue);
+        clearButton.setBackground(resources.uranianBlue);
         clearButton.setForeground(Color.BLACK);
-        buttonsPanel.add(clearButton, gbc);
+        buttonsPanel1.add(clearButton);
+
+        // !! Buttons Panel 2
+        JPanel buttonsPanel2 = new JPanel();
+        buttonsPanel2.setLayout(new FlowLayout());
+        buttonsPanel2.setBackground(resources.antiflashWhite);
+        buttonsPanel2.setPreferredSize(new Dimension(500,100));
+        containerPanel1.add(buttonsPanel2, BorderLayout.SOUTH);
+
+        // !!! Buttons Panel 2 Components
+
+        // !!! Add Student Button
+        ImageIcon addStudentIcon = new ImageIcon("icons/add-student-icon-black.png");
+        JButton addStudentButton = new JButton();
+        addStudentButton.setText("Add Student");
+        addStudentButton.setIcon(addStudentIcon);
+        addStudentButton.setFont(resources.montserratBold.deriveFont(20f));
+        addStudentButton.setOpaque(true);
+        addStudentButton.setBorderPainted(false);
+        addStudentButton.setBackground(resources.airSuperiorityBlue);
+        addStudentButton.setForeground(Color.BLACK);
+        buttonsPanel2.add(addStudentButton);
+
+        // !!! Remove Student Button
+        ImageIcon removeStudentIcon = new ImageIcon("icons/remove-student-icon-black.png");
+        JButton removeStudentButton = new JButton();
+        removeStudentButton.setText("Remove Student");
+        removeStudentButton.setIcon(addStudentIcon);
+        removeStudentButton.setFont(resources.montserratBold.deriveFont(20f));
+        removeStudentButton.setOpaque(true);
+        removeStudentButton.setBorderPainted(false);
+        removeStudentButton.setBackground(resources.airSuperiorityBlue);
+        removeStudentButton.setForeground(Color.BLACK);
+        buttonsPanel2.add(removeStudentButton);
 
         // ! Container 2
         JPanel containerPanel2 = new JPanel();

@@ -5,6 +5,8 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 
 /**
  * @author TBA
@@ -605,21 +607,52 @@ public class Portal extends JFrame {
 
         // !!!!! Student Icon Label
         ImageIcon studentIcon = new ImageIcon("icons/student-icon-black.png");
+        ImageIcon scaledStudentIcon = resources.scaleImage(studentIcon, 100, 100);
 
-        JLabel studentIconLabel = new JLabel();
-        studentIconLabel.setIcon(studentIcon);
-        studentIconLabel.setVerticalAlignment(SwingConstants.CENTER);
-        studentIconLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        studentIconLabel.setFont(resources.montserrat.deriveFont(50f));
-        studentPanel.add(studentIconLabel, BorderLayout.NORTH);
+        // !!!!! Student ID Label
+        JLabel studentIdLabel = new JLabel();
+        studentIdLabel.setText("2233375");
+        studentIdLabel.setIcon(scaledStudentIcon);
+        studentIdLabel.setFont(resources.montserratBlack.deriveFont(50f));
+        studentIdLabel.setForeground(resources.antiflashWhite);
+        studentIdLabel.setVerticalTextPosition(JLabel.BOTTOM);
+        studentIdLabel.setHorizontalTextPosition(JLabel.CENTER);
+        studentIdLabel.setHorizontalAlignment(JLabel.CENTER);
+        studentIdLabel.setVerticalAlignment(JLabel.CENTER);
+        studentPanel.add(studentIdLabel, BorderLayout.NORTH);
 
-        // !!!!! Student Label
+        // !!!!! Student Name
+        JLabel studentNameLabel = new JLabel();
+        studentNameLabel.setText("Jasmin, Marvin Rithik John" + " - " + "BSCS");
+        studentNameLabel.setFont(resources.montserrat.deriveFont(20f));
+        studentNameLabel.setForeground(resources.antiflashWhite);
+        studentNameLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        studentNameLabel.setVerticalAlignment(SwingConstants.CENTER);
+        studentPanel.add(studentNameLabel, BorderLayout.CENTER);
 
         // !!! ID Text Field
-        JTextField idTextField = new JTextField();
+        JTextField idTextField = new JTextField(5);
         idTextField.setText("ID Number");
         idTextField.setFont(resources.montserrat.deriveFont(12f));
-        idTextField.setColumns(15);
+        idTextField.setPreferredSize(new Dimension(10,10));
+        searchPanel.add(idTextField, BorderLayout.CENTER);
+
+        idTextField.addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                if (idTextField.getText().equals("ID Number")) {
+                    idTextField.setText("");
+                    idTextField.setForeground(Color.BLACK);
+                } // end of if
+            } // end of focusedGained method
+            @Override
+            public void focusLost(FocusEvent e) {
+                if (idTextField.getText().isBlank()) {
+                    idTextField.setText("ID Number");
+                    idTextField.setForeground(Color.BLACK);
+                } // end of if
+            } // end of focusLost method
+        }); // end of idTextField method
 
         // !! Buttons Panel 1
         JPanel buttonsPanel1 = new JPanel();
@@ -681,7 +714,7 @@ public class Portal extends JFrame {
         ImageIcon removeStudentIcon = new ImageIcon("icons/remove-student-icon-black.png");
         JButton removeStudentButton = new JButton();
         removeStudentButton.setText("Remove Student");
-        removeStudentButton.setIcon(addStudentIcon);
+        removeStudentButton.setIcon(removeStudentIcon);
         removeStudentButton.setFont(resources.montserratBold.deriveFont(20f));
         removeStudentButton.setOpaque(true);
         removeStudentButton.setBorderPainted(false);
@@ -703,7 +736,7 @@ public class Portal extends JFrame {
         headingPanel.setLayout(new BorderLayout());
         headingPanel.setBorder(resources.thinPadding);
         headingPanel.setBackground(resources.yinmnBlue);
-        headingPanel.setPreferredSize(new Dimension(910,30));
+        headingPanel.setPreferredSize(new Dimension(910,40));
         containerPanel2.add(headingPanel, BorderLayout.NORTH);
 
         // !!!! Heading Panel Components
@@ -719,35 +752,124 @@ public class Portal extends JFrame {
 
         // !!! Body Panel
         JPanel bodyPanel = new JPanel();
-        bodyPanel.setLayout(cardLayout2);
-        bodyPanel.setBorder(resources.normalPadding);
+        bodyPanel.setLayout(new BorderLayout());
+        bodyPanel.setBorder(resources.thinPadding);
         bodyPanel.setBackground(Color.WHITE);
         containerPanel2.add(bodyPanel, BorderLayout.CENTER);
 
         // !!!! Body Panel Components
 
-        // FIXME: 9/18/2023 - The JTable needs to be fixed.
+        // !!!! Top Panel
+        JPanel topPanel = new JPanel();
+        topPanel.setLayout(new BorderLayout());
+        topPanel.setBackground(Color.WHITE);
+        topPanel.setPreferredSize(new Dimension(910, 35));
+        bodyPanel.add(topPanel, BorderLayout.NORTH);
 
-        // !!!!! Table
-        String[][] data = {
-                {"CS 211","Data Structures","99","3"}
-        };
-        String[] columnNames = {"Course Number","Descriptive Title","Final Grade","Units"};
+        // !!!!! Top Panel Components
 
-        JTable records = new JTable(data, columnNames);
-        records.getTableHeader().setFont(resources.montserratBold.deriveFont(12f));
-        records.getTableHeader().setOpaque(false);
-        records.getTableHeader().setBackground(resources.uranianBlue);
-        records.getTableHeader().setForeground(Color.BLACK);
-        records.setFont(resources.montserrat.deriveFont(10f));
-        records.setShowVerticalLines(true);
-        records.setShowHorizontalLines(false);
-        records.setShowGrid(false);
+        // !!!!! Year Label
+        ImageIcon pinIcon = new ImageIcon("icons/pin-icon-black.png");
+        JLabel yearLabel = new JLabel();
+        yearLabel.setText("Year 1");
+        yearLabel.setIcon(pinIcon);
+        yearLabel.setFont(resources.montserrat.deriveFont(11f));
+        yearLabel.setForeground(Color.BLACK);
+        yearLabel.setHorizontalAlignment(SwingConstants.LEFT);
+        yearLabel.setVerticalAlignment(SwingConstants.CENTER);
+        topPanel.add(yearLabel, BorderLayout.WEST);
 
-        JScrollPane scrollPane = new JScrollPane(records);
-        scrollPane.setOpaque(false);
-        bodyPanel.add(scrollPane);
+        // !!!!! Nav Button Panel
+        JPanel navButtonPanel = new JPanel();
+        navButtonPanel.setLayout(new FlowLayout());
+        navButtonPanel.setBackground(Color.WHITE);
+        navButtonPanel.setPreferredSize(new Dimension(110, 20));
+        topPanel.add(navButtonPanel, BorderLayout.EAST);
 
+        // !!!!!! Nav Button Components
+
+        // !!!!!! Previous Button
+        ImageIcon prevIcon = new ImageIcon("icons/arrow_back-icon-black.png");
+        ImageIcon scaledPrevIcon = resources.scaleImage(prevIcon, 15, 15);
+        JButton prevButton = new JButton();
+        prevButton.setIcon(scaledPrevIcon);
+        prevButton.setFont(resources.montserrat.deriveFont(11f));
+        prevButton.setOpaque(false);
+        prevButton.setContentAreaFilled(false);
+        prevButton.setBorderPainted(false);
+        prevButton.setHorizontalAlignment(SwingConstants.RIGHT);
+        prevButton.setVerticalAlignment(SwingConstants.CENTER);
+        navButtonPanel.add(prevButton);
+
+        // !!!!!! Next Button
+        ImageIcon nextIcon = new ImageIcon("icons/arrow_forward-icon-black.png");
+        ImageIcon scaledNextIcon = resources.scaleImage(nextIcon, 15, 15);
+        JButton nextButton = new JButton();
+        nextButton.setIcon(scaledNextIcon);
+        nextButton.setOpaque(false);
+        nextButton.setContentAreaFilled(false);
+        nextButton.setBorderPainted(false);
+        nextButton.setHorizontalAlignment(SwingConstants.RIGHT);
+        nextButton.setVerticalAlignment(SwingConstants.CENTER);
+        navButtonPanel.add(nextButton);
+
+        // !!!! Table Panel
+        JPanel tablePanel = new JPanel();
+        tablePanel.setLayout(new GridLayout(1,1));
+        tablePanel.setBackground(Color.WHITE);
+        tablePanel.setBorder(resources.thinPadding);
+        bodyPanel.add(tablePanel, BorderLayout.CENTER);
+
+        // !!!!! Table Panel Components
+
+
+
+        // !!!!! CRUD Button Panel
+        JPanel crudButtons = new JPanel();
+        crudButtons.setLayout(new FlowLayout());
+        crudButtons.setBackground(Color.WHITE);
+        crudButtons.setPreferredSize(new Dimension(910, 40));
+        bodyPanel.add(crudButtons, BorderLayout.SOUTH);
+
+        // !!!!!! CRUD Button Components
+
+        // !!!!!! Add Button
+
+        // !!!!!! Edit Button
+        ImageIcon editIcon = new ImageIcon("icons/edit-icon-black.png");
+        JButton editButton = new JButton();
+        editButton.setText("Edit");
+        editButton.setIcon(editIcon);
+        editButton.setFont(resources.montserrat.deriveFont(11f));
+        editButton.setOpaque(true);
+        editButton.setBorderPainted(false);
+        editButton.setBackground(resources.uranianBlue);
+        editButton.setForeground(Color.BLACK);
+        crudButtons.add(editButton);
+
+        // !!!!!! Delete Button
+        ImageIcon deleteIcon = new ImageIcon("icons/delete-icon-black.png");
+        JButton deleteButton = new JButton();
+        deleteButton.setText("Delete");
+        deleteButton.setIcon(deleteIcon);
+        deleteButton.setFont(resources.montserrat.deriveFont(11f));
+        deleteButton.setOpaque(true);
+        deleteButton.setBorderPainted(false);
+        deleteButton.setBackground(resources.uranianBlue);
+        deleteButton.setForeground(Color.BLACK);
+        crudButtons.add(deleteButton);
+
+        // !!!!!! Export Button
+        ImageIcon exportIcon = new ImageIcon("icons/export-icon-black.png");
+        JButton exportButton = new JButton();
+        exportButton.setText("Export as CSV");
+        exportButton.setIcon(exportIcon);
+        exportButton.setFont(resources.montserrat.deriveFont(11f));
+        exportButton.setOpaque(true);
+        exportButton.setBorderPainted(false);
+        exportButton.setBackground(resources.uranianBlue);
+        exportButton.setForeground(Color.BLACK);
+        crudButtons.add(exportButton);
 
         // Action Listeners
         // FIXME: 9/17/2023

@@ -51,4 +51,12 @@ public class Year {
     public void setShortTerm(LinkedList<Course> shortTerm) {
         this.shortTerm = shortTerm;
     }
+
+    @Override
+    public String toString() {
+        return "year " + yearNumber + ", " +
+                firstSemSemesterList + ", " +
+                secondSemSemesterList + ", " +
+                shortTerm;
+    }
 }

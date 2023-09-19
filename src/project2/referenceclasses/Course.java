@@ -36,6 +36,11 @@ public class Course {
     public void setUnits(int units) {
         this.units = units;
     }
+
+    @Override
+    public String toString() {
+        return courseNumber + ", " + descriptiveName + ", " + units;
+    }
 }
 
 

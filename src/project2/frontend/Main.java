@@ -37,9 +37,6 @@ public class Main {
         resources.loadFonts();
         LinkedList<Year> computerScience = StudentUtility.createYearLinkedList("BSCS");
 
-
-        Student studObj = new Student("2233293","Rithik","Tank",computerScience);
-
         // TODO: Supporting methods/code.
     } // end of run method
 } // end of class Main

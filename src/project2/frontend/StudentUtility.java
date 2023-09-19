@@ -25,6 +25,7 @@ public class StudentUtility {
         } catch(FileNotFoundException ex) {
             System.out.println("The file for the list of courses for the semester is missing.");
         }
+        fileReader.close();
         return courseLinkedList;
     }
 

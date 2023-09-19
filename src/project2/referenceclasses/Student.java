@@ -49,4 +49,9 @@ public class Student {
     public void setYearList(LinkedList<Year> yearList) {
         this.yearList = yearList;
     }
+
+    @Override
+    public String toString() {
+        return idNumber + ", " + ", " + firstName + lastName + ", " + yearList;
+    }
 }

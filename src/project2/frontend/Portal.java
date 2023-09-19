@@ -490,11 +490,10 @@ public class Portal extends JFrame {
         // !! Heading Panel 2
         JPanel headingPanel2 = new JPanel();
         headingPanel2.setLayout(new BorderLayout());
-        headingPanel2.setBackground(resources.battleshipGray);
+        headingPanel2.setBackground(resources.yinmnBlue);
         headingPanel2.setBorder(resources.thinPadding);
         headingPanel2.setPreferredSize(new Dimension(910,40));
         studentPanel.add(headingPanel2, BorderLayout.NORTH);
-
         // !!! Heading Panel 2 Components
         ImageIcon studentIcon = new ImageIcon("icons/students-icon-black.png");
 
@@ -502,7 +501,7 @@ public class Portal extends JFrame {
         studentsLabel.setText("Students Dashboard");
         studentsLabel.setIcon(studentIcon);
         studentsLabel.setFont(resources.montserratBold.deriveFont(12f));
-        studentsLabel.setForeground(Color.BLACK);
+        studentsLabel.setForeground(resources.antiflashWhite);
         headingPanel2.add(studentsLabel, BorderLayout.WEST);
 
         // !! Student Pin Panel
@@ -821,7 +820,21 @@ public class Portal extends JFrame {
         bodyPanel.add(tablePanel, BorderLayout.CENTER);
 
         // !!!!! Table Panel Components
+        String[] columnNames = {"Course Number" , "Descriptive Title" , "Grade" , "Units"};
+        String [][] data = {
+                {"CS211", "Data Structures" , "99" , "3"}
+        };
 
+        JTable table = new JTable(data, columnNames);
+        table.setOpaque(false);
+        table.setBackground(Color.WHITE);
+        table.setForeground(Color.BLACK);
+        table.setFont(resources.montserrat.deriveFont(10f));
+
+        JScrollPane scrollPane = new JScrollPane(table);
+        scrollPane.setBackground(Color.WHITE);
+        scrollPane.setOpaque(false);
+        tablePanel.add(scrollPane);
 
 
         // !!!!! CRUD Button Panel

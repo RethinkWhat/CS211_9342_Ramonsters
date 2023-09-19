@@ -51,10 +51,10 @@ public class StudentUtility {
         Year thirdYear = new Year(3, thirdYearFirstTerm, thirdYearSecondTerm, thirdYearShortTerm );
         Year fourthYear = new Year(4,fourthYearFirstSem, fourthYearSecondSem);
         LinkedList<Year> yearLinkedList = new LinkedList<>();
-        yearLinkedList.insert(firstYear);
-        yearLinkedList.insert(secondYear);
-        yearLinkedList.insert(thirdYear);
         yearLinkedList.insert(fourthYear);
+        yearLinkedList.insert(thirdYear);
+        yearLinkedList.insert(secondYear);
+        yearLinkedList.insert(firstYear);
 
         return yearLinkedList;
     }

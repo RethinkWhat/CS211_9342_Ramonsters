@@ -1,5 +1,7 @@
 package project2.frontend;
 
+import project2.referenceclasses.Student;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.TableModelListener;
@@ -10,7 +12,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
-import java.util.EventObject;
+import project2.referenceclasses.Student;
 
 /**
  * @author TBA
@@ -545,6 +547,20 @@ public class Portal extends JFrame {
      * TODO: Documentation
      * @return
      */
+
+    private void updateStudentShown(Student studentObj) {
+        if (studentObj==null) {
+            studentIdLabel.setText("Student not found");
+            studentNameLabel.setText("Please enter the ID number again.");
+            studentNameLabel.setForeground(resources.lipstickRed);
+        }
+        else {
+            studentNameLabel.setForeground(resources.antiflashWhite);
+            studentIdLabel.setText(studentObj.getIdNumber());
+            studentNameLabel.setText(studentObj.getLastName() + ", " + studentObj.getFirstName());
+        }
+    }
+
     private JPanel populateSchedulePanel() {
         JPanel schedulePanel = new JPanel();
         schedulePanel.setLayout(new BorderLayout());
@@ -570,6 +586,8 @@ public class Portal extends JFrame {
         return schedulePanel;
     } // end of populateSchedulePanel method
 
+    public JLabel studentIdLabel = new JLabel();
+    public JLabel studentNameLabel = new JLabel();
     private JPanel populateTorPanel() {
         // Transcript of Records Panel
         JPanel torPanel = new JPanel();
@@ -613,8 +631,7 @@ public class Portal extends JFrame {
         ImageIcon scaledStudentIcon = resources.scaleImage(studentIcon, 100, 100);
 
         // !!!!! Student ID Label
-        JLabel studentIdLabel = new JLabel();
-        studentIdLabel.setText("2233375");
+        studentIdLabel.setText("ID Number");
         studentIdLabel.setIcon(scaledStudentIcon);
         studentIdLabel.setFont(resources.montserratBlack.deriveFont(50f));
         studentIdLabel.setForeground(resources.antiflashWhite);
@@ -625,8 +642,7 @@ public class Portal extends JFrame {
         studentPanel.add(studentIdLabel, BorderLayout.NORTH);
 
         // !!!!! Student Name
-        JLabel studentNameLabel = new JLabel();
-        studentNameLabel.setText("Jasmin, Marvin Rithik John" + " - " + "BSCS");
+        studentNameLabel.setText("Last Name, First Name");
         studentNameLabel.setFont(resources.montserrat.deriveFont(20f));
         studentNameLabel.setForeground(resources.antiflashWhite);
         studentNameLabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -679,6 +695,9 @@ public class Portal extends JFrame {
         searchButton.setForeground(Color.BLACK);
         buttonsPanel1.add(searchButton);
 
+        // Search Button listener
+        searchButton.addActionListener(e->
+                updateStudentShown(Main.search(idTextField.getText())));
         // !!! Clear Button
         ImageIcon clearIcon = new ImageIcon("icons/clear_all-icon-black.png");
 
@@ -691,6 +710,13 @@ public class Portal extends JFrame {
         clearButton.setBackground(resources.uranianBlue);
         clearButton.setForeground(Color.BLACK);
         buttonsPanel1.add(clearButton);
+
+        clearButton.addActionListener(e -> {
+            studentIdLabel.setText("ID Number");
+            studentNameLabel.setText("Last Name, First Name");
+            idTextField.setText("ID Number");
+
+        });
 
         // !! Buttons Panel 2
         JPanel buttonsPanel2 = new JPanel();
@@ -907,9 +933,9 @@ public class Portal extends JFrame {
 
         // Action Listeners
         // FIXME: 9/17/2023
-        searchButton.addActionListener(e->{
-            cardLayout1.show(torPanel, "2");
-        });
+  //      searchButton.addActionListener(e->{
+    //        cardLayout1.show(torPanel, "2");
+     //   });
 
         return torPanel;
     } // end of populateTorPanel

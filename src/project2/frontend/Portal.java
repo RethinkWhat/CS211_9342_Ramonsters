@@ -4,6 +4,9 @@ import project2.referenceclasses.Student;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.TableModelListener;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -594,7 +597,7 @@ public class Portal extends JFrame {
         torPanel.setPreferredSize(new Dimension(910, 700));
 
         // ! TOR Components
-        
+
         // ! Container 1
         JPanel containerPanel1 = new JPanel();
         containerPanel1.setLayout(new BorderLayout());
@@ -602,9 +605,9 @@ public class Portal extends JFrame {
         containerPanel1.setBackground(resources.antiflashWhite);
         containerPanel1.setPreferredSize(new Dimension(910,700));
         torPanel.add(containerPanel1, "1");
-        
+
         // !! Container 1 Components
-        
+
         // !! Search Panel
         JPanel searchPanel = new JPanel();
         searchPanel.setLayout(new BorderLayout());
@@ -612,7 +615,7 @@ public class Portal extends JFrame {
         searchPanel.setBackground(Color.darkGray);
         searchPanel.setPreferredSize(new Dimension(800,400));
         containerPanel1.add(searchPanel, BorderLayout.CENTER);
-        
+
         // !!! Search Panel Components
 
         // !!!! Student Panel
@@ -797,9 +800,9 @@ public class Portal extends JFrame {
         // !!!!! Year Label
         ImageIcon pinIcon = new ImageIcon("icons/pin-icon-black.png");
         JLabel yearLabel = new JLabel();
-        yearLabel.setText("Year 1");
+        yearLabel.setText("   Year 1");
         yearLabel.setIcon(pinIcon);
-        yearLabel.setFont(resources.montserrat.deriveFont(11f));
+        yearLabel.setFont(resources.montserrat.deriveFont(13f));
         yearLabel.setForeground(Color.BLACK);
         yearLabel.setHorizontalAlignment(SwingConstants.LEFT);
         yearLabel.setVerticalAlignment(SwingConstants.CENTER);
@@ -852,11 +855,28 @@ public class Portal extends JFrame {
                 {"CS211", "Data Structures" , "99" , "3"}
         };
 
-        JTable table = new JTable(data, columnNames);
+        JTable table = new JTable(new DefaultTableModel(
+                new Object[]{"Course Number","Descriptive Title","Units","Grade"},0));
+        table.getColumnModel().getColumn(0).setPreferredWidth(130);
+        table.getColumnModel().getColumn(1).setPreferredWidth(501);
+        table.getColumnModel().getColumn(2).setPreferredWidth(80);
+        table.getColumnModel().getColumn(3).setPreferredWidth(80);
+        table.getTableHeader().setResizingAllowed(false);
+        table.getTableHeader().setReorderingAllowed(false);
+        table.getTableHeader().setFont(resources.montserratBold.deriveFont(12f));
+        table.setAutoResizeMode(0);
+        table.setDragEnabled(false);
         table.setOpaque(false);
         table.setBackground(Color.WHITE);
         table.setForeground(Color.BLACK);
         table.setFont(resources.montserrat.deriveFont(10f));
+
+        table.setDefaultEditor(Object.class, new DefaultCellEditor(new JTextField()) {
+            @Override
+            public boolean isCellEditable(EventObject e) {
+                return false;
+            }
+        });
 
         JScrollPane scrollPane = new JScrollPane(table);
         scrollPane.setBackground(Color.WHITE);

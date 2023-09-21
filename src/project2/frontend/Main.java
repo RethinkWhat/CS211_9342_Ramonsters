@@ -37,12 +37,6 @@ public class Main {
      * Invokes the backend code.
      */
     private void run() {
-        resources.loadFonts();
-
-        // TODO: Supporting methods/code.
-    } // end of run method
-
-    public static Student search(String studentID) {
         Student studentObj = new Student("2233293", "Rithik", "Tank", computerScience);
         Student studentObj1 = new Student("2233375", "Johan", "Roxas", computerScience);
         Student studentObj2 = new Student("2230153", "Patrick", "Lacanilao", computerScience);
@@ -51,6 +45,12 @@ public class Main {
         studentLinkedList.insert(studentObj1);
         studentLinkedList.insert(studentObj2);
         studentLinkedList.insert(studentObj3);
+        resources.loadFonts();
+
+        // TODO: Supporting methods/code.
+    } // end of run method
+
+    public static Student search(String studentID) {
 
         Node<Student> curr = studentLinkedList.getHead();
 

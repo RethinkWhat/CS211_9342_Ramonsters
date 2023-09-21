@@ -1,5 +1,8 @@
 package project2.frontend;
 
+import project2.backend.Node;
+import project2.referenceclasses.Admin;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
@@ -192,7 +195,6 @@ public class LoginForm extends JFrame {
         errorLabel.setFont(resources.montserrat.deriveFont(12f));
         fieldPanel.add(errorLabel, gbc);
 
-        errorLabel.setText("Wrong Password. Try again.");
 
         // !!! Buttons Panel
         JPanel buttonsPanel = new JPanel();
@@ -214,6 +216,18 @@ public class LoginForm extends JFrame {
         loginButton.setForeground(Color.BLACK);
         loginButton.requestFocus();
         buttonsPanel.add(loginButton);
+
+        loginButton.addActionListener(e -> {
+
+            Node<Admin> admin = LoginFormUtility.validate(usernameTextField.getText(), passwordField.getPassword());
+            if (admin!=null) {
+                this.dispose();
+                new Portal(admin);
+            } else {
+                errorLabel.setText("Wrong Password. Try again.");
+
+            }
+        });
 
         loginButton.addMouseListener(new MouseAdapter() {
             public void mouseEntered(MouseEvent e) {

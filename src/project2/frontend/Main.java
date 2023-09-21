@@ -42,7 +42,7 @@ public class Main {
         // TODO: Supporting methods/code.
     } // end of run method
 
-    public static Student findStudent(String studentID) {
+    public static Student search(String studentID) {
         Student studentObj = new Student("2233293", "Rithik", "Tank", computerScience);
         Student studentObj1 = new Student("2233375", "Johan", "Roxas", computerScience);
         Student studentObj2 = new Student("2230153", "Patrick", "Lacanilao", computerScience);
@@ -52,10 +52,6 @@ public class Main {
         studentLinkedList.insert(studentObj2);
         studentLinkedList.insert(studentObj3);
 
-        return search(studentID);
-    }
-
-    public static Student search(String studentID) {
         Node<Student> curr = studentLinkedList.getHead();
 
         for (int i = 0; i < studentLinkedList.getSize(); i++) {

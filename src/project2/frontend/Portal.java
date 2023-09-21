@@ -546,8 +546,16 @@ public class Portal extends JFrame {
      */
 
     private void updateStudentShown(Student studentObj) {
-        studentIdLabel.setText(studentObj.getIdNumber());
-        studentNameLabel.setText(studentObj.getFirstName() + " " + studentObj.getLastName());
+        if (studentObj==null) {
+            studentIdLabel.setText("Student not found");
+            studentNameLabel.setText("Please enter the ID number again.");
+            studentNameLabel.setForeground(resources.lipstickRed);
+        }
+        else {
+            studentNameLabel.setForeground(resources.antiflashWhite);
+            studentIdLabel.setText(studentObj.getIdNumber());
+            studentNameLabel.setText(studentObj.getLastName() + ", " + studentObj.getFirstName());
+        }
     }
 
     private JPanel populateSchedulePanel() {
@@ -620,7 +628,7 @@ public class Portal extends JFrame {
         ImageIcon scaledStudentIcon = resources.scaleImage(studentIcon, 100, 100);
 
         // !!!!! Student ID Label
-        studentIdLabel.setText("2233375");
+        studentIdLabel.setText("ID Number");
         studentIdLabel.setIcon(scaledStudentIcon);
         studentIdLabel.setFont(resources.montserratBlack.deriveFont(50f));
         studentIdLabel.setForeground(resources.antiflashWhite);
@@ -631,7 +639,7 @@ public class Portal extends JFrame {
         studentPanel.add(studentIdLabel, BorderLayout.NORTH);
 
         // !!!!! Student Name
-        studentNameLabel.setText("Jasmin, Marvin Rithik John" + " - " + "BSCS");
+        studentNameLabel.setText("Last Name, First Name");
         studentNameLabel.setFont(resources.montserrat.deriveFont(20f));
         studentNameLabel.setForeground(resources.antiflashWhite);
         studentNameLabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -686,7 +694,7 @@ public class Portal extends JFrame {
 
         // Search Button listener
         searchButton.addActionListener(e->
-                updateStudentShown(Main.findStudent(idTextField.getText())));
+                updateStudentShown(Main.search(idTextField.getText())));
         // !!! Clear Button
         ImageIcon clearIcon = new ImageIcon("icons/clear_all-icon-black.png");
 
@@ -699,6 +707,13 @@ public class Portal extends JFrame {
         clearButton.setBackground(resources.uranianBlue);
         clearButton.setForeground(Color.BLACK);
         buttonsPanel1.add(clearButton);
+
+        clearButton.addActionListener(e -> {
+            studentIdLabel.setText("ID Number");
+            studentNameLabel.setText("Last Name, First Name");
+            idTextField.setText("ID Number");
+
+        });
 
         // !! Buttons Panel 2
         JPanel buttonsPanel2 = new JPanel();

@@ -222,6 +222,12 @@ public class LoginForm extends JFrame {
             } // end of mouseEntered method
 
             @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                new LoginFormUtility().validate(usernameTextField.getText(),passwordField.getPassword());
+            }
+
+            @Override
             public void mouseExited(MouseEvent e) {
                 setCursor(resources.defaultCursor);
                 loginButton.setFont(resources.montserrat.deriveFont(15f));
@@ -277,11 +283,4 @@ public class LoginForm extends JFrame {
         setVisible(true);
     } // end of loginForm constructor
 
-    /*
-    To be removed.
-    Used only to test and debug the login form
-     */
-    public static void main(String[] args) {
-        new LoginForm();
-    } // end of main method
 } // end of class LoginForm

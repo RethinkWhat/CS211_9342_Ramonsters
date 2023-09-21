@@ -272,9 +272,11 @@ public class Portal extends JFrame {
         homeButton.setForeground(resources.antiflashWhite);
         homeButton.setHorizontalAlignment(SwingConstants.LEFT);
         homeButton.setFont(resources.montserratBold.deriveFont(15f));
-        homeButton.setBorderPainted(true);
+        homeButton.setBorderPainted(false);
         homeButton.setOpaque(false);
         homeButton.setContentAreaFilled(false);
+        homeButton.setFocusable(false);
+        homeButton.setFocusPainted(false);
         navPanel.add(homeButton, gbc);
 
         // !! Schedule Button
@@ -288,9 +290,11 @@ public class Portal extends JFrame {
         scheduleButton.setBorderPainted(false);
         scheduleButton.setOpaque(false);
         scheduleButton.setContentAreaFilled(false);
+        scheduleButton.setFocusable(false);
+        scheduleButton.setFocusPainted(false);
         navPanel.add(scheduleButton, gbc);
 
-        // !! Attendance Button
+        // !! Transcript of Records Button
         gbc.gridy = 3;
         ImageIcon torIcon = new ImageIcon("icons/tor-icon-black.png");
         torButton = new JButton();
@@ -301,9 +305,11 @@ public class Portal extends JFrame {
         torButton.setBorderPainted(false);
         torButton.setOpaque(false);
         torButton.setContentAreaFilled(false);
+        torButton.setFocusable(false);
+        torButton.setFocusPainted(false);
         navPanel.add(torButton, gbc);
 
-        // !! Statement of Accounts Button
+        // !! Curriculum Checklist Button
         gbc.gridy = 4;
         ImageIcon checklistIcon = new ImageIcon("icons/checklist-icon-black.png");
         checklistButton = new JButton();
@@ -314,6 +320,8 @@ public class Portal extends JFrame {
         checklistButton.setBorderPainted(false);
         checklistButton.setOpaque(false);
         checklistButton.setContentAreaFilled(false);
+        checklistButton.setFocusable(false);
+        checklistButton.setFocusPainted(false);
         navPanel.add(checklistButton, gbc);
 
         // !! Personal Details Button
@@ -327,6 +335,8 @@ public class Portal extends JFrame {
         personalDetailsButton.setBorderPainted(false);
         personalDetailsButton.setOpaque(false);
         personalDetailsButton.setContentAreaFilled(false);
+        personalDetailsButton.setFocusable(false);
+        personalDetailsButton.setFocusPainted(false);
         navPanel.add(personalDetailsButton, gbc);
 
         return sidebarPanel;

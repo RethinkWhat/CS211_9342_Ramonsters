@@ -716,11 +716,21 @@ public class Portal extends JFrame {
         buttonsPanel1.add(clearButton);
 
         clearButton.addActionListener(e -> {
+            studentNameLabel.setForeground(resources.antiflashWhite);
             studentIdLabel.setText("ID Number");
             studentNameLabel.setText("Last Name, First Name");
             idTextField.setText("ID Number");
 
         });
+
+        JButton transcriptButton = new JButton();
+        transcriptButton.setText("Transcript"); //TODO: Change Name
+        transcriptButton.setIcon(clearIcon); //TODO: Change Icon
+        transcriptButton.setFont(resources.montserrat.deriveFont(15f));
+        transcriptButton.setOpaque(true);
+        transcriptButton.setBorderPainted(false);
+        transcriptButton.setBackground(resources.uranianBlue);
+        transcriptButton.setForeground(Color.BLACK);
 
         // !! Buttons Panel 2
         JPanel buttonsPanel2 = new JPanel();

@@ -1,9 +1,12 @@
 package project2.frontend;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 
 /**
  * @author TBA
@@ -332,7 +335,7 @@ public class Portal extends JFrame {
     private JPanel populateHomePanel() {
         // Home Panel
         JPanel homePanel = new JPanel();
-        homePanel.setLayout(new GridLayout(1, 2));
+        homePanel.setLayout(new GridLayout(1, 2,15,0));
         homePanel.setBorder(resources.normalPadding);
         homePanel.setBackground(resources.antiflashWhite);
         homePanel.setPreferredSize(new Dimension(910, 700));
@@ -341,23 +344,195 @@ public class Portal extends JFrame {
 
         // ! Bulletin Board Panel
         JPanel bulletinPanel = new JPanel();
-        bulletinPanel.setLayout(new GridLayout(5,1));
-        bulletinPanel.setBorder(resources.normalPadding);
+        bulletinPanel.setLayout(new BorderLayout());
         bulletinPanel.setBackground(resources.uranianBlue);
         homePanel.add(bulletinPanel);
 
         // !! Bulletin Board Components
-        // TODO: Supporting code
+
+        // !! Heading Panel 1
+        JPanel headingPanel1 = new JPanel();
+        headingPanel1.setLayout(new BorderLayout());
+        headingPanel1.setBackground(resources.yinmnBlue);
+        headingPanel1.setBorder(resources.thinPadding);
+        headingPanel1.setPreferredSize(new Dimension(910,40));
+        bulletinPanel.add(headingPanel1, BorderLayout.NORTH);
+
+        // !!! Heading Panel Components
+        ImageIcon headingIcon = new ImageIcon("icons/news-icon-black.png");
+
+        JLabel headingLabel = new JLabel();
+        headingLabel.setText("News, Events, and Announcements");
+        headingLabel.setIcon(headingIcon);
+        headingLabel.setFont(resources.montserratBold.deriveFont(12f));
+        headingLabel.setForeground(resources.antiflashWhite);
+        headingPanel1.add(headingLabel, BorderLayout.WEST);
+
+        // !! Bulletin Pins Panel
+        JPanel bulletinPinsPanel = new JPanel();
+        bulletinPinsPanel.setLayout(new GridLayout(5,1));
+        bulletinPinsPanel.setBackground(resources.antiflashWhite);
+        bulletinPinsPanel.setBorder(new EmptyBorder(0,5,0,5));
+        bulletinPinsPanel.setPreferredSize(new Dimension(405, 700));
+        bulletinPanel.add(bulletinPinsPanel, BorderLayout.CENTER);
+
+        // !!! Bulletin Pins Components
+
+        // !!!! Pin Panel 1
+        JPanel pinPanel1 = new JPanel();
+        pinPanel1.setLayout(new BorderLayout());
+        pinPanel1.setBackground(resources.uranianBlue);
+        pinPanel1.setBorder(resources.normalPadding);
+        bulletinPinsPanel.add(pinPanel1);
+
+        // !!!!! Pin Panel 1 Components
+        JLabel remindersLabel1 = new JLabel();
+        remindersLabel1.setText("Reminders for the Recollection");
+        remindersLabel1.setFont(resources.montserrat.deriveFont(14f));
+        remindersLabel1.setForeground(Color.BLACK);
+        pinPanel1.add(remindersLabel1, BorderLayout.NORTH);
+
+        JLabel linkLabel1 = new JLabel();
+        linkLabel1.setText("- view link");
+        linkLabel1.setFont(resources.montserrat.deriveFont(12f));
+        linkLabel1.setForeground(resources.lipstickRed);
+        pinPanel1.add(linkLabel1, BorderLayout.SOUTH);
+
+        // !!!! Pin Panel 2
+        JPanel pinPanel2 = new JPanel();
+        pinPanel2.setLayout(new BorderLayout());
+        pinPanel2.setBackground(resources.airSuperiorityBlue);
+        pinPanel2.setBorder(resources.normalPadding);
+        bulletinPinsPanel.add(pinPanel2);
+
+        // !!!!! Pin Panel 2 Components
+        JLabel remindersLabel2 = new JLabel();
+        remindersLabel2.setText("Navigating SLU");
+        remindersLabel2.setFont(resources.montserratBold.deriveFont(16f));
+        remindersLabel2.setForeground(Color.BLACK);
+        pinPanel2.add(remindersLabel2, BorderLayout.NORTH);
+
+        JLabel linkLabel2 = new JLabel();
+        linkLabel2.setText("- view link");
+        linkLabel2.setFont(resources.montserrat.deriveFont(12f));
+        linkLabel2.setForeground(resources.lipstickRed);
+        pinPanel2.add(linkLabel2, BorderLayout.SOUTH);
+
+        // !!!! Pin Panel 3
+        JPanel pinPanel3 = new JPanel();
+        pinPanel3.setLayout(new BorderLayout());
+        pinPanel3.setBackground(resources.uranianBlue);
+        pinPanel3.setBorder(resources.normalPadding);
+        bulletinPinsPanel.add(pinPanel3);
+
+        // !!!!! Pin Panel 3 Components
+        JLabel remindersLabel3 = new JLabel();
+        remindersLabel3.setText("Link to SLU Pertinent Information");
+        remindersLabel3.setFont(resources.montserrat.deriveFont(14f));
+        remindersLabel3.setForeground(Color.BLACK);
+        pinPanel3.add(remindersLabel3, BorderLayout.NORTH);
+
+        JLabel linkLabel3 = new JLabel();
+        linkLabel3.setText("- view link");
+        linkLabel3.setFont(resources.montserrat.deriveFont(12f));
+        linkLabel3.setForeground(resources.lipstickRed);
+        pinPanel3.add(linkLabel3, BorderLayout.SOUTH);
+
+        // !!!! Pin Panel 4
+        JPanel pinPanel4 = new JPanel();
+        pinPanel4.setLayout(new BorderLayout());
+        pinPanel4.setBackground(resources.airSuperiorityBlue);
+        pinPanel4.setBorder(resources.normalPadding);
+        bulletinPinsPanel.add(pinPanel4);
+
+        // !!!!! Pin Panel 4 Components
+        JLabel remindersLabel4 = new JLabel();
+        remindersLabel4.setText("SLU OSA Absence Slip");
+        remindersLabel4.setFont(resources.montserrat.deriveFont(14f));
+        remindersLabel4.setForeground(Color.BLACK);
+        pinPanel4.add(remindersLabel4, BorderLayout.NORTH);
+
+        JLabel linkLabel4 = new JLabel();
+        linkLabel4.setText("- view link");
+        linkLabel4.setFont(resources.montserrat.deriveFont(12f));
+        linkLabel4.setForeground(resources.lipstickRed);
+        pinPanel4.add(linkLabel4, BorderLayout.SOUTH);
+
+        // !!!! Pin Panel 5
+        JPanel pinPanel5 = new JPanel();
+        pinPanel5.setLayout(new BorderLayout());
+        pinPanel5.setBackground(resources.uranianBlue);
+        pinPanel5.setBorder(resources.normalPadding);
+        bulletinPinsPanel.add(pinPanel5);
+
+        // !!!!! Pin Panel 5 Components
+        JLabel remindersLabel5 = new JLabel();
+        remindersLabel5.setText("<html><u>ACADEMIC CALENDAR 2023-2024</u>");
+        remindersLabel5.setFont(resources.montserrat.deriveFont(14f));
+        remindersLabel5.setForeground(Color.BLACK);
+        pinPanel5.add(remindersLabel5, BorderLayout.NORTH);
+
+        JLabel linkLabel5 = new JLabel();
+        linkLabel5.setText("- view link");
+        linkLabel5.setFont(resources.montserrat.deriveFont(12f));
+        linkLabel5.setForeground(resources.lipstickRed);
+        linkLabel5.add(linkLabel3, BorderLayout.SOUTH);
+        pinPanel5.add(linkLabel5, BorderLayout.SOUTH);
 
         // ! Student Panel
         JPanel studentPanel = new JPanel();
         studentPanel.setLayout(new BorderLayout());
-        studentPanel.setBorder(resources.normalPadding);
-        studentPanel.setBackground(resources.battleshipGray);
+        studentPanel.setBackground(resources.antiflashWhite);
         homePanel.add(studentPanel);
 
-        // !! Student Panel Components
-        // TODO: Supporting code
+        // !! Student Components
+
+        // !! Heading Panel 2
+        JPanel headingPanel2 = new JPanel();
+        headingPanel2.setLayout(new BorderLayout());
+        headingPanel2.setBackground(resources.yinmnBlue);
+        headingPanel2.setBorder(resources.thinPadding);
+        headingPanel2.setPreferredSize(new Dimension(910,40));
+        studentPanel.add(headingPanel2, BorderLayout.NORTH);
+        // !!! Heading Panel 2 Components
+        ImageIcon studentIcon = new ImageIcon("icons/students-icon-black.png");
+
+        JLabel studentsLabel = new JLabel();
+        studentsLabel.setText("Students Dashboard");
+        studentsLabel.setIcon(studentIcon);
+        studentsLabel.setFont(resources.montserratBold.deriveFont(12f));
+        studentsLabel.setForeground(resources.antiflashWhite);
+        headingPanel2.add(studentsLabel, BorderLayout.WEST);
+
+        // !! Student Pin Panel
+        JPanel studentPinPanel = new JPanel();
+        studentPinPanel.setLayout(new GridLayout(3,1));
+        studentPinPanel.setBackground(resources.antiflashWhite);
+        studentPinPanel.setBorder(new EmptyBorder(0,5,0,5));
+        studentPinPanel.setPreferredSize(new Dimension(405,700));
+        studentPanel.add(studentPinPanel, BorderLayout.CENTER);
+
+        // !!! Student Pin Components
+
+        // !!!! Student Counter Panel
+        JPanel studentCounterPanel = new JPanel();
+        studentCounterPanel.setLayout(new BorderLayout());
+        studentCounterPanel.setBackground(resources.airSuperiorityBlue);
+        studentCounterPanel.setBorder(resources.normalPadding);
+        studentPinPanel.add(studentCounterPanel);
+
+        // !!!!! Student Counter Components
+        JLabel studentHeader = new JLabel();
+        studentHeader.setText("Number of Students:");
+        studentHeader.setFont(resources.montserratBlack.deriveFont(20f));
+        studentHeader.setForeground(resources.antiflashWhite);
+        studentCounterPanel.add(studentHeader, BorderLayout.NORTH);
+
+        JLabel studentCountLabel = new JLabel();
+        studentCountLabel.setText("69420"); // use getter or similar method to count nodes of students
+        studentCountLabel.setFont(resources.montserrat.deriveFont(50f));
+        studentCountLabel.setForeground(resources.antiflashWhite);
+        studentCounterPanel.add(studentCountLabel, BorderLayout.CENTER);
 
         return homePanel;
     } // end of populateHomePanel method
@@ -404,6 +579,7 @@ public class Portal extends JFrame {
         // ! Container 1
         JPanel containerPanel1 = new JPanel();
         containerPanel1.setLayout(new BorderLayout());
+        containerPanel1.setBorder(resources.normalPadding);
         containerPanel1.setBackground(resources.antiflashWhite);
         containerPanel1.setPreferredSize(new Dimension(910,700));
         torPanel.add(containerPanel1, "1");
@@ -412,98 +588,82 @@ public class Portal extends JFrame {
         
         // !! Search Panel
         JPanel searchPanel = new JPanel();
-        searchPanel.setLayout(new GridBagLayout());
+        searchPanel.setLayout(new BorderLayout());
         searchPanel.setBorder(resources.normalPadding);
         searchPanel.setBackground(Color.darkGray);
-        searchPanel.setPreferredSize(new Dimension(800,600));
+        searchPanel.setPreferredSize(new Dimension(800,400));
         containerPanel1.add(searchPanel, BorderLayout.CENTER);
         
         // !!! Search Panel Components
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(5,20,5,20);
-        gbc.weightx = 1;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
 
-        // !!! Student Panel
-        gbc.gridy = 0;
-        gbc.gridwidth = 2;
-
+        // !!!! Student Panel
         JPanel studentPanel = new JPanel();
-        studentPanel.setLayout(new BorderLayout());
         studentPanel.setBackground(Color.darkGray);
-        studentPanel.setPreferredSize(new Dimension(800, 200));
-        searchPanel.add(studentPanel, gbc);
+        studentPanel.setLayout(new BorderLayout());
+        studentPanel.setBorder(resources.normalPadding);
+        studentPanel.setPreferredSize(new Dimension(800,200));
+        searchPanel.add(studentPanel, BorderLayout.NORTH);
 
-        // !!!! Student Panel Components
+        // !!!!! Student Icon Label
         ImageIcon studentIcon = new ImageIcon("icons/student-icon-black.png");
+        ImageIcon scaledStudentIcon = resources.scaleImage(studentIcon, 100, 100);
 
-        JLabel studentLabel = new JLabel();
-        studentLabel.setText("LAST NAME, FIRST NAME");
-        studentLabel.setIcon(studentIcon);
-        studentLabel.setFont(resources.montserratBold.deriveFont(15f));
-        studentLabel.setForeground(resources.antiflashWhite);
-        studentLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        studentLabel.setVerticalAlignment(SwingConstants.BOTTOM);
-        studentPanel.add(studentLabel, BorderLayout.CENTER);
+        // !!!!! Student ID Label
+        JLabel studentIdLabel = new JLabel();
+        studentIdLabel.setText("2233375");
+        studentIdLabel.setIcon(scaledStudentIcon);
+        studentIdLabel.setFont(resources.montserratBlack.deriveFont(50f));
+        studentIdLabel.setForeground(resources.antiflashWhite);
+        studentIdLabel.setVerticalTextPosition(JLabel.BOTTOM);
+        studentIdLabel.setHorizontalTextPosition(JLabel.CENTER);
+        studentIdLabel.setHorizontalAlignment(JLabel.CENTER);
+        studentIdLabel.setVerticalAlignment(JLabel.CENTER);
+        studentPanel.add(studentIdLabel, BorderLayout.NORTH);
 
-        JLabel idLabel = new JLabel();
-        idLabel.setText("2230000");
-        idLabel.setFont(resources.montserratBold.deriveFont(15f));
-        idLabel.setForeground(resources.antiflashWhite);
-        idLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        idLabel.setVerticalAlignment(SwingConstants.CENTER);
-        studentPanel.add(idLabel, BorderLayout.SOUTH);
+        // !!!!! Student Name
+        JLabel studentNameLabel = new JLabel();
+        studentNameLabel.setText("Jasmin, Marvin Rithik John" + " - " + "BSCS");
+        studentNameLabel.setFont(resources.montserrat.deriveFont(20f));
+        studentNameLabel.setForeground(resources.antiflashWhite);
+        studentNameLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        studentNameLabel.setVerticalAlignment(SwingConstants.CENTER);
+        studentPanel.add(studentNameLabel, BorderLayout.CENTER);
 
+        // !!! ID Text Field
+        JTextField idTextField = new JTextField(5);
+        idTextField.setText("ID Number");
+        idTextField.setFont(resources.montserrat.deriveFont(12f));
+        idTextField.setPreferredSize(new Dimension(10,10));
+        searchPanel.add(idTextField, BorderLayout.CENTER);
 
-        // !!! Name Text Field
-        gbc.gridy = 1;
+        idTextField.addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                if (idTextField.getText().equals("ID Number")) {
+                    idTextField.setText("");
+                    idTextField.setForeground(Color.BLACK);
+                } // end of if
+            } // end of focusedGained method
+            @Override
+            public void focusLost(FocusEvent e) {
+                if (idTextField.getText().isBlank()) {
+                    idTextField.setText("ID Number");
+                    idTextField.setForeground(Color.BLACK);
+                } // end of if
+            } // end of focusLost method
+        }); // end of idTextField method
 
-        JTextField nameTextField = new JTextField();
-        nameTextField.setFont(resources.montserrat.deriveFont(15f));
-        nameTextField.setText("Search by Name");
-        nameTextField.setColumns(14);
-        nameTextField.setForeground(Color.BLACK);
-        searchPanel.add(nameTextField, gbc);
+        // !! Buttons Panel 1
+        JPanel buttonsPanel1 = new JPanel();
+        buttonsPanel1.setLayout(new FlowLayout());
+        buttonsPanel1.setBackground(Color.darkGray);
+        buttonsPanel1.setPreferredSize(new Dimension(500, 100));
+        searchPanel.add(buttonsPanel1, BorderLayout.SOUTH);
 
-        // !!! ID Number Text Field
-        gbc.gridy = 2;
-        gbc.gridwidth = 1;
-        gbc.gridx = 0;
-
-        JTextField idTextField = new JTextField();
-        idTextField.setFont(resources.montserrat.deriveFont(15f));
-        idTextField.setText("Search by SLU ID Number");
-        idTextField.setColumns(14);
-        idTextField.setForeground(Color.BLACK);
-        searchPanel.add(idTextField, gbc);
-
-        // !!! Course Combo Box
-        gbc.gridx = 1;
-
-        String[] courses = {"BSCS","BSIT"}; // tentative array of courses
-
-        JComboBox<String> programComboBox = new JComboBox<>(courses);
-        programComboBox.setFont(resources.montserrat.deriveFont(15f));
-        programComboBox.setForeground(Color.BLACK);
-        searchPanel.add(programComboBox, gbc);
-
-        // !! Buttons Panel
-        JPanel buttonsPanel = new JPanel();
-        buttonsPanel.setLayout(new GridBagLayout());
-        buttonsPanel.setBackground(resources.antiflashWhite);
-        buttonsPanel.setPreferredSize(new Dimension(500, 100));
-        containerPanel1.add(buttonsPanel, BorderLayout.SOUTH);
-
-        // !!! Buttons Panel Components
-        gbc.insets = new Insets(5,200,5,200);
-        gbc.weightx = 1;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.gridwidth = 2;
+        // !!! Buttons Panel 1 Components
 
         // !!! Search Button
         ImageIcon searchIcon = new ImageIcon("icons/person-search-icon-black.png");
-
-        gbc.gridy = 0;
 
         JButton searchButton = new JButton();
         searchButton.setText("Search");
@@ -511,24 +671,55 @@ public class Portal extends JFrame {
         searchButton.setFont(resources.montserrat.deriveFont(15f));
         searchButton.setOpaque(true);
         searchButton.setBorderPainted(false);
-        searchButton.setBackground(resources.airSuperiorityBlue);
+        searchButton.setBackground(resources.uranianBlue);
         searchButton.setForeground(Color.BLACK);
-        buttonsPanel.add(searchButton, gbc);
+        buttonsPanel1.add(searchButton);
 
         // !!! Clear Button
         ImageIcon clearIcon = new ImageIcon("icons/clear_all-icon-black.png");
 
-        gbc.gridy = 1;
-
         JButton clearButton = new JButton();
-        clearButton.setText("Clear All");
+        clearButton.setText("Clear");
         clearButton.setIcon(clearIcon);
         clearButton.setFont(resources.montserrat.deriveFont(15f));
         clearButton.setOpaque(true);
         clearButton.setBorderPainted(false);
-        clearButton.setBackground(resources.airSuperiorityBlue);
+        clearButton.setBackground(resources.uranianBlue);
         clearButton.setForeground(Color.BLACK);
-        buttonsPanel.add(clearButton, gbc);
+        buttonsPanel1.add(clearButton);
+
+        // !! Buttons Panel 2
+        JPanel buttonsPanel2 = new JPanel();
+        buttonsPanel2.setLayout(new FlowLayout());
+        buttonsPanel2.setBackground(resources.antiflashWhite);
+        buttonsPanel2.setPreferredSize(new Dimension(500,100));
+        containerPanel1.add(buttonsPanel2, BorderLayout.SOUTH);
+
+        // !!! Buttons Panel 2 Components
+
+        // !!! Add Student Button
+        ImageIcon addStudentIcon = new ImageIcon("icons/add-student-icon-black.png");
+        JButton addStudentButton = new JButton();
+        addStudentButton.setText("Add Student");
+        addStudentButton.setIcon(addStudentIcon);
+        addStudentButton.setFont(resources.montserratBold.deriveFont(20f));
+        addStudentButton.setOpaque(true);
+        addStudentButton.setBorderPainted(false);
+        addStudentButton.setBackground(resources.airSuperiorityBlue);
+        addStudentButton.setForeground(Color.BLACK);
+        buttonsPanel2.add(addStudentButton);
+
+        // !!! Remove Student Button
+        ImageIcon removeStudentIcon = new ImageIcon("icons/remove-student-icon-black.png");
+        JButton removeStudentButton = new JButton();
+        removeStudentButton.setText("Remove Student");
+        removeStudentButton.setIcon(removeStudentIcon);
+        removeStudentButton.setFont(resources.montserratBold.deriveFont(20f));
+        removeStudentButton.setOpaque(true);
+        removeStudentButton.setBorderPainted(false);
+        removeStudentButton.setBackground(resources.airSuperiorityBlue);
+        removeStudentButton.setForeground(Color.BLACK);
+        buttonsPanel2.add(removeStudentButton);
 
         // ! Container 2
         JPanel containerPanel2 = new JPanel();
@@ -544,7 +735,7 @@ public class Portal extends JFrame {
         headingPanel.setLayout(new BorderLayout());
         headingPanel.setBorder(resources.thinPadding);
         headingPanel.setBackground(resources.yinmnBlue);
-        headingPanel.setPreferredSize(new Dimension(910,30));
+        headingPanel.setPreferredSize(new Dimension(910,40));
         containerPanel2.add(headingPanel, BorderLayout.NORTH);
 
         // !!!! Heading Panel Components
@@ -560,35 +751,138 @@ public class Portal extends JFrame {
 
         // !!! Body Panel
         JPanel bodyPanel = new JPanel();
-        bodyPanel.setLayout(cardLayout2);
-        bodyPanel.setBorder(resources.normalPadding);
+        bodyPanel.setLayout(new BorderLayout());
+        bodyPanel.setBorder(resources.thinPadding);
         bodyPanel.setBackground(Color.WHITE);
         containerPanel2.add(bodyPanel, BorderLayout.CENTER);
 
         // !!!! Body Panel Components
 
-        // FIXME: 9/18/2023 - The JTable needs to be fixed.
+        // !!!! Top Panel
+        JPanel topPanel = new JPanel();
+        topPanel.setLayout(new BorderLayout());
+        topPanel.setBackground(Color.WHITE);
+        topPanel.setPreferredSize(new Dimension(910, 35));
+        bodyPanel.add(topPanel, BorderLayout.NORTH);
 
-        // !!!!! Table
-        String[][] data = {
-                {"CS 211","Data Structures","99","3"}
+        // !!!!! Top Panel Components
+
+        // !!!!! Year Label
+        ImageIcon pinIcon = new ImageIcon("icons/pin-icon-black.png");
+        JLabel yearLabel = new JLabel();
+        yearLabel.setText("Year 1");
+        yearLabel.setIcon(pinIcon);
+        yearLabel.setFont(resources.montserrat.deriveFont(11f));
+        yearLabel.setForeground(Color.BLACK);
+        yearLabel.setHorizontalAlignment(SwingConstants.LEFT);
+        yearLabel.setVerticalAlignment(SwingConstants.CENTER);
+        topPanel.add(yearLabel, BorderLayout.WEST);
+
+        // !!!!! Nav Button Panel
+        JPanel navButtonPanel = new JPanel();
+        navButtonPanel.setLayout(new FlowLayout());
+        navButtonPanel.setBackground(Color.WHITE);
+        navButtonPanel.setPreferredSize(new Dimension(110, 20));
+        topPanel.add(navButtonPanel, BorderLayout.EAST);
+
+        // !!!!!! Nav Button Components
+
+        // !!!!!! Previous Button
+        ImageIcon prevIcon = new ImageIcon("icons/arrow_back-icon-black.png");
+        ImageIcon scaledPrevIcon = resources.scaleImage(prevIcon, 15, 15);
+        JButton prevButton = new JButton();
+        prevButton.setIcon(scaledPrevIcon);
+        prevButton.setFont(resources.montserrat.deriveFont(11f));
+        prevButton.setOpaque(false);
+        prevButton.setContentAreaFilled(false);
+        prevButton.setBorderPainted(false);
+        prevButton.setHorizontalAlignment(SwingConstants.RIGHT);
+        prevButton.setVerticalAlignment(SwingConstants.CENTER);
+        navButtonPanel.add(prevButton);
+
+        // !!!!!! Next Button
+        ImageIcon nextIcon = new ImageIcon("icons/arrow_forward-icon-black.png");
+        ImageIcon scaledNextIcon = resources.scaleImage(nextIcon, 15, 15);
+        JButton nextButton = new JButton();
+        nextButton.setIcon(scaledNextIcon);
+        nextButton.setOpaque(false);
+        nextButton.setContentAreaFilled(false);
+        nextButton.setBorderPainted(false);
+        nextButton.setHorizontalAlignment(SwingConstants.RIGHT);
+        nextButton.setVerticalAlignment(SwingConstants.CENTER);
+        navButtonPanel.add(nextButton);
+
+        // !!!! Table Panel
+        JPanel tablePanel = new JPanel();
+        tablePanel.setLayout(new GridLayout(1,1));
+        tablePanel.setBackground(Color.WHITE);
+        tablePanel.setBorder(resources.thinPadding);
+        bodyPanel.add(tablePanel, BorderLayout.CENTER);
+
+        // !!!!! Table Panel Components
+        String[] columnNames = {"Course Number" , "Descriptive Title" , "Grade" , "Units"};
+        String [][] data = {
+                {"CS211", "Data Structures" , "99" , "3"}
         };
-        String[] columnNames = {"Course Number","Descriptive Title","Final Grade","Units"};
 
-        JTable records = new JTable(data, columnNames);
-        records.getTableHeader().setFont(resources.montserratBold.deriveFont(12f));
-        records.getTableHeader().setOpaque(false);
-        records.getTableHeader().setBackground(resources.uranianBlue);
-        records.getTableHeader().setForeground(Color.BLACK);
-        records.setFont(resources.montserrat.deriveFont(10f));
-        records.setShowVerticalLines(true);
-        records.setShowHorizontalLines(false);
-        records.setShowGrid(false);
+        JTable table = new JTable(data, columnNames);
+        table.setOpaque(false);
+        table.setBackground(Color.WHITE);
+        table.setForeground(Color.BLACK);
+        table.setFont(resources.montserrat.deriveFont(10f));
 
-        JScrollPane scrollPane = new JScrollPane(records);
+        JScrollPane scrollPane = new JScrollPane(table);
+        scrollPane.setBackground(Color.WHITE);
         scrollPane.setOpaque(false);
-        bodyPanel.add(scrollPane);
+        tablePanel.add(scrollPane);
 
+
+        // !!!!! CRUD Button Panel
+        JPanel crudButtons = new JPanel();
+        crudButtons.setLayout(new FlowLayout());
+        crudButtons.setBackground(Color.WHITE);
+        crudButtons.setPreferredSize(new Dimension(910, 40));
+        bodyPanel.add(crudButtons, BorderLayout.SOUTH);
+
+        // !!!!!! CRUD Button Components
+
+        // !!!!!! Add Button
+
+        // !!!!!! Edit Button
+        ImageIcon editIcon = new ImageIcon("icons/edit-icon-black.png");
+        JButton editButton = new JButton();
+        editButton.setText("Edit");
+        editButton.setIcon(editIcon);
+        editButton.setFont(resources.montserrat.deriveFont(11f));
+        editButton.setOpaque(true);
+        editButton.setBorderPainted(false);
+        editButton.setBackground(resources.uranianBlue);
+        editButton.setForeground(Color.BLACK);
+        crudButtons.add(editButton);
+
+        // !!!!!! Delete Button
+        ImageIcon deleteIcon = new ImageIcon("icons/delete-icon-black.png");
+        JButton deleteButton = new JButton();
+        deleteButton.setText("Delete");
+        deleteButton.setIcon(deleteIcon);
+        deleteButton.setFont(resources.montserrat.deriveFont(11f));
+        deleteButton.setOpaque(true);
+        deleteButton.setBorderPainted(false);
+        deleteButton.setBackground(resources.uranianBlue);
+        deleteButton.setForeground(Color.BLACK);
+        crudButtons.add(deleteButton);
+
+        // !!!!!! Export Button
+        ImageIcon exportIcon = new ImageIcon("icons/export-icon-black.png");
+        JButton exportButton = new JButton();
+        exportButton.setText("Export as CSV");
+        exportButton.setIcon(exportIcon);
+        exportButton.setFont(resources.montserrat.deriveFont(11f));
+        exportButton.setOpaque(true);
+        exportButton.setBorderPainted(false);
+        exportButton.setBackground(resources.uranianBlue);
+        exportButton.setForeground(Color.BLACK);
+        crudButtons.add(exportButton);
 
         // Action Listeners
         // FIXME: 9/17/2023
@@ -598,6 +892,23 @@ public class Portal extends JFrame {
 
         return torPanel;
     } // end of populateTorPanel
+
+    /**
+     * TODO: Documentation
+     * @return
+     */
+    private JPanel populateChecklistPanel() {
+        // Checklist Panel
+        JPanel checklistPanel = new JPanel();
+        checklistPanel.setLayout(new BorderLayout());
+        checklistPanel.setBackground(resources.antiflashWhite);
+        checklistPanel.setPreferredSize(new Dimension(910,700));
+
+        // ! Checklist Panel Components
+        // TODO: Supporting Code
+
+        return checklistPanel;
+    } // end of populateChecklistPanel method
 
     /*
     To be removed.

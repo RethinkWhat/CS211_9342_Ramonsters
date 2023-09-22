@@ -288,6 +288,8 @@ public class Portal extends JFrame {
         homeButton.setBorderPainted(true);
         homeButton.setOpaque(false);
         homeButton.setContentAreaFilled(false);
+        homeButton.setFocusable(false);
+        homeButton.setFocusPainted(false);
         navPanel.add(homeButton, gbc);
 
         // !! Schedule Button
@@ -301,6 +303,8 @@ public class Portal extends JFrame {
         scheduleButton.setBorderPainted(false);
         scheduleButton.setOpaque(false);
         scheduleButton.setContentAreaFilled(false);
+        scheduleButton.setFocusable(false);
+        scheduleButton.setFocusPainted(false);
         navPanel.add(scheduleButton, gbc);
 
         // !! Attendance Button
@@ -314,6 +318,8 @@ public class Portal extends JFrame {
         torButton.setBorderPainted(false);
         torButton.setOpaque(false);
         torButton.setContentAreaFilled(false);
+        torButton.setFocusable(false);
+        torButton.setFocusPainted(false);
         navPanel.add(torButton, gbc);
 
         // !! Statement of Curriculum Checklist Button
@@ -327,6 +333,8 @@ public class Portal extends JFrame {
         checklistButton.setBorderPainted(false);
         checklistButton.setOpaque(false);
         checklistButton.setContentAreaFilled(false);
+        checklistButton.setFocusable(false);
+        checklistButton.setFocusPainted(false);
         navPanel.add(checklistButton, gbc);
 
         // !! Personal Details Button
@@ -340,6 +348,8 @@ public class Portal extends JFrame {
         personalDetailsButton.setBorderPainted(false);
         personalDetailsButton.setOpaque(false);
         personalDetailsButton.setContentAreaFilled(false);
+        personalDetailsButton.setFocusable(false);
+        personalDetailsButton.setFocusPainted(false);
         navPanel.add(personalDetailsButton, gbc);
 
         return sidebarPanel;
@@ -704,11 +714,10 @@ public class Portal extends JFrame {
         searchButton.setBorderPainted(false);
         searchButton.setBackground(resources.uranianBlue);
         searchButton.setForeground(Color.BLACK);
+        searchButton.setFocusable(false);
+        searchButton.setFocusPainted(false);
         buttonsPanel1.add(searchButton);
 
-        // Search Button listener
-        searchButton.addActionListener(e->
-                updateStudentShown(Main.search(idTextField.getText())));
         // !!! Clear Button
         ImageIcon clearIcon = new ImageIcon("icons/clear_all-icon-black.png");
 
@@ -720,24 +729,40 @@ public class Portal extends JFrame {
         clearButton.setBorderPainted(false);
         clearButton.setBackground(resources.uranianBlue);
         clearButton.setForeground(Color.BLACK);
+        clearButton.setFocusable(false);
+        clearButton.setFocusPainted(false);
         buttonsPanel1.add(clearButton);
+
+        ImageIcon nextIcon = new ImageIcon("icons/arrow_forward-icon-black.png");
+        JButton nextTorButton = new JButton();
+        nextTorButton.setText("Next");
+        nextTorButton.setIcon(nextIcon);
+        nextTorButton.setFont(resources.montserrat.deriveFont(15f));
+        nextTorButton.setOpaque(true);
+        nextTorButton.setBorderPainted(false);
+        nextTorButton.setBackground(resources.uranianBlue);
+        nextTorButton.setForeground(Color.BLACK);
+        nextTorButton.setFocusable(false);
+        nextTorButton.setFocusPainted(false);
+        nextTorButton.setVisible(false);
+        buttonsPanel1.add(nextTorButton);
+
+        // Action Listeners
+        searchButton.addActionListener(e-> {
+            updateStudentShown(Main.search(idTextField.getText()));
+            if (!studentNameLabel.getText().equalsIgnoreCase("ID Number")
+            && !studentIdLabel.getText().equalsIgnoreCase("Last Name, First Name")) {
+                nextTorButton.setVisible(true);
+            }
+        });
+
 
         clearButton.addActionListener(e -> {
             studentNameLabel.setForeground(resources.antiflashWhite);
             studentIdLabel.setText("ID Number");
             studentNameLabel.setText("Last Name, First Name");
             idTextField.setText("ID Number");
-
         });
-
-        JButton transcriptButton = new JButton();
-        transcriptButton.setText("Transcript"); //TODO: Change Name
-        transcriptButton.setIcon(clearIcon); //TODO: Change Icon
-        transcriptButton.setFont(resources.montserrat.deriveFont(15f));
-        transcriptButton.setOpaque(true);
-        transcriptButton.setBorderPainted(false);
-        transcriptButton.setBackground(resources.uranianBlue);
-        transcriptButton.setForeground(Color.BLACK);
 
         // !! Buttons Panel 2
         JPanel buttonsPanel2 = new JPanel();
@@ -758,6 +783,8 @@ public class Portal extends JFrame {
         addStudentButton.setBorderPainted(false);
         addStudentButton.setBackground(resources.airSuperiorityBlue);
         addStudentButton.setForeground(Color.BLACK);
+        addStudentButton.setFocusable(false);
+        addStudentButton.setFocusPainted(false);
         buttonsPanel2.add(addStudentButton);
 
         // !!! Remove Student Button
@@ -770,6 +797,8 @@ public class Portal extends JFrame {
         removeStudentButton.setBorderPainted(false);
         removeStudentButton.setBackground(resources.airSuperiorityBlue);
         removeStudentButton.setForeground(Color.BLACK);
+        removeStudentButton.setFocusable(false);
+        removeStudentButton.setFocusPainted(false);
         buttonsPanel2.add(removeStudentButton);
 
         // ! Container 2
@@ -849,10 +878,11 @@ public class Portal extends JFrame {
         prevButton.setBorderPainted(false);
         prevButton.setHorizontalAlignment(SwingConstants.RIGHT);
         prevButton.setVerticalAlignment(SwingConstants.CENTER);
+        prevButton.setFocusable(false);
+        prevButton.setFocusPainted(false);
         navButtonPanel.add(prevButton);
 
         // !!!!!! Next Button
-        ImageIcon nextIcon = new ImageIcon("icons/arrow_forward-icon-black.png");
         ImageIcon scaledNextIcon = resources.scaleImage(nextIcon, 15, 15);
         JButton nextButton = new JButton();
         nextButton.setIcon(scaledNextIcon);
@@ -861,6 +891,8 @@ public class Portal extends JFrame {
         nextButton.setBorderPainted(false);
         nextButton.setHorizontalAlignment(SwingConstants.RIGHT);
         nextButton.setVerticalAlignment(SwingConstants.CENTER);
+        nextButton.setFocusable(false);
+        nextButton.setFocusPainted(false);
         navButtonPanel.add(nextButton);
 
         // !!!! Table Panel
@@ -926,6 +958,8 @@ public class Portal extends JFrame {
         editButton.setBorderPainted(false);
         editButton.setBackground(resources.uranianBlue);
         editButton.setForeground(Color.BLACK);
+        editButton.setFocusable(false);
+        editButton.setFocusPainted(false);
         crudButtons.add(editButton);
 
         // !!!!!! Delete Button
@@ -938,6 +972,8 @@ public class Portal extends JFrame {
         deleteButton.setBorderPainted(false);
         deleteButton.setBackground(resources.uranianBlue);
         deleteButton.setForeground(Color.BLACK);
+        deleteButton.setFocusable(false);
+        deleteButton.setFocusPainted(false);
         crudButtons.add(deleteButton);
 
         // !!!!!! Export Button
@@ -950,13 +986,9 @@ public class Portal extends JFrame {
         exportButton.setBorderPainted(false);
         exportButton.setBackground(resources.uranianBlue);
         exportButton.setForeground(Color.BLACK);
+        exportButton.setFocusable(false);
+        exportButton.setFocusPainted(false);
         crudButtons.add(exportButton);
-
-        // Action Listeners
-        // FIXME: 9/17/2023
-  //      searchButton.addActionListener(e->{
-    //        cardLayout1.show(torPanel, "2");
-     //   });
 
         return torPanel;
     } // end of populateTorPanel

@@ -12,6 +12,7 @@ public class Course {
         this.courseNumber = courseNumber;
         this.descriptiveName = descriptiveName;
         this.units = units;
+        this.grade = 0;
     }
 
     public Course(String courseNumber, String descriptiveName, int units, int grade) {

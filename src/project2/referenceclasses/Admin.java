@@ -63,7 +63,7 @@ public class Admin {
 
     //@Override
     public boolean equals(Node<Admin> obj) {
-        return this.password.equalsIgnoreCase(obj.data.getPassword());
+        return this.password.equals(obj.data.getPassword()) && this.userName.equalsIgnoreCase(obj.getData().getUserName());
     }
 
     @Override

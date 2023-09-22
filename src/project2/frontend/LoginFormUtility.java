@@ -17,13 +17,13 @@ import java.util.Scanner;
  * Template for LoginFormUtility object.
  */
 public class LoginFormUtility {
-    public boolean validate(String userName, char[] password){
+    public static Node<Admin> validate(String userName, char[] password){
         LinkedList<Admin> adminLinkedList = new LinkedList<Admin>();
         try {
             Scanner fileReader = new Scanner(new File("src/project2/backend/adminlist"));
             while (fileReader.hasNext()) {
                 String[] lines = fileReader.nextLine().split(",");
-                Admin adminObj = new Admin(lines[3], lines[4]);
+                Admin adminObj = new Admin(lines[1],lines[2],lines[3],lines[4],lines[0]);
                 adminLinkedList.insert(adminObj);
             }
         } catch (FileNotFoundException ex) {
@@ -33,13 +33,11 @@ public class LoginFormUtility {
         Admin checkAccount = new Admin(userName,String.valueOf(password));
         while (tempPointer!=null) {
             if (checkAccount.equals(tempPointer)) {
-                //TODO Call Portal method
-                System.out.println("LOGGED IN");
-                return true;
+                return tempPointer;
             }
             tempPointer = tempPointer.getNext();
         }
-        return false;
+        return tempPointer;
     }
 
 } // end of class LoginFormUtility

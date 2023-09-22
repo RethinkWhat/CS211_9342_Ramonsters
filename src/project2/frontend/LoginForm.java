@@ -1,5 +1,8 @@
 package project2.frontend;
 
+import project2.backend.Node;
+import project2.referenceclasses.Admin;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
@@ -22,6 +25,10 @@ public class LoginForm extends JFrame {
      * Constructs an object of LoginForm.
      * Contains the components of the login and signup form.
      */
+
+    public JLabel errorLabel = new JLabel();
+    JButton loginButton = new JButton();
+    Node<Admin> isValid;
     public LoginForm() {
         super("SLU Portal Login Form");
 
@@ -148,7 +155,6 @@ public class LoginForm extends JFrame {
         // !!!!! Error Label
         gbc.gridy = 2;
 
-        JLabel errorLabel = new JLabel();
         errorLabel.setForeground(Color.RED);
         errorLabel.setFont(resources.montserrat.deriveFont(12f));
         errorLabel.setVisible(false);
@@ -164,7 +170,6 @@ public class LoginForm extends JFrame {
 
         // !!!! Buttons Panel Components
         ImageIcon loginIcon = new ImageIcon("icons/login-icon-black.png");
-        JButton loginButton = new JButton();
         loginButton.setText("Login");
         loginButton.setIcon(loginIcon);
         loginButton.setFont(resources.montserrat.deriveFont(15f));
@@ -195,8 +200,7 @@ public class LoginForm extends JFrame {
         passwordField.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                boolean isValid = new LoginFormUtility().validate(usernameTextField.getText(), passwordField.getPassword());
-                if (!isValid) {
+                if (isValid==null) {
                     errorLabel.setText("Wrong Password. Try again.");
                     errorLabel.setVisible(true);
                 } else {
@@ -232,12 +236,56 @@ public class LoginForm extends JFrame {
             } // end of focusLost method
         }); // end of Focus Listener for passwordField
 
+
+        // !!!!! Error Label
+        gbc.gridy = 2;
+
+        errorLabel = new JLabel();
+        errorLabel.setForeground(Color.RED);
+        errorLabel.setFont(resources.montserrat.deriveFont(12f));
+        fieldPanel.add(errorLabel, gbc);
+
+
+        // !!! Buttons Panel
+        buttonsPanel = new JPanel();
+        buttonsPanel.setLayout(new FlowLayout());
+        buttonsPanel.setBackground(resources.antiflashWhite);
+        buttonsPanel.setPreferredSize(new Dimension(200, 70));
+        buttonsPanel.setBorder(resources.thinPadding);
+        middlePanel.add(buttonsPanel, BorderLayout.SOUTH);
+
+        // !!!! Buttons Panel Components
+        loginIcon = new ImageIcon("icons/login-icon-black.png");
+        loginButton = new JButton();
+        loginButton.setText("Login");
+        loginButton.setIcon(loginIcon);
+        loginButton.setFont(resources.montserrat.deriveFont(15f));
+        loginButton.setOpaque(true);
+        loginButton.setBorderPainted(false);
+        loginButton.setBackground(resources.airSuperiorityBlue);
+        loginButton.setForeground(Color.BLACK);
+        loginButton.requestFocus();
+        buttonsPanel.add(loginButton);
+
+        // MAIN
         GridBagConstraints gbcButton = new GridBagConstraints();
         gbcButton.gridx = 0;
         gbcButton.gridy = 0;
         gbcButton.insets = new Insets(5, 5, 5, 5); // Add some padding
         gbcButton.fill = GridBagConstraints.CENTER; // Center the button
         buttonsPanel.add(loginButton, gbcButton);
+        //=======
+        loginButton.addActionListener(e -> {
+
+            Node<Admin> admin = LoginFormUtility.validate(usernameTextField.getText(), passwordField.getPassword());
+            if (admin!=null) {
+                this.dispose();
+                new Portal(admin);
+            } else {
+                errorLabel.setText("Wrong Password. Try again.");
+
+            }
+        });
 
         loginButton.addMouseListener(new MouseAdapter() {
             public void mouseEntered(MouseEvent e) {
@@ -248,8 +296,8 @@ public class LoginForm extends JFrame {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                boolean isValid = new LoginFormUtility().validate(usernameTextField.getText(), passwordField.getPassword());
-                if (!isValid) {
+                isValid = new LoginFormUtility().validate(usernameTextField.getText(), passwordField.getPassword());
+                if (isValid == null) {
                     errorLabel.setText("Wrong Password. Try again.");
                     errorLabel.setVisible(true);
                 } else {

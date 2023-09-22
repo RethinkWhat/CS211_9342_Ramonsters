@@ -1,5 +1,7 @@
 package project2.frontend;
 
+import project2.backend.Node;
+import project2.referenceclasses.Admin;
 import project2.referenceclasses.Student;
 
 import javax.swing.*;
@@ -67,7 +69,7 @@ public class Portal extends JFrame {
      * Constructs an object of Portal.
      * Contains the components of the SLU Portal.
      */
-    public Portal() {
+    public Portal(Node<Admin> admin) {
         super("SLU Portal");
 
         resources.loadFonts();
@@ -79,7 +81,7 @@ public class Portal extends JFrame {
         add(mainPanel);
 
         // ! Header Panel
-        JPanel headerPanel = populateHeader(); // Holds the header
+        JPanel headerPanel = populateHeader(admin); // Holds the header
         mainPanel.add(headerPanel, BorderLayout.NORTH);
 
         // ! Sidebar Panel
@@ -178,7 +180,7 @@ public class Portal extends JFrame {
      * TODO: Documentation
      * @return
      */
-    private JPanel populateHeader() {
+    private JPanel populateHeader(Node<Admin> admin) {
         // Header panel
         JPanel headerPanel = new JPanel(); // Container for the header components
         headerPanel.setLayout(new BorderLayout());
@@ -218,7 +220,7 @@ public class Portal extends JFrame {
 
         // !! Account Name
         JLabel nameLabel = new JLabel();
-        nameLabel.setText("Manoj Kumar Tank");
+        nameLabel.setText(admin.getData().getFirstName() + " " + admin.getData().getLastName());
         nameLabel.setFont(resources.montserrat.deriveFont(12f));
         nameLabel.setForeground(Color.BLACK);
         nameLabel.setVerticalAlignment(SwingConstants.CENTER);
@@ -544,7 +546,7 @@ public class Portal extends JFrame {
         studentCounterPanel.add(studentHeader, BorderLayout.NORTH);
 
         JLabel studentCountLabel = new JLabel();
-        studentCountLabel.setText("69420"); // use getter or similar method to count nodes of students
+        studentCountLabel.setText(String.valueOf(Main.studentLinkedList.getSize())); // use getter or similar method to count nodes of students
         studentCountLabel.setFont(resources.montserrat.deriveFont(50f));
         studentCountLabel.setForeground(resources.antiflashWhite);
         studentCounterPanel.add(studentCountLabel, BorderLayout.CENTER);
@@ -721,11 +723,21 @@ public class Portal extends JFrame {
         buttonsPanel1.add(clearButton);
 
         clearButton.addActionListener(e -> {
+            studentNameLabel.setForeground(resources.antiflashWhite);
             studentIdLabel.setText("ID Number");
             studentNameLabel.setText("Last Name, First Name");
             idTextField.setText("ID Number");
 
         });
+
+        JButton transcriptButton = new JButton();
+        transcriptButton.setText("Transcript"); //TODO: Change Name
+        transcriptButton.setIcon(clearIcon); //TODO: Change Icon
+        transcriptButton.setFont(resources.montserrat.deriveFont(15f));
+        transcriptButton.setOpaque(true);
+        transcriptButton.setBorderPainted(false);
+        transcriptButton.setBackground(resources.uranianBlue);
+        transcriptButton.setForeground(Color.BLACK);
 
         // !! Buttons Panel 2
         JPanel buttonsPanel2 = new JPanel();
@@ -973,12 +985,4 @@ public class Portal extends JFrame {
         personalPanel.setPreferredSize(new Dimension(910,700));
         return personalPanel;
     }
-
-    /*
-    To be removed.
-    Will only be used for testing.
-     */
-    public static void main(String[] args) {
-        new Portal();
-    } // end of main method
 } // end of class Portal

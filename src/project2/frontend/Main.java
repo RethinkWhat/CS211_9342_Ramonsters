@@ -69,6 +69,6 @@ public class Main {
     }
 
     public static void removeStudent(String idNumber){
-        Node<Student> curr = studentLinkedList.getHead()
+        Node<Student> curr = studentLinkedList.getHead();
     }
 } // end of class Main

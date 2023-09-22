@@ -200,11 +200,13 @@ public class LoginForm extends JFrame {
         passwordField.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (isValid==null) {
+                isValid = new LoginFormUtility().validate(usernameTextField.getText(), passwordField.getPassword());
+                if (isValid == null) {
                     errorLabel.setText("Wrong Password. Try again.");
                     errorLabel.setVisible(true);
                 } else {
                     errorLabel.setVisible(false);
+                    loginButton.doClick();
                 }
                 loginButton.setBackground(Color.LIGHT_GRAY);
                 Timer timer = new Timer(300, new ActionListener() {

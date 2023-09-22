@@ -687,6 +687,8 @@ public class Portal extends JFrame {
         searchButton.setBorderPainted(false);
         searchButton.setBackground(resources.uranianBlue);
         searchButton.setForeground(Color.BLACK);
+        searchButton.setFocusable(false);
+        searchButton.setFocusPainted(false);
         buttonsPanel1.add(searchButton);
 
         // !!! Clear Button
@@ -700,7 +702,22 @@ public class Portal extends JFrame {
         clearButton.setBorderPainted(false);
         clearButton.setBackground(resources.uranianBlue);
         clearButton.setForeground(Color.BLACK);
+        clearButton.setFocusable(false);
+        clearButton.setFocusPainted(false);
         buttonsPanel1.add(clearButton);
+
+        ImageIcon nextIcon = new ImageIcon("icons/arrow_forward-icon-black.png");
+        JButton nextTorButton = new JButton();
+        nextTorButton.setText("Next");
+        nextTorButton.setIcon(nextIcon);
+        nextTorButton.setFont(resources.montserrat.deriveFont(15f));
+        nextTorButton.setOpaque(true);
+        nextTorButton.setBorderPainted(false);
+        nextTorButton.setBackground(resources.uranianBlue);
+        nextTorButton.setForeground(Color.BLACK);
+        nextTorButton.setFocusable(false);
+        nextTorButton.setFocusPainted(false);
+        buttonsPanel1.add(nextTorButton);
 
         // !! Buttons Panel 2
         JPanel buttonsPanel2 = new JPanel();
@@ -721,6 +738,8 @@ public class Portal extends JFrame {
         addStudentButton.setBorderPainted(false);
         addStudentButton.setBackground(resources.airSuperiorityBlue);
         addStudentButton.setForeground(Color.BLACK);
+        addStudentButton.setFocusable(false);
+        addStudentButton.setFocusPainted(false);
         buttonsPanel2.add(addStudentButton);
 
         // !!! Remove Student Button
@@ -733,6 +752,8 @@ public class Portal extends JFrame {
         removeStudentButton.setBorderPainted(false);
         removeStudentButton.setBackground(resources.airSuperiorityBlue);
         removeStudentButton.setForeground(Color.BLACK);
+        removeStudentButton.setFocusable(false);
+        removeStudentButton.setFocusPainted(false);
         buttonsPanel2.add(removeStudentButton);
 
         // ! Container 2
@@ -812,10 +833,11 @@ public class Portal extends JFrame {
         prevButton.setBorderPainted(false);
         prevButton.setHorizontalAlignment(SwingConstants.RIGHT);
         prevButton.setVerticalAlignment(SwingConstants.CENTER);
+        prevButton.setFocusable(false);
+        prevButton.setFocusPainted(false);
         navButtonPanel.add(prevButton);
 
         // !!!!!! Next Button
-        ImageIcon nextIcon = new ImageIcon("icons/arrow_forward-icon-black.png");
         ImageIcon scaledNextIcon = resources.scaleImage(nextIcon, 15, 15);
         JButton nextButton = new JButton();
         nextButton.setIcon(scaledNextIcon);
@@ -824,6 +846,8 @@ public class Portal extends JFrame {
         nextButton.setBorderPainted(false);
         nextButton.setHorizontalAlignment(SwingConstants.RIGHT);
         nextButton.setVerticalAlignment(SwingConstants.CENTER);
+        nextButton.setFocusable(false);
+        nextButton.setFocusPainted(false);
         navButtonPanel.add(nextButton);
 
         // !!!! Table Panel
@@ -889,6 +913,8 @@ public class Portal extends JFrame {
         editButton.setBorderPainted(false);
         editButton.setBackground(resources.uranianBlue);
         editButton.setForeground(Color.BLACK);
+        editButton.setFocusable(false);
+        editButton.setFocusPainted(false);
         crudButtons.add(editButton);
 
         // !!!!!! Delete Button
@@ -901,6 +927,8 @@ public class Portal extends JFrame {
         deleteButton.setBorderPainted(false);
         deleteButton.setBackground(resources.uranianBlue);
         deleteButton.setForeground(Color.BLACK);
+        deleteButton.setFocusable(false);
+        deleteButton.setFocusPainted(false);
         crudButtons.add(deleteButton);
 
         // !!!!!! Export Button
@@ -913,6 +941,8 @@ public class Portal extends JFrame {
         exportButton.setBorderPainted(false);
         exportButton.setBackground(resources.uranianBlue);
         exportButton.setForeground(Color.BLACK);
+        exportButton.setFocusable(false);
+        exportButton.setFocusPainted(false);
         crudButtons.add(exportButton);
 
         // Action Listeners

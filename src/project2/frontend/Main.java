@@ -64,4 +64,11 @@ public class Main {
         }
         return null;
     }
+    public static void addStudent(Student newStudent){
+        studentLinkedList.insert(newStudent);
+    }
+
+    public static void removeStudent(String idNumber){
+        Node<Student> curr = studentLinkedList.getHead()
+    }
 } // end of class Main

@@ -691,6 +691,7 @@ public class Portal extends JFrame {
         searchButton.setFocusPainted(false);
         buttonsPanel1.add(searchButton);
 
+
         // !!! Clear Button
         ImageIcon clearIcon = new ImageIcon("icons/clear_all-icon-black.png");
 

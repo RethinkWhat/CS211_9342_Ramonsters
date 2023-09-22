@@ -38,13 +38,15 @@ public class Main {
      */
     private void run() {
         Student studentObj = new Student("2233293", "Rithik", "Tank", computerScience);
-        Student studentObj1 = new Student("2233375", "Johan", "Roxas", computerScience);
-        Student studentObj2 = new Student("2230153", "Patrick", "Lacanilao", computerScience);
-        Student studentObj3 = new Student("2230748", "Ramon", "Jasmin", computerScience);
+        Student studentObj1 = new Student("2233375", "Johan Rickardo", "Roxas", computerScience);
+        Student studentObj2 = new Student("2230153", "Marvin Patrick", "Lacanilao", computerScience);
+        Student studentObj3 = new Student("2230748", "Ramon Emmiel", "Jasmin", computerScience);
+        Student studentObj4 = new Student("2233205", "Sebastian", "Siccuan", computerScience);
         studentLinkedList.insert(studentObj);
         studentLinkedList.insert(studentObj1);
         studentLinkedList.insert(studentObj2);
         studentLinkedList.insert(studentObj3);
+        studentLinkedList.insert(studentObj4);
         resources.loadFonts();
 
         // TODO: Supporting methods/code.

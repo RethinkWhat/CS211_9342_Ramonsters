@@ -1,10 +1,20 @@
 package project2.frontend;
 
+import project2.referenceclasses.Student;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.TableModelListener;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
+import java.util.EventObject;
+
+import project2.referenceclasses.Student;
 
 /**
  * @author TBA
@@ -495,11 +505,10 @@ public class Portal extends JFrame {
         // !! Heading Panel 2
         JPanel headingPanel2 = new JPanel();
         headingPanel2.setLayout(new BorderLayout());
-        headingPanel2.setBackground(resources.battleshipGray);
+        headingPanel2.setBackground(resources.yinmnBlue);
         headingPanel2.setBorder(resources.thinPadding);
         headingPanel2.setPreferredSize(new Dimension(910,40));
         studentPanel.add(headingPanel2, BorderLayout.NORTH);
-
         // !!! Heading Panel 2 Components
         ImageIcon studentIcon = new ImageIcon("icons/students-icon-black.png");
 
@@ -507,7 +516,7 @@ public class Portal extends JFrame {
         studentsLabel.setText("Students Dashboard");
         studentsLabel.setIcon(studentIcon);
         studentsLabel.setFont(resources.montserratBold.deriveFont(12f));
-        studentsLabel.setForeground(Color.BLACK);
+        studentsLabel.setForeground(resources.antiflashWhite);
         headingPanel2.add(studentsLabel, BorderLayout.WEST);
 
         // !! Student Pin Panel
@@ -547,6 +556,20 @@ public class Portal extends JFrame {
      * TODO: Documentation
      * @return
      */
+
+    private void updateStudentShown(Student studentObj) {
+        if (studentObj==null) {
+            studentIdLabel.setText("Student not found");
+            studentNameLabel.setText("Please enter the ID number again.");
+            studentNameLabel.setForeground(resources.lipstickRed);
+        }
+        else {
+            studentNameLabel.setForeground(resources.antiflashWhite);
+            studentIdLabel.setText(studentObj.getIdNumber());
+            studentNameLabel.setText(studentObj.getLastName() + ", " + studentObj.getFirstName());
+        }
+    }
+
     private JPanel populateSchedulePanel() {
         JPanel schedulePanel = new JPanel();
         schedulePanel.setLayout(new BorderLayout());
@@ -572,6 +595,8 @@ public class Portal extends JFrame {
         return schedulePanel;
     } // end of populateSchedulePanel method
 
+    public JLabel studentIdLabel = new JLabel();
+    public JLabel studentNameLabel = new JLabel();
     private JPanel populateTorPanel() {
         // Transcript of Records Panel
         JPanel torPanel = new JPanel();
@@ -581,110 +606,93 @@ public class Portal extends JFrame {
         torPanel.setPreferredSize(new Dimension(910, 700));
 
         // ! TOR Components
-        
+
         // ! Container 1
         JPanel containerPanel1 = new JPanel();
         containerPanel1.setLayout(new BorderLayout());
+        containerPanel1.setBorder(resources.normalPadding);
         containerPanel1.setBackground(resources.antiflashWhite);
         containerPanel1.setPreferredSize(new Dimension(910,700));
         torPanel.add(containerPanel1, "1");
-        
+
         // !! Container 1 Components
-        
+
         // !! Search Panel
         JPanel searchPanel = new JPanel();
-        searchPanel.setLayout(new GridBagLayout());
+        searchPanel.setLayout(new BorderLayout());
         searchPanel.setBorder(resources.normalPadding);
         searchPanel.setBackground(Color.darkGray);
-        searchPanel.setPreferredSize(new Dimension(800,600));
+        searchPanel.setPreferredSize(new Dimension(800,400));
         containerPanel1.add(searchPanel, BorderLayout.CENTER);
-        
+
         // !!! Search Panel Components
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(5,20,5,20);
-        gbc.weightx = 1;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
 
-        // !!! Student Panel
-        gbc.gridy = 0;
-        gbc.gridwidth = 2;
-
+        // !!!! Student Panel
         JPanel studentPanel = new JPanel();
-        studentPanel.setLayout(new BorderLayout());
         studentPanel.setBackground(Color.darkGray);
-        studentPanel.setPreferredSize(new Dimension(800, 200));
-        searchPanel.add(studentPanel, gbc);
+        studentPanel.setLayout(new BorderLayout());
+        studentPanel.setBorder(resources.normalPadding);
+        studentPanel.setPreferredSize(new Dimension(800,200));
+        searchPanel.add(studentPanel, BorderLayout.NORTH);
 
-        // !!!! Student Panel Components
+        // !!!!! Student Icon Label
         ImageIcon studentIcon = new ImageIcon("icons/student-icon-black.png");
+        ImageIcon scaledStudentIcon = resources.scaleImage(studentIcon, 100, 100);
 
-        JLabel studentLabel = new JLabel();
-        studentLabel.setText("LAST NAME, FIRST NAME");
-        studentLabel.setIcon(studentIcon);
-        studentLabel.setFont(resources.montserratBold.deriveFont(15f));
-        studentLabel.setForeground(resources.antiflashWhite);
-        studentLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        studentLabel.setVerticalAlignment(SwingConstants.BOTTOM);
-        studentPanel.add(studentLabel, BorderLayout.CENTER);
+        // !!!!! Student ID Label
+        studentIdLabel.setText("ID Number");
+        studentIdLabel.setIcon(scaledStudentIcon);
+        studentIdLabel.setFont(resources.montserratBlack.deriveFont(50f));
+        studentIdLabel.setForeground(resources.antiflashWhite);
+        studentIdLabel.setVerticalTextPosition(JLabel.BOTTOM);
+        studentIdLabel.setHorizontalTextPosition(JLabel.CENTER);
+        studentIdLabel.setHorizontalAlignment(JLabel.CENTER);
+        studentIdLabel.setVerticalAlignment(JLabel.CENTER);
+        studentPanel.add(studentIdLabel, BorderLayout.NORTH);
 
-        JLabel idLabel = new JLabel();
-        idLabel.setText("2230000");
-        idLabel.setFont(resources.montserratBold.deriveFont(15f));
-        idLabel.setForeground(resources.antiflashWhite);
-        idLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        idLabel.setVerticalAlignment(SwingConstants.CENTER);
-        studentPanel.add(idLabel, BorderLayout.SOUTH);
+        // !!!!! Student Name
+        studentNameLabel.setText("Last Name, First Name");
+        studentNameLabel.setFont(resources.montserrat.deriveFont(20f));
+        studentNameLabel.setForeground(resources.antiflashWhite);
+        studentNameLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        studentNameLabel.setVerticalAlignment(SwingConstants.CENTER);
+        studentPanel.add(studentNameLabel, BorderLayout.CENTER);
 
+        // !!! ID Text Field
+        JTextField idTextField = new JTextField(5);
+        idTextField.setText("ID Number");
+        idTextField.setFont(resources.montserrat.deriveFont(12f));
+        idTextField.setPreferredSize(new Dimension(10,10));
+        searchPanel.add(idTextField, BorderLayout.CENTER);
 
-        // !!! Name Text Field
-        gbc.gridy = 1;
+        idTextField.addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                if (idTextField.getText().equals("ID Number")) {
+                    idTextField.setText("");
+                    idTextField.setForeground(Color.BLACK);
+                } // end of if
+            } // end of focusedGained method
+            @Override
+            public void focusLost(FocusEvent e) {
+                if (idTextField.getText().isBlank()) {
+                    idTextField.setText("ID Number");
+                    idTextField.setForeground(Color.BLACK);
+                } // end of if
+            } // end of focusLost method
+        }); // end of idTextField method
 
-        JTextField nameTextField = new JTextField();
-        nameTextField.setFont(resources.montserrat.deriveFont(15f));
-        nameTextField.setText("Search by Name");
-        nameTextField.setColumns(14);
-        nameTextField.setForeground(Color.BLACK);
-        searchPanel.add(nameTextField, gbc);
+        // !! Buttons Panel 1
+        JPanel buttonsPanel1 = new JPanel();
+        buttonsPanel1.setLayout(new FlowLayout());
+        buttonsPanel1.setBackground(Color.darkGray);
+        buttonsPanel1.setPreferredSize(new Dimension(500, 100));
+        searchPanel.add(buttonsPanel1, BorderLayout.SOUTH);
 
-        // !!! ID Number Text Field
-        gbc.gridy = 2;
-        gbc.gridwidth = 1;
-        gbc.gridx = 0;
-
-        JTextField idTextField = new JTextField();
-        idTextField.setFont(resources.montserrat.deriveFont(15f));
-        idTextField.setText("Search by SLU ID Number");
-        idTextField.setColumns(14);
-        idTextField.setForeground(Color.BLACK);
-        searchPanel.add(idTextField, gbc);
-
-        // !!! Course Combo Box
-        gbc.gridx = 1;
-
-        String[] courses = {"BSCS","BSIT"}; // tentative array of courses
-
-        JComboBox<String> programComboBox = new JComboBox<>(courses);
-        programComboBox.setFont(resources.montserrat.deriveFont(15f));
-        programComboBox.setForeground(Color.BLACK);
-        searchPanel.add(programComboBox, gbc);
-
-        // !! Buttons Panel
-        JPanel buttonsPanel = new JPanel();
-        buttonsPanel.setLayout(new GridBagLayout());
-        buttonsPanel.setBackground(resources.antiflashWhite);
-        buttonsPanel.setPreferredSize(new Dimension(500, 100));
-        containerPanel1.add(buttonsPanel, BorderLayout.SOUTH);
-
-        // !!! Buttons Panel Components
-        gbc.insets = new Insets(5,200,5,200);
-        gbc.weightx = 1;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.gridwidth = 2;
+        // !!! Buttons Panel 1 Components
 
         // !!! Search Button
         ImageIcon searchIcon = new ImageIcon("icons/person-search-icon-black.png");
-
-        gbc.gridy = 0;
 
         JButton searchButton = new JButton();
         searchButton.setText("Search");
@@ -692,24 +700,65 @@ public class Portal extends JFrame {
         searchButton.setFont(resources.montserrat.deriveFont(15f));
         searchButton.setOpaque(true);
         searchButton.setBorderPainted(false);
-        searchButton.setBackground(resources.airSuperiorityBlue);
+        searchButton.setBackground(resources.uranianBlue);
         searchButton.setForeground(Color.BLACK);
-        buttonsPanel.add(searchButton, gbc);
+        buttonsPanel1.add(searchButton);
 
+        // Search Button listener
+        searchButton.addActionListener(e->
+                updateStudentShown(Main.search(idTextField.getText())));
         // !!! Clear Button
         ImageIcon clearIcon = new ImageIcon("icons/clear_all-icon-black.png");
 
-        gbc.gridy = 1;
-
         JButton clearButton = new JButton();
-        clearButton.setText("Clear All");
+        clearButton.setText("Clear");
         clearButton.setIcon(clearIcon);
         clearButton.setFont(resources.montserrat.deriveFont(15f));
         clearButton.setOpaque(true);
         clearButton.setBorderPainted(false);
-        clearButton.setBackground(resources.airSuperiorityBlue);
+        clearButton.setBackground(resources.uranianBlue);
         clearButton.setForeground(Color.BLACK);
-        buttonsPanel.add(clearButton, gbc);
+        buttonsPanel1.add(clearButton);
+
+        clearButton.addActionListener(e -> {
+            studentIdLabel.setText("ID Number");
+            studentNameLabel.setText("Last Name, First Name");
+            idTextField.setText("ID Number");
+
+        });
+
+        // !! Buttons Panel 2
+        JPanel buttonsPanel2 = new JPanel();
+        buttonsPanel2.setLayout(new FlowLayout());
+        buttonsPanel2.setBackground(resources.antiflashWhite);
+        buttonsPanel2.setPreferredSize(new Dimension(500,100));
+        containerPanel1.add(buttonsPanel2, BorderLayout.SOUTH);
+
+        // !!! Buttons Panel 2 Components
+
+        // !!! Add Student Button
+        ImageIcon addStudentIcon = new ImageIcon("icons/add-student-icon-black.png");
+        JButton addStudentButton = new JButton();
+        addStudentButton.setText("Add Student");
+        addStudentButton.setIcon(addStudentIcon);
+        addStudentButton.setFont(resources.montserratBold.deriveFont(20f));
+        addStudentButton.setOpaque(true);
+        addStudentButton.setBorderPainted(false);
+        addStudentButton.setBackground(resources.airSuperiorityBlue);
+        addStudentButton.setForeground(Color.BLACK);
+        buttonsPanel2.add(addStudentButton);
+
+        // !!! Remove Student Button
+        ImageIcon removeStudentIcon = new ImageIcon("icons/remove-student-icon-black.png");
+        JButton removeStudentButton = new JButton();
+        removeStudentButton.setText("Remove Student");
+        removeStudentButton.setIcon(removeStudentIcon);
+        removeStudentButton.setFont(resources.montserratBold.deriveFont(20f));
+        removeStudentButton.setOpaque(true);
+        removeStudentButton.setBorderPainted(false);
+        removeStudentButton.setBackground(resources.airSuperiorityBlue);
+        removeStudentButton.setForeground(Color.BLACK);
+        buttonsPanel2.add(removeStudentButton);
 
         // ! Container 2
         JPanel containerPanel2 = new JPanel();
@@ -725,7 +774,7 @@ public class Portal extends JFrame {
         headingPanel.setLayout(new BorderLayout());
         headingPanel.setBorder(resources.thinPadding);
         headingPanel.setBackground(resources.yinmnBlue);
-        headingPanel.setPreferredSize(new Dimension(910,30));
+        headingPanel.setPreferredSize(new Dimension(910,40));
         containerPanel2.add(headingPanel, BorderLayout.NORTH);
 
         // !!!! Heading Panel Components
@@ -741,41 +790,161 @@ public class Portal extends JFrame {
 
         // !!! Body Panel
         JPanel bodyPanel = new JPanel();
-        bodyPanel.setLayout(cardLayout2);
-        bodyPanel.setBorder(resources.normalPadding);
+        bodyPanel.setLayout(new BorderLayout());
+        bodyPanel.setBorder(resources.thinPadding);
         bodyPanel.setBackground(Color.WHITE);
         containerPanel2.add(bodyPanel, BorderLayout.CENTER);
 
         // !!!! Body Panel Components
 
-        // FIXME: 9/18/2023 - The JTable needs to be fixed.
+        // !!!! Top Panel
+        JPanel topPanel = new JPanel();
+        topPanel.setLayout(new BorderLayout());
+        topPanel.setBackground(Color.WHITE);
+        topPanel.setPreferredSize(new Dimension(910, 35));
+        bodyPanel.add(topPanel, BorderLayout.NORTH);
 
-        // !!!!! Table
-        String[][] data = {
-                {"CS 211","Data Structures","99","3"}
+        // !!!!! Top Panel Components
+
+        // !!!!! Year Label
+        ImageIcon pinIcon = new ImageIcon("icons/pin-icon-black.png");
+        JLabel yearLabel = new JLabel();
+        yearLabel.setText("   Year 1");
+        yearLabel.setIcon(pinIcon);
+        yearLabel.setFont(resources.montserrat.deriveFont(13f));
+        yearLabel.setForeground(Color.BLACK);
+        yearLabel.setHorizontalAlignment(SwingConstants.LEFT);
+        yearLabel.setVerticalAlignment(SwingConstants.CENTER);
+        topPanel.add(yearLabel, BorderLayout.WEST);
+
+        // !!!!! Nav Button Panel
+        JPanel navButtonPanel = new JPanel();
+        navButtonPanel.setLayout(new FlowLayout());
+        navButtonPanel.setBackground(Color.WHITE);
+        navButtonPanel.setPreferredSize(new Dimension(110, 20));
+        topPanel.add(navButtonPanel, BorderLayout.EAST);
+
+        // !!!!!! Nav Button Components
+
+        // !!!!!! Previous Button
+        ImageIcon prevIcon = new ImageIcon("icons/arrow_back-icon-black.png");
+        ImageIcon scaledPrevIcon = resources.scaleImage(prevIcon, 15, 15);
+        JButton prevButton = new JButton();
+        prevButton.setIcon(scaledPrevIcon);
+        prevButton.setFont(resources.montserrat.deriveFont(11f));
+        prevButton.setOpaque(false);
+        prevButton.setContentAreaFilled(false);
+        prevButton.setBorderPainted(false);
+        prevButton.setHorizontalAlignment(SwingConstants.RIGHT);
+        prevButton.setVerticalAlignment(SwingConstants.CENTER);
+        navButtonPanel.add(prevButton);
+
+        // !!!!!! Next Button
+        ImageIcon nextIcon = new ImageIcon("icons/arrow_forward-icon-black.png");
+        ImageIcon scaledNextIcon = resources.scaleImage(nextIcon, 15, 15);
+        JButton nextButton = new JButton();
+        nextButton.setIcon(scaledNextIcon);
+        nextButton.setOpaque(false);
+        nextButton.setContentAreaFilled(false);
+        nextButton.setBorderPainted(false);
+        nextButton.setHorizontalAlignment(SwingConstants.RIGHT);
+        nextButton.setVerticalAlignment(SwingConstants.CENTER);
+        navButtonPanel.add(nextButton);
+
+        // !!!! Table Panel
+        JPanel tablePanel = new JPanel();
+        tablePanel.setLayout(new GridLayout(1,1));
+        tablePanel.setBackground(Color.WHITE);
+        tablePanel.setBorder(resources.thinPadding);
+        bodyPanel.add(tablePanel, BorderLayout.CENTER);
+
+        // !!!!! Table Panel Components
+        String[] columnNames = {"Course Number" , "Descriptive Title" , "Grade" , "Units"};
+        String [][] data = {
+                {"CS211", "Data Structures" , "99" , "3"}
         };
-        String[] columnNames = {"Course Number","Descriptive Title","Final Grade","Units"};
 
-        JTable records = new JTable(data, columnNames);
-        records.getTableHeader().setFont(resources.montserratBold.deriveFont(12f));
-        records.getTableHeader().setOpaque(false);
-        records.getTableHeader().setBackground(resources.uranianBlue);
-        records.getTableHeader().setForeground(Color.BLACK);
-        records.setFont(resources.montserrat.deriveFont(10f));
-        records.setShowVerticalLines(true);
-        records.setShowHorizontalLines(false);
-        records.setShowGrid(false);
+        JTable table = new JTable(new DefaultTableModel(
+                new Object[]{"Course Number","Descriptive Title","Units","Grade"},0));
+        table.getColumnModel().getColumn(0).setPreferredWidth(130);
+        table.getColumnModel().getColumn(1).setPreferredWidth(501);
+        table.getColumnModel().getColumn(2).setPreferredWidth(80);
+        table.getColumnModel().getColumn(3).setPreferredWidth(80);
+        table.getTableHeader().setResizingAllowed(false);
+        table.getTableHeader().setReorderingAllowed(false);
+        table.getTableHeader().setFont(resources.montserratBold.deriveFont(12f));
+        table.setAutoResizeMode(0);
+        table.setDragEnabled(false);
+        table.setOpaque(false);
+        table.setBackground(Color.WHITE);
+        table.setForeground(Color.BLACK);
+        table.setFont(resources.montserrat.deriveFont(10f));
 
-        JScrollPane scrollPane = new JScrollPane(records);
+        table.setDefaultEditor(Object.class, new DefaultCellEditor(new JTextField()) {
+            @Override
+            public boolean isCellEditable(EventObject e) {
+                return false;
+            }
+        });
+
+        JScrollPane scrollPane = new JScrollPane(table);
+        scrollPane.setBackground(Color.WHITE);
         scrollPane.setOpaque(false);
-        bodyPanel.add(scrollPane);
+        tablePanel.add(scrollPane);
 
+
+        // !!!!! CRUD Button Panel
+        JPanel crudButtons = new JPanel();
+        crudButtons.setLayout(new FlowLayout());
+        crudButtons.setBackground(Color.WHITE);
+        crudButtons.setPreferredSize(new Dimension(910, 40));
+        bodyPanel.add(crudButtons, BorderLayout.SOUTH);
+
+        // !!!!!! CRUD Button Components
+
+        // !!!!!! Add Button
+
+        // !!!!!! Edit Button
+        ImageIcon editIcon = new ImageIcon("icons/edit-icon-black.png");
+        JButton editButton = new JButton();
+        editButton.setText("Edit");
+        editButton.setIcon(editIcon);
+        editButton.setFont(resources.montserrat.deriveFont(11f));
+        editButton.setOpaque(true);
+        editButton.setBorderPainted(false);
+        editButton.setBackground(resources.uranianBlue);
+        editButton.setForeground(Color.BLACK);
+        crudButtons.add(editButton);
+
+        // !!!!!! Delete Button
+        ImageIcon deleteIcon = new ImageIcon("icons/delete-icon-black.png");
+        JButton deleteButton = new JButton();
+        deleteButton.setText("Delete");
+        deleteButton.setIcon(deleteIcon);
+        deleteButton.setFont(resources.montserrat.deriveFont(11f));
+        deleteButton.setOpaque(true);
+        deleteButton.setBorderPainted(false);
+        deleteButton.setBackground(resources.uranianBlue);
+        deleteButton.setForeground(Color.BLACK);
+        crudButtons.add(deleteButton);
+
+        // !!!!!! Export Button
+        ImageIcon exportIcon = new ImageIcon("icons/export-icon-black.png");
+        JButton exportButton = new JButton();
+        exportButton.setText("Export as CSV");
+        exportButton.setIcon(exportIcon);
+        exportButton.setFont(resources.montserrat.deriveFont(11f));
+        exportButton.setOpaque(true);
+        exportButton.setBorderPainted(false);
+        exportButton.setBackground(resources.uranianBlue);
+        exportButton.setForeground(Color.BLACK);
+        crudButtons.add(exportButton);
 
         // Action Listeners
         // FIXME: 9/17/2023
-        searchButton.addActionListener(e->{
-            cardLayout1.show(torPanel, "2");
-        });
+  //      searchButton.addActionListener(e->{
+    //        cardLayout1.show(torPanel, "2");
+     //   });
 
         return torPanel;
     } // end of populateTorPanel

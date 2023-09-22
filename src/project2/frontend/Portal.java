@@ -116,6 +116,14 @@ public class Portal extends JFrame {
         JPanel torPanel = populateTorPanel();
         cardPanel.add(torPanel, "tor");
 
+        // !!! Checklist Panel
+        JPanel checklistPanel = populateChecklistPanel();
+        cardPanel.add(checklistPanel,"checklist");
+
+        // !!! Personal Details Panel
+        JPanel personalPanel = populatePersonalPanel();
+        cardPanel.add(personalPanel, "personal");
+
         // Action Listeners
         homeButton.addActionListener(e -> {
             cardLayout1.show(cardPanel, "home");
@@ -152,7 +160,6 @@ public class Portal extends JFrame {
         });
         personalDetailsButton.addActionListener(e -> {
             cardLayout1.show(cardPanel, "personalDetails");
-            cardLayout1.show(cardPanel, "checklist");
             homeButton.setForeground(Color.BLACK);
             scheduleButton.setForeground(Color.BLACK);
             torButton.setForeground(Color.BLACK);
@@ -164,7 +171,7 @@ public class Portal extends JFrame {
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(1200,700);
-        setResizable(false);
+        setResizable(true);
         setLocationRelativeTo(null);
         setVisible(true);
     } // end of Portal constructor
@@ -309,7 +316,7 @@ public class Portal extends JFrame {
         torButton.setContentAreaFilled(false);
         navPanel.add(torButton, gbc);
 
-        // !! Statement of Accounts Button
+        // !! Statement of Curriculum Checklist Button
         gbc.gridy = 4;
         ImageIcon checklistIcon = new ImageIcon("icons/checklist-icon-black.png");
         checklistButton = new JButton();
@@ -971,4 +978,11 @@ public class Portal extends JFrame {
         return checklistPanel;
     } // end of populateChecklistPanel method
 
+    private JPanel populatePersonalPanel() {
+        JPanel personalPanel = new JPanel();
+        personalPanel.setLayout(new BorderLayout());
+        personalPanel.setBackground(resources.uranianBlue);
+        personalPanel.setPreferredSize(new Dimension(910,700));
+        return personalPanel;
+    }
 } // end of class Portal

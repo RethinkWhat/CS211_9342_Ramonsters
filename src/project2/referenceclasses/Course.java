@@ -6,11 +6,19 @@ public class Course {
     private String courseNumber;
     private String descriptiveName;
     private int units;
+    private int grade;
 
     public Course(String courseNumber, String descriptiveName, int units) {
         this.courseNumber = courseNumber;
         this.descriptiveName = descriptiveName;
         this.units = units;
+    }
+
+    public Course(String courseNumber, String descriptiveName, int units, int grade) {
+        this.courseNumber = courseNumber;
+        this.descriptiveName = descriptiveName;
+        this.units = units;
+        this.grade = grade;
     }
 
     public String getCourseNumber() {
@@ -25,6 +33,11 @@ public class Course {
         return descriptiveName;
     }
 
+
+    public int getGrade() {
+        return grade;
+    }
+
     public void setDescriptiveName(String descriptiveName) {
         this.descriptiveName = descriptiveName;
     }
@@ -35,6 +48,10 @@ public class Course {
 
     public void setUnits(int units) {
         this.units = units;
+    }
+
+    public void setGrade(int grade) {
+        this.grade = grade;
     }
 
     @Override

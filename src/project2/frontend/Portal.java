@@ -1268,6 +1268,22 @@ public class Portal extends JFrame {
         JButton removeButton = new JButton("REMOVE");
         JButton cancelButton = new JButton("CANCEL");
 
+        removeButton.setFont(new Font("Montserrat Bold", Font.BOLD, 24));
+        removeButton.setBackground(resources.uranianBlue);
+        removeButton.setForeground(Color.BLACK);
+        removeButton.setBorderPainted(false);
+
+        cancelButton.setFont(new Font("Montserrat Bold", Font.BOLD, 24));
+        cancelButton.setBackground(resources.uranianBlue);
+        cancelButton.setForeground(Color.BLACK);
+        cancelButton.setBorderPainted(false);
+
+        buttonPanel.setBackground(resources.yinmnBlue);
+        buttonPanel.add(removeButton);
+        buttonPanel.add(cancelButton);
+
+        frameContent.add(bottomPanel, BorderLayout.CENTER); // Center elements vertically
+        frameContent.add(buttonPanel, BorderLayout.SOUTH);
 
         removeButton.addActionListener(new ActionListener() {
             @Override

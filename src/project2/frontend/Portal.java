@@ -66,6 +66,8 @@ public class Portal extends JFrame {
      */
     private JButton personalDetailsButton;
     private JFrame addStudentFrame;
+
+    private JFrame removeStudentFrame;
     /**
      * Card Layout used for the centerPanel
      */
@@ -820,6 +822,12 @@ public class Portal extends JFrame {
         removeStudentButton.setFocusable(false);
         removeStudentButton.setFocusPainted(false);
         buttonsPanel2.add(removeStudentButton);
+        removeStudentButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                removeStudentFrame();
+            }
+        });
 
         // ! Container 2
         JPanel containerPanel2 = new JPanel();
@@ -1201,6 +1209,9 @@ public class Portal extends JFrame {
         addStudentFrame.setVisible(true);
     } // end of addStudentFrame
 
+    private void removeStudentFrame(){
+
+    }
     /**
      * TODO: Documentation
      * @return

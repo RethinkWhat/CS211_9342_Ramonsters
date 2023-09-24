@@ -65,7 +65,7 @@ public class Portal extends JFrame {
      * TODO: Documentation
      */
     private JButton personalDetailsButton;
-
+    private JFrame addStudentFrame;
     /**
      * Card Layout used for the centerPanel
      */
@@ -800,6 +800,13 @@ public class Portal extends JFrame {
         addStudentButton.setFocusPainted(false);
         buttonsPanel2.add(addStudentButton);
 
+        addStudentButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                addStudentFrame();
+            }
+        });
+
         // !!! Remove Student Button
         ImageIcon removeStudentIcon = new ImageIcon("icons/remove-student-icon-black.png");
         JButton removeStudentButton = new JButton();
@@ -1005,6 +1012,141 @@ public class Portal extends JFrame {
 
         return torPanel;
     } // end of populateTorPanel
+
+    /**
+     * @Author: LACANILAO
+     * TODO: add handling exceptions
+     * TODO: add remove student frame
+     *
+     */
+    private void addStudentFrame() {
+        addStudentFrame = new JFrame("Add Student");
+        ImageIcon sluStudLogo = resources.scaleImage(resources.sluLogo, 25, 25);
+        addStudentFrame.setIconImage(sluStudLogo.getImage());
+        addStudentFrame.setSize(600, 500);
+        addStudentFrame.setLocationRelativeTo(null);
+        addStudentFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+        JPanel frameContent = new JPanel();
+        frameContent.setLayout(new BorderLayout());
+
+        JPanel topPanel = new JPanel();
+        topPanel.setPreferredSize(new Dimension(500, 100));
+        topPanel.setBackground(resources.antiflashWhite);
+
+
+        ImageIcon logoIcon = new ImageIcon("icons/add-student-icon-black.png");
+        ImageIcon scaledLogo = resources.scaleImage(logoIcon, 200, 200);
+        JLabel logoLabel = new JLabel(scaledLogo);
+
+        topPanel.setLayout(new BorderLayout());
+        topPanel.add(logoLabel, BorderLayout.CENTER);
+
+        frameContent.add(topPanel, BorderLayout.NORTH);
+
+        JPanel bottomPanel = new JPanel();
+        bottomPanel.setPreferredSize(new Dimension(500, 300));
+        bottomPanel.setBackground(Color.darkGray);
+
+        JPanel inputPanel = new JPanel();
+        inputPanel.setLayout(new GridBagLayout());
+        inputPanel.setBackground(Color.darkGray);
+
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.insets = new Insets(5, 5, 5, 5);
+
+        JLabel inputNeededLabel = new JLabel("Input needed details");
+        inputNeededLabel.setFont(new Font("Montserrat Bold", Font.BOLD, 16));
+        inputNeededLabel.setForeground(Color.WHITE);
+        gbc.gridy = 0;
+        gbc.gridwidth = 2;
+
+        inputNeededLabel.setHorizontalAlignment(JLabel.CENTER);
+        inputPanel.add(inputNeededLabel, gbc);
+
+        JTextField idTextField = new JTextField(20);
+        idTextField.setFont(new Font("Montserrat", Font.PLAIN, 24));
+        JLabel idLabel = new JLabel("ID Number:");
+        idLabel.setFont(new Font("Montserrat Bold", Font.BOLD, 16));
+        idLabel.setForeground(Color.WHITE);
+        gbc.gridy = 2;
+        gbc.gridwidth = 1;
+        inputPanel.add(idLabel, gbc);
+        gbc.gridy = 3;
+        inputPanel.add(idTextField, gbc);
+
+        JTextField firstNameTextField = new JTextField(20);
+        firstNameTextField.setFont(new Font("Montserrat", Font.PLAIN, 24));
+        JLabel firstNameLabel = new JLabel("First Name:");
+        firstNameLabel.setFont(new Font("Montserrat Bold", Font.BOLD, 16));
+        firstNameLabel.setForeground(Color.WHITE);
+        gbc.gridy = 4;
+        inputPanel.add(firstNameLabel, gbc);
+        gbc.gridy = 5;
+        inputPanel.add(firstNameTextField, gbc);
+
+        JTextField lastNameTextField = new JTextField(20);
+        lastNameTextField.setFont(new Font("Montserrat", Font.PLAIN, 24));
+        JLabel lastNameLabel = new JLabel("Last Name:");
+        lastNameLabel.setFont(new Font("Montserrat Bold", Font.BOLD, 16));
+        lastNameLabel.setForeground(Color.WHITE);
+        gbc.gridy = 6;
+        inputPanel.add(lastNameLabel, gbc);
+        gbc.gridy = 7;
+        inputPanel.add(lastNameTextField, gbc);
+
+        bottomPanel.add(inputPanel);
+
+        JPanel buttonPanel = new JPanel();
+        JButton addButton = new JButton("ADD");
+        JButton cancelButton = new JButton("CANCEL");
+
+        addButton.setFont(new Font("Montserrat Bold", Font.BOLD, 24));
+        addButton.setBackground(resources.uranianBlue);
+        addButton.setForeground(Color.BLACK);
+        addButton.setBorderPainted(false);
+
+        cancelButton.setFont(new Font("Montserrat Bold", Font.BOLD, 24));
+        cancelButton.setBackground(resources.uranianBlue);
+        cancelButton.setForeground(Color.BLACK);
+        cancelButton.setBorderPainted(false);
+
+        buttonPanel.setBackground(resources.yinmnBlue);
+        buttonPanel.add(addButton);
+        buttonPanel.add(cancelButton);
+
+        frameContent.add(bottomPanel, BorderLayout.CENTER);
+        frameContent.add(buttonPanel, BorderLayout.SOUTH);
+
+        addButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String idText = idTextField.getText(); // can modify. just used for testing
+                String firstNameText = firstNameTextField.getText();
+                String lastNameText = lastNameTextField.getText();
+
+                if (idText.isEmpty() || firstNameText.isEmpty() || lastNameText.isEmpty() || idText.length() != 7) {
+                    inputNeededLabel.setForeground(resources.lipstickRed);
+                    inputNeededLabel.setText("Make sure to check and input all needed details."); // Display in all capital letters
+                } else {
+
+                    // Handle the Add button click (add the student)
+                    // Add student to data
+                    addStudentFrame.dispose(); // Close the frame when done
+                }
+            }
+        });
+
+        cancelButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            }
+        });
+
+        addStudentFrame.setContentPane(frameContent);
+        addStudentFrame.setVisible(true);
+    } // end of addStudentFrame
 
     /**
      * TODO: Documentation

@@ -972,7 +972,6 @@ public class Portal extends JFrame {
      * @Author: LACANILAO
      * TODO: add handling exceptions
      * TODO: add remove student frame
-     * TODO: add logos
      *
      */
     private void addStudentFrame() {
@@ -1078,18 +1077,25 @@ public class Portal extends JFrame {
         addButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Handle the Add button click (add the student)
-                // Add student to data
-                addStudentFrame.dispose(); // Close the frame when done
+                String idText = idTextField.getText(); // can modify. just used for testing
+                String firstNameText = firstNameTextField.getText();
+                String lastNameText = lastNameTextField.getText();
+
+                if (idText.isEmpty() || firstNameText.isEmpty() || lastNameText.isEmpty() || idText.length() != 7) {
+                    inputNeededLabel.setForeground(resources.lipstickRed);
+                    inputNeededLabel.setText("Make sure to check and input all needed details."); // Display in all capital letters
+                } else {
+
+                    // Handle the Add button click (add the student)
+                    // Add student to data
+                    addStudentFrame.dispose(); // Close the frame when done
+                }
             }
         });
 
         cancelButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Handle the Cancel button click (cancel adding a student)
-                // Close the frame
-                addStudentFrame.dispose();
             }
         });
 

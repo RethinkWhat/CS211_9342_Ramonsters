@@ -1215,6 +1215,8 @@ public class Portal extends JFrame {
 
     private void removeStudentFrame() {
         removeStudentFrame = new JFrame("Remove Student");
+        ImageIcon sluStudLogo = resources.scaleImage(resources.sluLogo, 25, 25);
+        removeStudentFrame.setIconImage(sluStudLogo.getImage());
         removeStudentFrame.setSize(600, 500);
         removeStudentFrame.setLocationRelativeTo(null);
         removeStudentFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -1324,6 +1326,23 @@ public class Portal extends JFrame {
         removeButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                String idText = idTextField.getText();
+                String confirmIdText = confirmIdTextField.getText();
+
+                boolean idsMatch = idText.equals(confirmIdText);
+                boolean validIdLength = idText.length() == 7;
+
+                if (!idsMatch || !validIdLength) {
+                    idLabel.setForeground(Color.RED);
+                    confirmIdLabel.setForeground(Color.RED);
+                    errorLabel.setVisible(true);
+                } else {
+                    idLabel.setForeground(Color.WHITE);
+                    confirmIdLabel.setForeground(Color.WHITE);
+                    errorLabel.setVisible(false);
+
+                    removeStudentFrame.dispose();
+                }
             }
         });
 

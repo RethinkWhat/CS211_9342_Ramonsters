@@ -1017,11 +1017,19 @@ public class Portal extends JFrame {
      * @Author: LACANILAO
      * TODO: add handling exceptions
      * TODO: add remove student frame
+<<<<<<< HEAD
      * TODO: add logos
+=======
+>>>>>>> abf2e494228305842d7fc2015e3bd71a2479ee6d
      *
      */
     private void addStudentFrame() {
         addStudentFrame = new JFrame("Add Student");
+<<<<<<< HEAD
+=======
+        ImageIcon sluStudLogo = resources.scaleImage(resources.sluLogo, 25, 25);
+        addStudentFrame.setIconImage(sluStudLogo.getImage());
+>>>>>>> abf2e494228305842d7fc2015e3bd71a2479ee6d
         addStudentFrame.setSize(600, 500);
         addStudentFrame.setLocationRelativeTo(null);
         addStudentFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -1035,7 +1043,11 @@ public class Portal extends JFrame {
 
 
         ImageIcon logoIcon = new ImageIcon("icons/add-student-icon-black.png");
+<<<<<<< HEAD
         ImageIcon scaledLogo = resources.scaleImage(logoIcon, 400, 400);
+=======
+        ImageIcon scaledLogo = resources.scaleImage(logoIcon, 200, 200);
+>>>>>>> abf2e494228305842d7fc2015e3bd71a2479ee6d
         JLabel logoLabel = new JLabel(scaledLogo);
 
         topPanel.setLayout(new BorderLayout());
@@ -1098,8 +1110,13 @@ public class Portal extends JFrame {
         bottomPanel.add(inputPanel);
 
         JPanel buttonPanel = new JPanel();
+<<<<<<< HEAD
         JButton addButton = new JButton("Add");
         JButton cancelButton = new JButton("Cancel");
+=======
+        JButton addButton = new JButton("ADD");
+        JButton cancelButton = new JButton("CANCEL");
+>>>>>>> abf2e494228305842d7fc2015e3bd71a2479ee6d
 
         addButton.setFont(new Font("Montserrat Bold", Font.BOLD, 24));
         addButton.setBackground(resources.uranianBlue);
@@ -1121,18 +1138,37 @@ public class Portal extends JFrame {
         addButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+<<<<<<< HEAD
                 // Handle the Add button click (add the student)
                 // Add student to data
                 addStudentFrame.dispose(); // Close the frame when done
+=======
+                String idText = idTextField.getText(); // can modify. just used for testing
+                String firstNameText = firstNameTextField.getText();
+                String lastNameText = lastNameTextField.getText();
+
+                if (idText.isEmpty() || firstNameText.isEmpty() || lastNameText.isEmpty() || idText.length() != 7) {
+                    inputNeededLabel.setForeground(resources.lipstickRed);
+                    inputNeededLabel.setText("Make sure to check and input all needed details."); // Display in all capital letters
+                } else {
+
+                    // Handle the Add button click (add the student)
+                    // Add student to data
+                    addStudentFrame.dispose(); // Close the frame when done
+                }
+>>>>>>> abf2e494228305842d7fc2015e3bd71a2479ee6d
             }
         });
 
         cancelButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+<<<<<<< HEAD
                 // Handle the Cancel button click (cancel adding a student)
                 // Close the frame
                 addStudentFrame.dispose();
+=======
+>>>>>>> abf2e494228305842d7fc2015e3bd71a2479ee6d
             }
         });
 

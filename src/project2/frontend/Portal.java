@@ -1164,6 +1164,18 @@ public class Portal extends JFrame {
                 JButton yesButton = new JButton("Yes");
                 JButton noButton = new JButton("No");
 
+                yesButton.setFont(new Font("Montserrat Bold", Font.BOLD, 16));
+                yesButton.setForeground(Color.BLACK);
+                yesButton.setBackground(resources.uranianBlue);
+                yesButton.setBorderPainted(false);
+
+                noButton.setFont(new Font("Montserrat Bold", Font.BOLD, 16));
+                noButton.setForeground(Color.BLACK);
+                noButton.setBackground(resources.uranianBlue);
+                noButton.setBorderPainted(false);
+
+                buttonPanel.add(yesButton);
+                buttonPanel.add(noButton);
 
             }
         });

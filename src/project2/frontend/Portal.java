@@ -61,6 +61,9 @@ public class Portal extends JFrame {
      */
     private JButton checklistButton;
 
+    private Student studentObject;
+
+
     /**
      * TODO: Documentation
      */
@@ -592,6 +595,7 @@ public class Portal extends JFrame {
             studentNameLabel.setForeground(resources.antiflashWhite);
             studentIdLabel.setText(studentObj.getIdNumber());
             studentNameLabel.setText(studentObj.getLastName() + ", " + studentObj.getFirstName());
+            studentObject = studentObj;
         }
     }
 
@@ -760,13 +764,22 @@ public class Portal extends JFrame {
         nextTorButton.setVisible(false);
         buttonsPanel1.add(nextTorButton);
 
+
         // Action Listeners
-        searchButton.addActionListener(e-> {
-            updateStudentShown(Main.search(idTextField.getText()));
-            if (!studentNameLabel.getText().equalsIgnoreCase("ID Number")
-                    && !studentIdLabel.getText().equalsIgnoreCase("Last Name, First Name")) {
-                nextTorButton.setVisible(true);
+        searchButton.addActionListener(new ActionListener() {
+            public void actionPerformed (ActionEvent e){
+                studentObject = Main.search(idTextField.getText());
+                updateStudentShown(studentObject);
+                if (!studentNameLabel.getText().equalsIgnoreCase("ID Number")
+                        && !studentIdLabel.getText().equalsIgnoreCase("Last Name, First Name")) {
+                    nextTorButton.setVisible(true);
+                }
             }
+        });
+
+
+        nextTorButton.addActionListener(e -> {
+            cardLayout1.show(torPanel,"2");
         });
 
 
@@ -922,11 +935,6 @@ public class Portal extends JFrame {
         tablePanel.setBorder(resources.thinPadding);
         bodyPanel.add(tablePanel, BorderLayout.CENTER);
 
-        // !!!!! Table Panel Components
-        String[] columnNames = {"Course Number" , "Descriptive Title" , "Grade" , "Units"};
-        String [][] data = {
-                {"CS211", "Data Structures" , "99" , "3"}
-        };
 
         JTable table = new JTable(new DefaultTableModel(
                 new Object[]{"Course Number","Descriptive Title","Units","Grade"},0));
@@ -944,6 +952,20 @@ public class Portal extends JFrame {
         table.setForeground(Color.BLACK);
         table.setFont(resources.montserrat.deriveFont(10f));
 
+        DefaultTableModel model = (DefaultTableModel) table.getModel();
+
+        //TODO This thing is supposed to run AFTER a student is inputted I'm trying to figure out how to do that
+         /*   Node<Course> tempPointer = studentObject.getYearList().getHead().getData().getFirstSemSemesterList().getHead();
+            for (int x = 0; tempPointer.getNext() != null; x++) {
+                model.addRow(new Object[]{
+                        tempPointer.getData().getCourseNumber(),
+                        tempPointer.getData().getDescriptiveName(),
+                        tempPointer.getData().getUnits(),
+                        tempPointer.getData().getGrade()
+                });
+                tempPointer = tempPointer.getNext();
+            } // end of for
+*/
         table.setDefaultEditor(Object.class, new DefaultCellEditor(new JTextField()) {
             @Override
             public boolean isCellEditable(EventObject e) {
@@ -1580,8 +1602,6 @@ public class Portal extends JFrame {
         return personalPanel;
     }
 
-    /**
-     * TODO: Documentation
-     */
+
 
 } // end of class Portal

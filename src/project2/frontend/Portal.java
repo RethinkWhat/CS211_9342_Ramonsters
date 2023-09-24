@@ -1210,7 +1210,7 @@ public class Portal extends JFrame {
     } // end of addStudentFrame
 
     private void removeStudentFrame() {
-        JFrame removeStudentFrame = new JFrame("Remove Student");
+        removeStudentFrame = new JFrame("Remove Student");
         ImageIcon sluStudLogo = resources.scaleImage(resources.sluLogo, 25, 25);
         addStudentFrame.setIconImage(sluStudLogo.getImage());
         removeStudentFrame.setSize(600, 500);
@@ -1224,15 +1224,15 @@ public class Portal extends JFrame {
         topPanel.setPreferredSize(new Dimension(500, 100));
         topPanel.setBackground(Color.WHITE);
 
-        ImageIcon logoIcon = new ImageIcon("icons/remove-student-icon-black.png");
-        ImageIcon scaledLogo = resources.scaleImage(logoIcon, 120, 120);
-        JLabel logoLabel = new JLabel(scaledLogo);
+        ImageIcon removelogoIcon = new ImageIcon("icons/remove-student-icon-black.png");
+        ImageIcon removeScaledLogo = resources.scaleImage(removelogoIcon, 120, 120);
+        JLabel logoLabel = new JLabel(removeScaledLogo);
         topPanel.add(logoLabel, BorderLayout.CENTER);
 
         frameContent.add(topPanel, BorderLayout.NORTH);
 
         JPanel bottomPanel = new JPanel();
-        bottomPanel.setPreferredSize(new Dimension(500, 300));
+        bottomPanel.setPreferredSize(new Dimension(500, 400));
         bottomPanel.setBackground(Color.darkGray);
 
         JPanel inputPanel = new JPanel();
@@ -1264,6 +1264,26 @@ public class Portal extends JFrame {
         gbc.gridy = 2;
         inputPanel.add(idTextField, gbc);
 
+        JLabel confirmIdLabel = new JLabel("Confirm ID Number:");
+        confirmIdLabel.setFont(new Font("Montserrat Bold", Font.BOLD, 16));
+        confirmIdLabel.setForeground(Color.WHITE);
+        gbc.gridy = 3;
+        gbc.gridwidth = 1;
+        gbc.gridheight = 1;
+        inputPanel.add(confirmIdLabel, gbc);
+
+        JTextField confirmIdTextField = new JTextField(15);
+        confirmIdTextField.setFont(new Font("Montserrat", Font.PLAIN, 30));
+        gbc.gridy = 4;
+        inputPanel.add(confirmIdTextField, gbc);
+
+        JLabel errorLabel = new JLabel("The ID number and the confirmation ID number must match");
+        errorLabel.setFont(new Font("Montserrat", Font.BOLD, 16));
+        errorLabel.setForeground(Color.RED);
+        gbc.gridy = 5;
+        inputPanel.add(errorLabel, gbc);
+        errorLabel.setVisible(false);
+
         bottomPanel.add(inputPanel);
 
         JPanel buttonPanel = new JPanel();
@@ -1284,20 +1304,18 @@ public class Portal extends JFrame {
         buttonPanel.add(removeButton);
         buttonPanel.add(cancelButton);
 
-        frameContent.add(bottomPanel, BorderLayout.CENTER); // Center elements vertically
+        frameContent.add(bottomPanel, BorderLayout.CENTER);
         frameContent.add(buttonPanel, BorderLayout.SOUTH);
 
         removeButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                removeStudentFrame.dispose();
             }
         });
 
         cancelButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
                 JFrame confirmDialogFrame = new JFrame("Confirm Cancel");
                 ImageIcon confirmCancelLogo = resources.scaleImage(resources.sluLogo, 25, 25);
                 addStudentFrame.setIconImage(confirmCancelLogo.getImage());
@@ -1340,6 +1358,7 @@ public class Portal extends JFrame {
                         addStudentFrame.dispose();
                     }
                 });
+
                 noButton.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
@@ -1355,7 +1374,7 @@ public class Portal extends JFrame {
 
         removeStudentFrame.setContentPane(frameContent);
         removeStudentFrame.setVisible(true);
-    } // end of removeStudentFrame method
+    }
     /**
      * TODO: Documentation
      * @return

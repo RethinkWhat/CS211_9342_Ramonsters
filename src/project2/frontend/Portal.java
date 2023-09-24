@@ -1141,6 +1141,8 @@ public class Portal extends JFrame {
         cancelButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
+                addStudentFrame.dispose(); //closes the frame
             }
         });
 

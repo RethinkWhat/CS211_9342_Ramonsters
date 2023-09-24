@@ -11,6 +11,10 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
+import javax.swing.text.AbstractDocument;
+import javax.swing.text.AttributeSet;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.DocumentFilter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -66,6 +70,8 @@ public class Portal extends JFrame {
      */
     private JButton personalDetailsButton;
     private JFrame addStudentFrame;
+
+    private JFrame removeStudentFrame;
     /**
      * Card Layout used for the centerPanel
      */
@@ -820,6 +826,12 @@ public class Portal extends JFrame {
         removeStudentButton.setFocusable(false);
         removeStudentButton.setFocusPainted(false);
         buttonsPanel2.add(removeStudentButton);
+        removeStudentButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                removeStudentFrame();
+            }
+        });
 
         // ! Container 2
         JPanel containerPanel2 = new JPanel();
@@ -1076,6 +1088,28 @@ public class Portal extends JFrame {
         gbc.gridy = 3;
         inputPanel.add(idTextField, gbc);
 
+        // Add input validation for ID number
+        JLabel idErrorLabel = new JLabel("ID number must be exactly 7 characters long");
+        idErrorLabel.setFont(new Font("Montserrat", Font.BOLD, 16));
+        idErrorLabel.setForeground(Color.RED);
+        gbc.gridy = 8;
+        inputPanel.add(idErrorLabel, gbc);
+        idErrorLabel.setVisible(false);
+
+        DocumentFilter idDocumentFilter = new DocumentFilter() {
+            @Override
+            public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException {
+                if ((fb.getDocument().getLength() + text.length() - length) <= 7) {
+                    super.replace(fb, offset, length, text, attrs);
+                    idErrorLabel.setVisible(false);
+                } else {
+                    idErrorLabel.setVisible(true);
+                }
+            }
+        };
+
+        ((AbstractDocument) idTextField.getDocument()).setDocumentFilter(idDocumentFilter);
+
         JTextField firstNameTextField = new JTextField(20);
         firstNameTextField.setFont(new Font("Montserrat", Font.PLAIN, 24));
         JLabel firstNameLabel = new JLabel("First Name:");
@@ -1119,18 +1153,21 @@ public class Portal extends JFrame {
         frameContent.add(bottomPanel, BorderLayout.CENTER);
         frameContent.add(buttonPanel, BorderLayout.SOUTH);
 
+
         addButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String idText = idTextField.getText(); // can modify. just used for testing
+                String idText = idTextField.getText(); // can modify, just used for testing
                 String firstNameText = firstNameTextField.getText();
                 String lastNameText = lastNameTextField.getText();
 
-                if (idText.isEmpty() || firstNameText.isEmpty() || lastNameText.isEmpty() || idText.length() != 7) {
-                    inputNeededLabel.setForeground(resources.lipstickRed);
-                    inputNeededLabel.setText("Make sure to check and input all needed details."); // Display in all capital letters
-                } else {
+                boolean validIdLength = idText.length() == 7;
 
+                if (idText.isEmpty() || firstNameText.isEmpty() || lastNameText.isEmpty() || !validIdLength) {
+                    inputNeededLabel.setForeground(Color.RED);
+                    inputNeededLabel.setText("Make sure to check and input all needed details.");
+                    idErrorLabel.setVisible(!validIdLength);
+                } else {
                     // Handle the Add button click (add the student)
                     // Add student to data
                     addStudentFrame.dispose(); // Close the frame when done
@@ -1201,6 +1238,201 @@ public class Portal extends JFrame {
         addStudentFrame.setVisible(true);
     } // end of addStudentFrame
 
+    private void removeStudentFrame() {
+        removeStudentFrame = new JFrame("Remove Student");
+        ImageIcon sluStudLogo = resources.scaleImage(resources.sluLogo, 25, 25);
+        removeStudentFrame.setIconImage(sluStudLogo.getImage());
+        removeStudentFrame.setSize(600, 500);
+        removeStudentFrame.setLocationRelativeTo(null);
+        removeStudentFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+        JPanel frameContent = new JPanel();
+        frameContent.setLayout(new BorderLayout());
+
+        JPanel topPanel = new JPanel();
+        topPanel.setPreferredSize(new Dimension(500, 100));
+        topPanel.setBackground(Color.WHITE);
+
+        ImageIcon removelogoIcon = new ImageIcon("icons/remove-student-icon-black.png");
+        ImageIcon removeScaledLogo = resources.scaleImage(removelogoIcon, 120, 120);
+        JLabel logoLabel = new JLabel(removeScaledLogo);
+        topPanel.add(logoLabel, BorderLayout.CENTER);
+
+        frameContent.add(topPanel, BorderLayout.NORTH);
+
+        JPanel bottomPanel = new JPanel();
+        bottomPanel.setPreferredSize(new Dimension(500, 400));
+        bottomPanel.setBackground(Color.darkGray);
+
+        JPanel inputPanel = new JPanel();
+        inputPanel.setLayout(new GridBagLayout());
+        inputPanel.setBackground(Color.darkGray);
+
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.insets = new Insets(5, 5, 10, 5);
+
+        JLabel inputNeededLabel = new JLabel("Input ID Number to Remove Student");
+        inputNeededLabel.setFont(new Font("Montserrat Bold", Font.BOLD, 25));
+        inputNeededLabel.setForeground(Color.WHITE);
+        gbc.gridy = 0;
+        gbc.gridwidth = 2;
+
+        inputNeededLabel.setHorizontalAlignment(JLabel.CENTER);
+        inputPanel.add(inputNeededLabel, gbc);
+
+        JTextField idTextField = new JTextField(15);
+        idTextField.setFont(new Font("Montserrat", Font.PLAIN, 30));
+        JLabel idLabel = new JLabel("ID Number:");
+        idLabel.setFont(new Font("Montserrat Bold", Font.BOLD, 16));
+        idLabel.setForeground(Color.WHITE);
+        gbc.gridy = 1;
+        gbc.gridwidth = 1;
+        gbc.gridheight = 1;
+        inputPanel.add(idLabel, gbc);
+        gbc.gridy = 2;
+        inputPanel.add(idTextField, gbc);
+
+        JLabel confirmIdLabel = new JLabel("Confirm ID Number:");
+        confirmIdLabel.setFont(new Font("Montserrat Bold", Font.BOLD, 16));
+        confirmIdLabel.setForeground(Color.WHITE);
+        gbc.gridy = 3;
+        gbc.gridwidth = 1;
+        gbc.gridheight = 1;
+        inputPanel.add(confirmIdLabel, gbc);
+
+        JTextField confirmIdTextField = new JTextField(15);
+        confirmIdTextField.setFont(new Font("Montserrat", Font.PLAIN, 30));
+        gbc.gridy = 4;
+        inputPanel.add(confirmIdTextField, gbc);
+
+        JLabel errorLabel = new JLabel("The ID number and the confirmation ID number must match");
+        errorLabel.setFont(new Font("Montserrat", Font.BOLD, 16));
+        errorLabel.setForeground(Color.RED);
+        gbc.gridy = 5;
+        inputPanel.add(errorLabel, gbc);
+        errorLabel.setVisible(false);
+
+        DocumentFilter documentFilter = new DocumentFilter() {
+            @Override
+            public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException {
+                if ((fb.getDocument().getLength() + text.length() - length) <= 7) {
+                    super.replace(fb, offset, length, text, attrs);
+                }
+            }
+        };
+
+        ((AbstractDocument) idTextField.getDocument()).setDocumentFilter(documentFilter);
+        ((AbstractDocument) confirmIdTextField.getDocument()).setDocumentFilter(documentFilter);
+
+        bottomPanel.add(inputPanel);
+
+        JPanel buttonPanel = new JPanel();
+        JButton removeButton = new JButton("REMOVE");
+        JButton cancelButton = new JButton("CANCEL");
+
+        removeButton.setFont(new Font("Montserrat Bold", Font.BOLD, 24));
+        removeButton.setBackground(resources.uranianBlue);
+        removeButton.setForeground(Color.BLACK);
+        removeButton.setBorderPainted(false);
+
+        cancelButton.setFont(new Font("Montserrat Bold", Font.BOLD, 24));
+        cancelButton.setBackground(resources.uranianBlue);
+        cancelButton.setForeground(Color.BLACK);
+        cancelButton.setBorderPainted(false);
+
+        buttonPanel.setBackground(resources.yinmnBlue);
+        buttonPanel.add(removeButton);
+        buttonPanel.add(cancelButton);
+
+        frameContent.add(bottomPanel, BorderLayout.CENTER);
+        frameContent.add(buttonPanel, BorderLayout.SOUTH);
+
+        removeButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String idText = idTextField.getText();
+                String confirmIdText = confirmIdTextField.getText();
+
+                boolean idsMatch = idText.equals(confirmIdText);
+                boolean validIdLength = idText.length() == 7;
+
+                if (!idsMatch || !validIdLength) {
+                    idLabel.setForeground(Color.RED);
+                    confirmIdLabel.setForeground(Color.RED);
+                    errorLabel.setVisible(true);
+                } else {
+                    idLabel.setForeground(Color.WHITE);
+                    confirmIdLabel.setForeground(Color.WHITE);
+                    errorLabel.setVisible(false);
+
+                    removeStudentFrame.dispose();
+                }
+            }
+        });
+
+        cancelButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JFrame confirmDialogFrame = new JFrame("Confirm Cancel");
+                ImageIcon confirmCancelLogo = resources.scaleImage(resources.sluLogo, 25, 25);
+                addStudentFrame.setIconImage(confirmCancelLogo.getImage());
+                confirmDialogFrame.setSize(400, 150);
+                confirmDialogFrame.setLocationRelativeTo(addStudentFrame);
+                confirmDialogFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+                JPanel confirmPanel = new JPanel();
+                confirmPanel.setLayout(new BorderLayout());
+                confirmPanel.setBackground(Color.darkGray);
+
+                JLabel confirmLabel = new JLabel("Are you sure you want to cancel?");
+                confirmLabel.setFont(new Font("Montserrat Bold", Font.BOLD, 16));
+                confirmLabel.setForeground(Color.WHITE);
+                confirmLabel.setHorizontalAlignment(JLabel.CENTER);
+                confirmPanel.add(confirmLabel, BorderLayout.CENTER);
+
+                JPanel buttonPanel = new JPanel();
+                buttonPanel.setBackground(resources.yinmnBlue);
+                JButton yesButton = new JButton("Yes");
+                JButton noButton = new JButton("No");
+
+                yesButton.setFont(new Font("Montserrat Bold", Font.BOLD, 16));
+                yesButton.setForeground(Color.BLACK);
+                yesButton.setBackground(resources.uranianBlue);
+                yesButton.setBorderPainted(false);
+
+                noButton.setFont(new Font("Montserrat Bold", Font.BOLD, 16));
+                noButton.setForeground(Color.BLACK);
+                noButton.setBackground(resources.uranianBlue);
+                noButton.setBorderPainted(false);
+
+                buttonPanel.add(yesButton);
+                buttonPanel.add(noButton);
+
+                yesButton.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        confirmDialogFrame.dispose();
+                        addStudentFrame.dispose();
+                    }
+                });
+
+                noButton.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        confirmDialogFrame.dispose();
+                    }
+                });
+
+                confirmDialogFrame.add(confirmPanel, BorderLayout.CENTER);
+                confirmDialogFrame.add(buttonPanel, BorderLayout.SOUTH);
+                confirmDialogFrame.setVisible(true);
+            }
+        });
+
+        removeStudentFrame.setContentPane(frameContent);
+        removeStudentFrame.setVisible(true);
+    }
     /**
      * TODO: Documentation
      * @return

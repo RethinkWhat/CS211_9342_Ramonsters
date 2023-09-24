@@ -81,5 +81,62 @@ public class Main {
             curr = curr.getNext();
         } // end of for
         return null;
+
     } // end of search method
+
+    private java.util.LinkedList<Course> populateChecklist(int year, int sem) {
+        java.util.LinkedList<Course> courses = new java.util.LinkedList<>();
+        BufferedReader bufferedReader;
+        try {
+            if (year == 1) {
+                if (sem == 1) {
+                    bufferedReader = new BufferedReader(new FileReader("src/project2/course/BSCS/BSCS1/firstSem"));
+
+                    String line = "";
+                    while ((line = bufferedReader.readLine()) != null) {
+                        String[] values = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
+                        if (values.length >= 3) {
+                            String courseNumber = values[0];
+                            String title = values[1];
+                            int units = Integer.parseInt(values[2]);
+
+                            courses.add(new Course(courseNumber, title, units));
+                        } // end of 3rd if
+                    } // end of while
+                } else if (sem == 2) {
+                    bufferedReader = new BufferedReader(new FileReader("src/project2/course/BSCS/BSCS1/secondSem"));
+
+                    String line = "";
+                    while ((line = bufferedReader.readLine()) != null) {
+                        String[] values = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
+                        if (values.length >= 3) {
+                            String courseNumber = values[0];
+                            String title = values[1];
+                            int units = Integer.parseInt(values[2]);
+
+                            courses.add(new Course(courseNumber, title, units));
+                        } // end of 3rd if
+                    } // end of while
+                } else if (sem == 3) {
+                    bufferedReader = new BufferedReader(new FileReader("src/project2/course/BSCS/BSCS1/shortTerm"));
+
+                    String line = "";
+                    while ((line = bufferedReader.readLine()) != null) {
+                        String[] values = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
+                        if (values.length >= 3) {
+                            String courseNumber = values[0];
+                            String title = values[1];
+                            int units = Integer.parseInt(values[2]);
+
+                            courses.add(new Course(courseNumber, title, units));
+                        } // end of 3rd if
+                    } // end of while
+                } // end of 2nd if
+            } // end of if
+        } catch (IOException e1) {
+            e1.getCause();
+            e1.printStackTrace();
+        } // end of try-catch
+        return courses;
+    } // end of populateChecklist method
 } // end of class Main

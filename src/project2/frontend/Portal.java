@@ -182,8 +182,6 @@ public class Portal extends JFrame {
             personalDetailsButton.setForeground(resources.antiflashWhite);
         });
 
-
-
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(1200,700);
         setResizable(true);

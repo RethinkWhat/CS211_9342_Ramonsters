@@ -1,6 +1,7 @@
 package project2.frontend;
 
 import project2.backend.Node;
+import project2.course.BSCS.CourseUtility;
 import project2.referenceclasses.Admin;
 import project2.referenceclasses.Course;
 import project2.referenceclasses.Student;
@@ -34,6 +35,11 @@ public class Portal extends JFrame {
      * An object of Resources that is used to invoke UI resources and elements.
      */
     private final Resources resources = new Resources();
+
+    /**
+     * An object of CourseUtility that is used to invoke the LinkedLists of courses used in the curriculum checklist.
+     */
+    private final CourseUtility courseChecklist = new CourseUtility();
 
     /**
      * TODO: Documentation
@@ -1115,7 +1121,7 @@ public class Portal extends JFrame {
         JTable table = new JTable(new DefaultTableModel(
                 new Object[]{"Course Number","Descriptive Title","Units"},0));
         table.getColumnModel().getColumn(0).setPreferredWidth(130);
-        table.getColumnModel().getColumn(1).setPreferredWidth(546);
+        table.getColumnModel().getColumn(1).setPreferredWidth(621);
         table.getColumnModel().getColumn(2).setPreferredWidth(80);
         table.getTableHeader().setResizingAllowed(false);
         table.getTableHeader().setReorderingAllowed(false);
@@ -1129,13 +1135,14 @@ public class Portal extends JFrame {
 
         DefaultTableModel model = (DefaultTableModel) table.getModel();
 
-        for (Course course : year1Sem1) {
+        for (Course course : courseChecklist.year1Sem1) {
             model.addRow(new Object[]{course.getCourseNumber(),
                     course.getDescriptiveName(),
                     course.getUnits()});
         } // end of for
 
         // Action Listeners
+
         nextButton.addActionListener(e -> {
             sem++;
             if (sem > 3) {
@@ -1153,29 +1160,95 @@ public class Portal extends JFrame {
                 case 1 -> {
                     switch (sem) {
                         case 1 -> {
-                            for (Course course : year1Sem1) {
+                            for (Course course : courseChecklist.year1Sem1) {
                                 model.addRow(new Object[]{course.getCourseNumber(),
                                         course.getDescriptiveName(),
                                         course.getUnits()});
                             } // end of for
                         } // end of case for sem 1
                         case 2 -> {
-                            for (Course course : year1Sem2) {
+                            for (Course course : courseChecklist.year1Sem2) {
                                 model.addRow(new Object[]{course.getCourseNumber(),
                                         course.getDescriptiveName(),
                                         course.getUnits()});
                             } // end of for
-                        }
+                        } // end of case for sem 2
+                        case 3 -> {
+                            for (Course course : courseChecklist.year1Sem3) {
+                                model.addRow(new Object[]{course.getCourseNumber(),
+                                        course.getDescriptiveName(),
+                                        course.getUnits()});
+                            } // end of for
+                        } // end of case for sem 3
                     } // end of switch-case for sem
                 } // end of case for year 1
                 case 2 -> {
-
+                    switch (sem) {
+                        case 1 -> {
+                            for (Course course : courseChecklist.year2Sem1) {
+                                model.addRow(new Object[]{course.getCourseNumber(),
+                                        course.getDescriptiveName(),
+                                        course.getUnits()});
+                            } // end of for
+                        } // end of case for sem 1
+                        case 2 -> {
+                            for (Course course : courseChecklist.year2Sem2) {
+                                model.addRow(new Object[]{course.getCourseNumber(),
+                                        course.getDescriptiveName(),
+                                        course.getUnits()});
+                            } // end of for
+                        } // end of case for sem 2
+                        case 3 -> {
+                            for (Course course : courseChecklist.year2Sem3) {
+                                model.addRow(new Object[]{course.getCourseNumber(),
+                                        course.getDescriptiveName(),
+                                        course.getUnits()});
+                            } // end of for
+                        } // end of case for sem 3
+                    } // end of switch-case for sem
                 } // end of case for year 2
                 case 3 -> {
-
+                    switch (sem) {
+                        case 1 -> {
+                            for (Course course : courseChecklist.year3Sem1) {
+                                model.addRow(new Object[]{course.getCourseNumber(),
+                                        course.getDescriptiveName(),
+                                        course.getUnits()});
+                            } // end of for
+                        } // end of case for sem 1
+                        case 2 -> {
+                            for (Course course : courseChecklist.year3Sem2) {
+                                model.addRow(new Object[]{course.getCourseNumber(),
+                                        course.getDescriptiveName(),
+                                        course.getUnits()});
+                            } // end of for
+                        } // end of case for sem 2
+                        case 3 -> {
+                            for (Course course : courseChecklist.year3Sem3) {
+                                model.addRow(new Object[]{course.getCourseNumber(),
+                                        course.getDescriptiveName(),
+                                        course.getUnits()});
+                            } // end of for
+                        } // end of case for sem 3
+                    } // end of switch-case for sem
                 } // end of case for year 3
                 case 4 -> {
-
+                    switch (sem) {
+                        case 1 -> {
+                            for (Course course : courseChecklist.year4Sem1) {
+                                model.addRow(new Object[]{course.getCourseNumber(),
+                                        course.getDescriptiveName(),
+                                        course.getUnits()});
+                            } // end of for
+                        } // end of case for sem 1
+                        case 2 -> {
+                            for (Course course : courseChecklist.year4Sem2) {
+                                model.addRow(new Object[]{course.getCourseNumber(),
+                                        course.getDescriptiveName(),
+                                        course.getUnits()});
+                            } // end of for
+                        } // end of case for sem 2
+                    } // end of switch-case for sem
                 } // end of case for year 4
             } // end of switch-case for year
         });
@@ -1197,29 +1270,95 @@ public class Portal extends JFrame {
                 case 1 -> {
                     switch (sem) {
                         case 1 -> {
-                            for (Course course : year1Sem1) {
+                            for (Course course : courseChecklist.year1Sem1) {
                                 model.addRow(new Object[]{course.getCourseNumber(),
                                         course.getDescriptiveName(),
                                         course.getUnits()});
                             } // end of for
                         } // end of case for sem 1
                         case 2 -> {
-                            for (Course course : year1Sem2) {
+                            for (Course course : courseChecklist.year1Sem2) {
                                 model.addRow(new Object[]{course.getCourseNumber(),
                                         course.getDescriptiveName(),
                                         course.getUnits()});
                             } // end of for
-                        }
+                        } // end of case for sem 2
+                        case 3 -> {
+                            for (Course course : courseChecklist.year1Sem3) {
+                                model.addRow(new Object[]{course.getCourseNumber(),
+                                        course.getDescriptiveName(),
+                                        course.getUnits()});
+                            } // end of for
+                        } // end of case for sem 3
                     } // end of switch-case for sem
                 } // end of case for year 1
                 case 2 -> {
-
+                    switch (sem) {
+                        case 1 -> {
+                            for (Course course : courseChecklist.year2Sem1) {
+                                model.addRow(new Object[]{course.getCourseNumber(),
+                                        course.getDescriptiveName(),
+                                        course.getUnits()});
+                            } // end of for
+                        } // end of case for sem 1
+                        case 2 -> {
+                            for (Course course : courseChecklist.year2Sem2) {
+                                model.addRow(new Object[]{course.getCourseNumber(),
+                                        course.getDescriptiveName(),
+                                        course.getUnits()});
+                            } // end of for
+                        } // end of case for sem 2
+                        case 3 -> {
+                            for (Course course : courseChecklist.year2Sem3) {
+                                model.addRow(new Object[]{course.getCourseNumber(),
+                                        course.getDescriptiveName(),
+                                        course.getUnits()});
+                            } // end of for
+                        } // end of case for sem 3
+                    } // end of switch-case for sem
                 } // end of case for year 2
                 case 3 -> {
-
+                    switch (sem) {
+                        case 1 -> {
+                            for (Course course : courseChecklist.year3Sem1) {
+                                model.addRow(new Object[]{course.getCourseNumber(),
+                                        course.getDescriptiveName(),
+                                        course.getUnits()});
+                            } // end of for
+                        } // end of case for sem 1
+                        case 2 -> {
+                            for (Course course : courseChecklist.year3Sem2) {
+                                model.addRow(new Object[]{course.getCourseNumber(),
+                                        course.getDescriptiveName(),
+                                        course.getUnits()});
+                            } // end of for
+                        } // end of case for sem 2
+                        case 3 -> {
+                            for (Course course : courseChecklist.year3Sem3) {
+                                model.addRow(new Object[]{course.getCourseNumber(),
+                                        course.getDescriptiveName(),
+                                        course.getUnits()});
+                            } // end of for
+                        } // end of case for sem 3
+                    } // end of switch-case for sem
                 } // end of case for year 3
                 case 4 -> {
-
+                    switch (sem) {
+                        case 1 -> {
+                            for (Course course : courseChecklist.year4Sem1) {
+                                model.addRow(new Object[]{course.getCourseNumber(),
+                                        course.getDescriptiveName(),
+                                        course.getUnits()});
+                            } // end of for
+                        } // end of case for sem 1
+                        case 2 -> {
+                            for (Course course : courseChecklist.year4Sem2) {
+                                model.addRow(new Object[]{course.getCourseNumber(),
+                                        course.getDescriptiveName(),
+                                        course.getUnits()});
+                            } // end of for
+                        } // end of case for sem 2
+                    } // end of switch-case for sem
                 } // end of case for year 4
             } // end of switch-case for year
         });

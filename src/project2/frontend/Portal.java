@@ -1184,7 +1184,16 @@ public class Portal extends JFrame {
                         addStudentFrame.dispose();
                     }
                 });
+                noButton.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        confirmDialogFrame.dispose();
+                    }
+                });
 
+                confirmDialogFrame.add(confirmPanel, BorderLayout.CENTER);
+                confirmDialogFrame.add(buttonPanel, BorderLayout.SOUTH);
+                confirmDialogFrame.setVisible(true);
             }
         });
 

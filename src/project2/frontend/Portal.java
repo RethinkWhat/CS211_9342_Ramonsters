@@ -977,6 +977,8 @@ public class Portal extends JFrame {
      */
     private void addStudentFrame() {
         addStudentFrame = new JFrame("Add Student");
+        ImageIcon sluStudLogo = resources.scaleImage(resources.sluLogo, 25, 25);
+        addStudentFrame.setIconImage(sluStudLogo.getImage());
         addStudentFrame.setSize(600, 500);
         addStudentFrame.setLocationRelativeTo(null);
         addStudentFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -990,7 +992,7 @@ public class Portal extends JFrame {
 
 
         ImageIcon logoIcon = new ImageIcon("icons/add-student-icon-black.png");
-        ImageIcon scaledLogo = resources.scaleImage(logoIcon, 400, 400);
+        ImageIcon scaledLogo = resources.scaleImage(logoIcon, 200, 200);
         JLabel logoLabel = new JLabel(scaledLogo);
 
         topPanel.setLayout(new BorderLayout());
@@ -1053,8 +1055,8 @@ public class Portal extends JFrame {
         bottomPanel.add(inputPanel);
 
         JPanel buttonPanel = new JPanel();
-        JButton addButton = new JButton("Add");
-        JButton cancelButton = new JButton("Cancel");
+        JButton addButton = new JButton("ADD");
+        JButton cancelButton = new JButton("CANCEL");
 
         addButton.setFont(new Font("Montserrat Bold", Font.BOLD, 24));
         addButton.setBackground(resources.uranianBlue);

@@ -1209,8 +1209,82 @@ public class Portal extends JFrame {
         addStudentFrame.setVisible(true);
     } // end of addStudentFrame
 
-    private void removeStudentFrame(){
+    private void removeStudentFrame() {
+        JFrame removeStudentFrame = new JFrame("Remove Student");
+        removeStudentFrame.setSize(600, 500);
+        removeStudentFrame.setLocationRelativeTo(null);
+        removeStudentFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
+        JPanel frameContent = new JPanel();
+        frameContent.setLayout(new BorderLayout());
+
+        JPanel topPanel = new JPanel();
+        topPanel.setPreferredSize(new Dimension(500, 100));
+        topPanel.setBackground(Color.WHITE);
+
+        ImageIcon logoIcon = new ImageIcon("icons/remove-student-icon-black.png");
+        ImageIcon scaledLogo = resources.scaleImage(logoIcon, 120, 120);
+        JLabel logoLabel = new JLabel(scaledLogo);
+        topPanel.add(logoLabel, BorderLayout.CENTER);
+
+        frameContent.add(topPanel, BorderLayout.NORTH);
+
+        JPanel bottomPanel = new JPanel();
+        bottomPanel.setPreferredSize(new Dimension(500, 300));
+        bottomPanel.setBackground(Color.darkGray);
+
+        JPanel inputPanel = new JPanel();
+        inputPanel.setLayout(new GridBagLayout());
+        inputPanel.setBackground(Color.darkGray);
+
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.insets = new Insets(5, 5, 10, 5);
+
+        JLabel inputNeededLabel = new JLabel("Input ID Number to Remove Student");
+        inputNeededLabel.setFont(new Font("Montserrat Bold", Font.BOLD, 25));
+        inputNeededLabel.setForeground(Color.WHITE);
+        gbc.gridy = 0;
+        gbc.gridwidth = 2;
+
+        inputNeededLabel.setHorizontalAlignment(JLabel.CENTER);
+        inputPanel.add(inputNeededLabel, gbc);
+
+        JTextField idTextField = new JTextField(15);
+        idTextField.setFont(new Font("Montserrat", Font.PLAIN, 30));
+        JLabel idLabel = new JLabel("ID Number:");
+        idLabel.setFont(new Font("Montserrat Bold", Font.BOLD, 16));
+        idLabel.setForeground(Color.WHITE);
+        gbc.gridy = 1;
+        gbc.gridwidth = 1;
+        gbc.gridheight = 1;
+        inputPanel.add(idLabel, gbc);
+        gbc.gridy = 2;
+        inputPanel.add(idTextField, gbc);
+
+        bottomPanel.add(inputPanel);
+
+        JPanel buttonPanel = new JPanel();
+        JButton removeButton = new JButton("REMOVE");
+        JButton cancelButton = new JButton("CANCEL");
+
+
+        removeButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                removeStudentFrame.dispose();
+            }
+        });
+
+        cancelButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                removeStudentFrame.dispose();
+            }
+        });
+
+        removeStudentFrame.setContentPane(frameContent);
+        removeStudentFrame.setVisible(true);
     }
     /**
      * TODO: Documentation

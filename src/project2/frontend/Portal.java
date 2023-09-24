@@ -1211,6 +1211,8 @@ public class Portal extends JFrame {
 
     private void removeStudentFrame() {
         JFrame removeStudentFrame = new JFrame("Remove Student");
+        ImageIcon sluStudLogo = resources.scaleImage(resources.sluLogo, 25, 25);
+        addStudentFrame.setIconImage(sluStudLogo.getImage());
         removeStudentFrame.setSize(600, 500);
         removeStudentFrame.setLocationRelativeTo(null);
         removeStudentFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

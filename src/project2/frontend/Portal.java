@@ -11,6 +11,10 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
+import javax.swing.text.AbstractDocument;
+import javax.swing.text.AttributeSet;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.DocumentFilter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -1211,8 +1215,6 @@ public class Portal extends JFrame {
 
     private void removeStudentFrame() {
         removeStudentFrame = new JFrame("Remove Student");
-        ImageIcon sluStudLogo = resources.scaleImage(resources.sluLogo, 25, 25);
-        addStudentFrame.setIconImage(sluStudLogo.getImage());
         removeStudentFrame.setSize(600, 500);
         removeStudentFrame.setLocationRelativeTo(null);
         removeStudentFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -1283,6 +1285,18 @@ public class Portal extends JFrame {
         gbc.gridy = 5;
         inputPanel.add(errorLabel, gbc);
         errorLabel.setVisible(false);
+
+        DocumentFilter documentFilter = new DocumentFilter() {
+            @Override
+            public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException {
+                if ((fb.getDocument().getLength() + text.length() - length) <= 7) {
+                    super.replace(fb, offset, length, text, attrs);
+                }
+            }
+        };
+
+        ((AbstractDocument) idTextField.getDocument()).setDocumentFilter(documentFilter);
+        ((AbstractDocument) confirmIdTextField.getDocument()).setDocumentFilter(documentFilter);
 
         bottomPanel.add(inputPanel);
 

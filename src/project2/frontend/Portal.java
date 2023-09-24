@@ -1142,7 +1142,29 @@ public class Portal extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                addStudentFrame.dispose(); //closes the frame
+                JFrame confirmDialogFrame = new JFrame("Confirm Cancel");
+                ImageIcon confirmCancelLogo = resources.scaleImage(resources.sluLogo, 25, 25);
+                addStudentFrame.setIconImage(confirmCancelLogo.getImage());
+                confirmDialogFrame.setSize(400, 150);
+                confirmDialogFrame.setLocationRelativeTo(addStudentFrame);
+                confirmDialogFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+                JPanel confirmPanel = new JPanel();
+                confirmPanel.setLayout(new BorderLayout());
+                confirmPanel.setBackground(Color.darkGray);
+
+                JLabel confirmLabel = new JLabel("Are you sure you want to cancel?");
+                confirmLabel.setFont(new Font("Montserrat Bold", Font.BOLD, 16));
+                confirmLabel.setForeground(Color.WHITE);
+                confirmLabel.setHorizontalAlignment(JLabel.CENTER);
+                confirmPanel.add(confirmLabel, BorderLayout.CENTER);
+
+                JPanel buttonPanel = new JPanel();
+                buttonPanel.setBackground(resources.yinmnBlue);
+                JButton yesButton = new JButton("Yes");
+                JButton noButton = new JButton("No");
+
+
             }
         });
 

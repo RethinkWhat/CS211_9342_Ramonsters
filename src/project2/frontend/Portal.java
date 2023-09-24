@@ -2,6 +2,7 @@ package project2.frontend;
 
 import project2.backend.Node;
 import project2.referenceclasses.Admin;
+import project2.referenceclasses.Course;
 import project2.referenceclasses.Student;
 
 import javax.swing.*;
@@ -14,7 +15,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.EventObject;
+import java.util.LinkedList;
 
 import project2.referenceclasses.Student;
 
@@ -64,6 +69,10 @@ public class Portal extends JFrame {
      * Card Layout used for components inside centerPanel
      */
     private final CardLayout cardLayout2 = new CardLayout(10,20);
+
+    private int year;
+
+    private int sem;
 
     /**
      * Constructs an object of Portal.
@@ -751,7 +760,7 @@ public class Portal extends JFrame {
         searchButton.addActionListener(e-> {
             updateStudentShown(Main.search(idTextField.getText()));
             if (!studentNameLabel.getText().equalsIgnoreCase("ID Number")
-            && !studentIdLabel.getText().equalsIgnoreCase("Last Name, First Name")) {
+                    && !studentIdLabel.getText().equalsIgnoreCase("Last Name, First Name")) {
                 nextTorButton.setVisible(true);
             }
         });
@@ -998,6 +1007,9 @@ public class Portal extends JFrame {
      * @return
      */
     private JPanel populateChecklistPanel() {
+        year = 1;
+        sem = 1;
+
         // Checklist Panel
         JPanel checklistPanel = new JPanel();
         checklistPanel.setLayout(new BorderLayout());
@@ -1005,7 +1017,278 @@ public class Portal extends JFrame {
         checklistPanel.setPreferredSize(new Dimension(910,700));
 
         // ! Checklist Panel Components
-        // TODO: Supporting Code
+
+        // !!! Heading Panel
+        JPanel headingPanel = new JPanel();
+        headingPanel.setLayout(new BorderLayout());
+        headingPanel.setBorder(resources.thinPadding);
+        headingPanel.setBackground(resources.yinmnBlue);
+        headingPanel.setPreferredSize(new Dimension(910,40));
+        checklistPanel.add(headingPanel, BorderLayout.NORTH);
+
+        // !!!! Heading Panel Components
+
+        // !!!! Curriculum Checklist Label
+        JLabel checklistLabel = new JLabel();
+        checklistLabel.setText("Curriculum Checklist");
+        checklistLabel.setIcon(torButton.getIcon());
+        checklistLabel.setFont(resources.montserratBold.deriveFont(11f));
+        checklistLabel.setForeground(resources.antiflashWhite);
+        checklistLabel.setHorizontalAlignment(SwingConstants.LEFT);
+        headingPanel.add(checklistLabel, BorderLayout.WEST);
+
+        // !!! Body Panel
+        JPanel bodyPanel = new JPanel();
+        bodyPanel.setLayout(new BorderLayout());
+        bodyPanel.setBorder(resources.thinPadding);
+        bodyPanel.setBackground(Color.WHITE);
+        checklistPanel.add(bodyPanel, BorderLayout.CENTER);
+
+        // !!!! Body Panel Components
+
+        // !!!! Top Panel
+        JPanel topPanel = new JPanel();
+        topPanel.setLayout(new BorderLayout());
+        topPanel.setBackground(Color.WHITE);
+        topPanel.setPreferredSize(new Dimension(910, 35));
+        bodyPanel.add(topPanel, BorderLayout.NORTH);
+
+        // !!!!! Top Panel Components
+
+        // !!!!! Year Label
+        ImageIcon pinIcon = new ImageIcon("icons/pin-icon-black.png");
+        JLabel yearLabel = new JLabel();
+        yearLabel.setText("   Year " + year + ", " + "Semester " + sem);
+        yearLabel.setIcon(pinIcon);
+        yearLabel.setFont(resources.montserrat.deriveFont(13f));
+        yearLabel.setForeground(Color.BLACK);
+        yearLabel.setHorizontalAlignment(SwingConstants.LEFT);
+        yearLabel.setVerticalAlignment(SwingConstants.CENTER);
+        topPanel.add(yearLabel, BorderLayout.WEST);
+
+        // !!!!! Nav Button Panel
+        JPanel navButtonPanel = new JPanel();
+        navButtonPanel.setLayout(new FlowLayout());
+        navButtonPanel.setBackground(Color.WHITE);
+        navButtonPanel.setPreferredSize(new Dimension(110, 20));
+        topPanel.add(navButtonPanel, BorderLayout.EAST);
+
+        // !!!!!! Nav Button Components
+
+        // !!!!!! Previous Button
+        ImageIcon prevIcon = new ImageIcon("icons/arrow_back-icon-black.png");
+        ImageIcon scaledPrevIcon = resources.scaleImage(prevIcon, 15, 15);
+        JButton prevButton = new JButton();
+        prevButton.setIcon(scaledPrevIcon);
+        prevButton.setFont(resources.montserrat.deriveFont(11f));
+        prevButton.setOpaque(false);
+        prevButton.setContentAreaFilled(false);
+        prevButton.setBorderPainted(false);
+        prevButton.setHorizontalAlignment(SwingConstants.RIGHT);
+        prevButton.setVerticalAlignment(SwingConstants.CENTER);
+        prevButton.setFocusable(false);
+        prevButton.setFocusPainted(false);
+        navButtonPanel.add(prevButton);
+
+        // !!!!!! Next Button
+        ImageIcon nextIcon = new ImageIcon("icons/arrow_forward-icon-black.png");
+        ImageIcon scaledNextIcon = resources.scaleImage(nextIcon, 15, 15);
+        JButton nextButton = new JButton();
+        nextButton.setIcon(scaledNextIcon);
+        nextButton.setOpaque(false);
+        nextButton.setContentAreaFilled(false);
+        nextButton.setBorderPainted(false);
+        nextButton.setHorizontalAlignment(SwingConstants.RIGHT);
+        nextButton.setVerticalAlignment(SwingConstants.CENTER);
+        nextButton.setFocusable(false);
+        nextButton.setFocusPainted(false);
+        navButtonPanel.add(nextButton);
+
+        // !!!! Table Panel
+        JPanel tablePanel = new JPanel();
+        tablePanel.setLayout(new GridLayout(1,1));
+        tablePanel.setBackground(Color.WHITE);
+        tablePanel.setBorder(resources.thinPadding);
+        bodyPanel.add(tablePanel, BorderLayout.CENTER);
+
+        // !!!!! Table Panel Components
+        JTable table = new JTable(new DefaultTableModel(
+                new Object[]{"Course Number","Descriptive Title","Units"},0));
+        table.getColumnModel().getColumn(0).setPreferredWidth(130);
+        table.getColumnModel().getColumn(1).setPreferredWidth(546);
+        table.getColumnModel().getColumn(2).setPreferredWidth(80);
+        table.getTableHeader().setResizingAllowed(false);
+        table.getTableHeader().setReorderingAllowed(false);
+        table.getTableHeader().setFont(resources.montserratBold.deriveFont(12f));
+        table.setAutoResizeMode(0);
+        table.setDragEnabled(false);
+        table.setOpaque(false);
+        table.setBackground(Color.WHITE);
+        table.setForeground(Color.BLACK);
+        table.setFont(resources.montserrat.deriveFont(14f));
+
+        DefaultTableModel model = (DefaultTableModel) table.getModel();
+
+        for (Course course : year1Sem1) {
+            model.addRow(new Object[]{course.getCourseNumber(),
+                    course.getDescriptiveName(),
+                    course.getUnits()});
+        } // end of for
+
+        // Action Listeners
+        nextButton.addActionListener(e -> {
+            sem++;
+            if (sem > 3) {
+                sem = 1;
+                year++;
+                if (year > 4) {
+                    sem = 1;
+                    year = 1;
+                } // end of if
+            } // end of if
+            yearLabel.setText("   Year " + year + ", " + "Semester " + sem);
+
+            ((DefaultTableModel) table.getModel()).setRowCount(0);
+            switch (year) {
+                case 1 -> {
+                    switch (sem) {
+                        case 1 -> {
+                            for (Course course : year1Sem1) {
+                                model.addRow(new Object[]{course.getCourseNumber(),
+                                        course.getDescriptiveName(),
+                                        course.getUnits()});
+                            } // end of for
+                        } // end of case for sem 1
+                        case 2 -> {
+                            for (Course course : year1Sem2) {
+                                model.addRow(new Object[]{course.getCourseNumber(),
+                                        course.getDescriptiveName(),
+                                        course.getUnits()});
+                            } // end of for
+                        }
+                    } // end of switch-case for sem
+                } // end of case for year 1
+                case 2 -> {
+
+                } // end of case for year 2
+                case 3 -> {
+
+                } // end of case for year 3
+                case 4 -> {
+
+                } // end of case for year 4
+            } // end of switch-case for year
+        });
+
+        prevButton.addActionListener(e -> {
+            sem--;
+            if (sem < 1) {
+                sem = 1;
+                year--;
+                if (year < 1) {
+                    sem = 3;
+                    year = 4;
+                } // end of if
+            } // end of if
+            yearLabel.setText("   Year " + year + ", " + "Semester " + sem);
+
+            ((DefaultTableModel) table.getModel()).setRowCount(0);
+            switch (year) {
+                case 1 -> {
+                    switch (sem) {
+                        case 1 -> {
+                            for (Course course : year1Sem1) {
+                                model.addRow(new Object[]{course.getCourseNumber(),
+                                        course.getDescriptiveName(),
+                                        course.getUnits()});
+                            } // end of for
+                        } // end of case for sem 1
+                        case 2 -> {
+                            for (Course course : year1Sem2) {
+                                model.addRow(new Object[]{course.getCourseNumber(),
+                                        course.getDescriptiveName(),
+                                        course.getUnits()});
+                            } // end of for
+                        }
+                    } // end of switch-case for sem
+                } // end of case for year 1
+                case 2 -> {
+
+                } // end of case for year 2
+                case 3 -> {
+
+                } // end of case for year 3
+                case 4 -> {
+
+                } // end of case for year 4
+            } // end of switch-case for year
+        });
+
+        table.setDefaultEditor(Object.class, new DefaultCellEditor(new JTextField()) {
+            @Override
+            public boolean isCellEditable(EventObject e) {
+                return false;
+            }
+        });
+
+        JScrollPane scrollPane = new JScrollPane(table);
+        scrollPane.setBackground(Color.WHITE);
+        scrollPane.setOpaque(false);
+        tablePanel.add(scrollPane);
+
+
+        // !!!!! CRUD Button Panel
+        JPanel crudButtons = new JPanel();
+        crudButtons.setLayout(new FlowLayout());
+        crudButtons.setBackground(Color.WHITE);
+        crudButtons.setPreferredSize(new Dimension(910, 40));
+        bodyPanel.add(crudButtons, BorderLayout.SOUTH);
+
+        // !!!!!! CRUD Button Components
+
+        // !!!!!! Add Button
+
+        // !!!!!! Edit Button
+        ImageIcon editIcon = new ImageIcon("icons/edit-icon-black.png");
+        JButton editButton = new JButton();
+        editButton.setText("Edit");
+        editButton.setIcon(editIcon);
+        editButton.setFont(resources.montserrat.deriveFont(11f));
+        editButton.setOpaque(true);
+        editButton.setBorderPainted(false);
+        editButton.setBackground(resources.uranianBlue);
+        editButton.setForeground(Color.BLACK);
+        editButton.setFocusable(false);
+        editButton.setFocusPainted(false);
+        crudButtons.add(editButton);
+
+        // !!!!!! Delete Button
+        ImageIcon deleteIcon = new ImageIcon("icons/delete-icon-black.png");
+        JButton deleteButton = new JButton();
+        deleteButton.setText("Delete");
+        deleteButton.setIcon(deleteIcon);
+        deleteButton.setFont(resources.montserrat.deriveFont(11f));
+        deleteButton.setOpaque(true);
+        deleteButton.setBorderPainted(false);
+        deleteButton.setBackground(resources.uranianBlue);
+        deleteButton.setForeground(Color.BLACK);
+        deleteButton.setFocusable(false);
+        deleteButton.setFocusPainted(false);
+        crudButtons.add(deleteButton);
+
+        // !!!!!! Export Button
+        ImageIcon exportIcon = new ImageIcon("icons/export-icon-black.png");
+        JButton exportButton = new JButton();
+        exportButton.setText("Export as CSV");
+        exportButton.setIcon(exportIcon);
+        exportButton.setFont(resources.montserrat.deriveFont(11f));
+        exportButton.setOpaque(true);
+        exportButton.setBorderPainted(false);
+        exportButton.setBackground(resources.uranianBlue);
+        exportButton.setForeground(Color.BLACK);
+        exportButton.setFocusable(false);
+        exportButton.setFocusPainted(false);
+        crudButtons.add(exportButton);
 
         return checklistPanel;
     } // end of populateChecklistPanel method
@@ -1017,4 +1300,9 @@ public class Portal extends JFrame {
         personalPanel.setPreferredSize(new Dimension(910,700));
         return personalPanel;
     }
+
+    /**
+     * TODO: Documentation
+     */
+
 } // end of class Portal

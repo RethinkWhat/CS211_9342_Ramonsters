@@ -1141,6 +1141,59 @@ public class Portal extends JFrame {
         cancelButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
+                JFrame confirmDialogFrame = new JFrame("Confirm Cancel");
+                ImageIcon confirmCancelLogo = resources.scaleImage(resources.sluLogo, 25, 25);
+                addStudentFrame.setIconImage(confirmCancelLogo.getImage());
+                confirmDialogFrame.setSize(400, 150);
+                confirmDialogFrame.setLocationRelativeTo(addStudentFrame);
+                confirmDialogFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+                JPanel confirmPanel = new JPanel();
+                confirmPanel.setLayout(new BorderLayout());
+                confirmPanel.setBackground(Color.darkGray);
+
+                JLabel confirmLabel = new JLabel("Are you sure you want to cancel?");
+                confirmLabel.setFont(new Font("Montserrat Bold", Font.BOLD, 16));
+                confirmLabel.setForeground(Color.WHITE);
+                confirmLabel.setHorizontalAlignment(JLabel.CENTER);
+                confirmPanel.add(confirmLabel, BorderLayout.CENTER);
+
+                JPanel buttonPanel = new JPanel();
+                buttonPanel.setBackground(resources.yinmnBlue);
+                JButton yesButton = new JButton("Yes");
+                JButton noButton = new JButton("No");
+
+                yesButton.setFont(new Font("Montserrat Bold", Font.BOLD, 16));
+                yesButton.setForeground(Color.BLACK);
+                yesButton.setBackground(resources.uranianBlue);
+                yesButton.setBorderPainted(false);
+
+                noButton.setFont(new Font("Montserrat Bold", Font.BOLD, 16));
+                noButton.setForeground(Color.BLACK);
+                noButton.setBackground(resources.uranianBlue);
+                noButton.setBorderPainted(false);
+
+                buttonPanel.add(yesButton);
+                buttonPanel.add(noButton);
+
+                yesButton.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        confirmDialogFrame.dispose();
+                        addStudentFrame.dispose();
+                    }
+                });
+                noButton.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        confirmDialogFrame.dispose();
+                    }
+                });
+
+                confirmDialogFrame.add(confirmPanel, BorderLayout.CENTER);
+                confirmDialogFrame.add(buttonPanel, BorderLayout.SOUTH);
+                confirmDialogFrame.setVisible(true);
             }
         });
 

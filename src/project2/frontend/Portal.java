@@ -1088,6 +1088,28 @@ public class Portal extends JFrame {
         gbc.gridy = 3;
         inputPanel.add(idTextField, gbc);
 
+        // Add input validation for ID number
+        JLabel idErrorLabel = new JLabel("ID number must be exactly 7 characters long");
+        idErrorLabel.setFont(new Font("Montserrat", Font.BOLD, 16));
+        idErrorLabel.setForeground(Color.RED);
+        gbc.gridy = 8;
+        inputPanel.add(idErrorLabel, gbc);
+        idErrorLabel.setVisible(false);
+
+        DocumentFilter idDocumentFilter = new DocumentFilter() {
+            @Override
+            public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException {
+                if ((fb.getDocument().getLength() + text.length() - length) <= 7) {
+                    super.replace(fb, offset, length, text, attrs);
+                    idErrorLabel.setVisible(false);
+                } else {
+                    idErrorLabel.setVisible(true);
+                }
+            }
+        };
+
+        ((AbstractDocument) idTextField.getDocument()).setDocumentFilter(idDocumentFilter);
+
         JTextField firstNameTextField = new JTextField(20);
         firstNameTextField.setFont(new Font("Montserrat", Font.PLAIN, 24));
         JLabel firstNameLabel = new JLabel("First Name:");
@@ -1131,18 +1153,21 @@ public class Portal extends JFrame {
         frameContent.add(bottomPanel, BorderLayout.CENTER);
         frameContent.add(buttonPanel, BorderLayout.SOUTH);
 
+
         addButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String idText = idTextField.getText(); // can modify. just used for testing
+                String idText = idTextField.getText(); // can modify, just used for testing
                 String firstNameText = firstNameTextField.getText();
                 String lastNameText = lastNameTextField.getText();
 
-                if (idText.isEmpty() || firstNameText.isEmpty() || lastNameText.isEmpty() || idText.length() != 7) {
-                    inputNeededLabel.setForeground(resources.lipstickRed);
-                    inputNeededLabel.setText("Make sure to check and input all needed details."); // Display in all capital letters
-                } else {
+                boolean validIdLength = idText.length() == 7;
 
+                if (idText.isEmpty() || firstNameText.isEmpty() || lastNameText.isEmpty() || !validIdLength) {
+                    inputNeededLabel.setForeground(Color.RED);
+                    inputNeededLabel.setText("Make sure to check and input all needed details.");
+                    idErrorLabel.setVisible(!validIdLength);
+                } else {
                     // Handle the Add button click (add the student)
                     // Add student to data
                     addStudentFrame.dispose(); // Close the frame when done

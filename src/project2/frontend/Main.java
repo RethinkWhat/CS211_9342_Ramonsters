@@ -51,14 +51,18 @@ public class Main {
     /**
      * Invokes the backend code.
      */
+
     private void run() {
         resources.loadFonts();
 
-        Student studentObj = new Student("2233293", "Rithik", "Tank", computerScience);
-        Student studentObj1 = new Student("2233375", "Johan Rickardo", "Roxas", computerScience);
-        Student studentObj2 = new Student("2230153", "Marvin Patrick", "Lacanilao", computerScience);
-        Student studentObj3 = new Student("2230748", "Ramon Emmiel", "Jasmin", computerScience);
-        Student studentObj4 = new Student("2233205", "Sebastian", "Siccuan", computerScience);
+        Student studentObj = new Student("2233293", "Rithik", "Tank",  StudentUtility.createYearLinkedList("BSCS"));
+        studentObj.getYearList().getHead().getData().getFirstSemSemesterList().getHead().getData().setGrade(100);
+       // studentObj.displayYearList();
+        Student studentObj1 = new Student("2233375", "Johan Rickardo", "Roxas",  StudentUtility.createYearLinkedList("BSCS"));
+        studentObj1.displayYearList();
+        Student studentObj2 = new Student("2230153", "Marvin Patrick", "Lacanilao",  StudentUtility.createYearLinkedList("BSCS"));
+        Student studentObj3 = new Student("2230748", "Ramon Emmiel", "Jasmin",  StudentUtility.createYearLinkedList("BSCS"));
+        Student studentObj4 = new Student("2233205", "Sebastian", "Siccuan",  StudentUtility.createYearLinkedList("BSCS"));
         studentLinkedList.insert(studentObj);
         studentLinkedList.insert(studentObj1);
         studentLinkedList.insert(studentObj2);

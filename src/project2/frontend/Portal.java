@@ -789,7 +789,6 @@ public class Portal extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 studentSearched = Main.search(idTextField.getText());
-                System.out.println(studentSearched);
                 updateStudentShown(studentSearched);
                 if (!studentNameLabel.getText().equalsIgnoreCase("ID Number")
                         && !studentIdLabel.getText().equalsIgnoreCase("Last Name, First Name")) {
@@ -1023,13 +1022,13 @@ public class Portal extends JFrame {
                 } // end of if
             } // end of if
             yearLabel.setText("   Year " + studentSearched.getFirstName() + ", " + "Semester " + sem);
+            ((DefaultTableModel) table.getModel()).setRowCount(0);
 
             switch (year) {
                 case 1 -> {
                     switch (sem) {
                         case 1 -> {
                             Node<Course> pointer = studentSearched.getYearList().getHead().getData().getFirstSemSemesterList().getHead();
-                            System.out.println(pointer);
                             while (pointer!=null) {
                                 model.addRow(new Object[]{pointer.getData().getCourseNumber(),
                                         pointer.getData().getDescriptiveName(),

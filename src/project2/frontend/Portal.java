@@ -65,6 +65,8 @@ public class Portal extends JFrame {
      */
     private JButton checklistButton;
 
+    private JLabel studentCountLabel;
+
     /**
      * TODO: Documentation
      */
@@ -148,6 +150,7 @@ public class Portal extends JFrame {
         // Action Listeners
         homeButton.addActionListener(e -> {
             cardLayout1.show(cardPanel, "home");
+            studentCountLabel.setText(String.valueOf(Main.studentLinkedList.getSize())); // use getter or similar method to count nodes of students
             homeButton.setForeground(resources.antiflashWhite);
             scheduleButton.setForeground(Color.BLACK);
             torButton.setForeground(Color.BLACK);
@@ -574,7 +577,7 @@ public class Portal extends JFrame {
         studentHeader.setForeground(resources.antiflashWhite);
         studentCounterPanel.add(studentHeader, BorderLayout.NORTH);
 
-        JLabel studentCountLabel = new JLabel();
+        studentCountLabel = new JLabel();
         studentCountLabel.setText(String.valueOf(Main.studentLinkedList.getSize())); // use getter or similar method to count nodes of students
         studentCountLabel.setFont(resources.montserrat.deriveFont(50f));
         studentCountLabel.setForeground(resources.antiflashWhite);
@@ -1172,6 +1175,9 @@ public class Portal extends JFrame {
                     // Add student to data
                     addStudentFrame.dispose(); // Close the frame when done
                 }
+
+                Main.addStudent(idText, firstNameText, lastNameText, Main.computerScience);
+
             }
         });
 

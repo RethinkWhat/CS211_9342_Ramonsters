@@ -84,6 +84,14 @@ public class Main {
 
     } // end of search method
 
+    public static void addStudent(String studentID, String firstName, String lastName, LinkedList<Year> yearList){
+        studentLinkedList.insert(new Student(studentID, firstName, lastName, yearList));
+    }
+
+    public static boolean removeStudent(String studentID){
+        return studentLinkedList.delete(search(studentID));
+    }
+
     private java.util.LinkedList<Course> populateChecklist(int year, int sem) {
         java.util.LinkedList<Course> courses = new java.util.LinkedList<>();
         BufferedReader bufferedReader;

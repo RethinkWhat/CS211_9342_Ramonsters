@@ -57,9 +57,7 @@ public class Main {
 
         Student studentObj = new Student("2233293", "Rithik", "Tank",  StudentUtility.createYearLinkedList("BSCS"));
         studentObj.getYearList().getHead().getData().getFirstSemSemesterList().getHead().getData().setGrade(100);
-       // studentObj.displayYearList();
         Student studentObj1 = new Student("2233375", "Johan Rickardo", "Roxas",  StudentUtility.createYearLinkedList("BSCS"));
-        studentObj1.displayYearList();
         Student studentObj2 = new Student("2230153", "Marvin Patrick", "Lacanilao",  StudentUtility.createYearLinkedList("BSCS"));
         Student studentObj3 = new Student("2230748", "Ramon Emmiel", "Jasmin",  StudentUtility.createYearLinkedList("BSCS"));
         Student studentObj4 = new Student("2233205", "Sebastian", "Siccuan",  StudentUtility.createYearLinkedList("BSCS"));

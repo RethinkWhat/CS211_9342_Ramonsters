@@ -57,7 +57,7 @@ public class Course {
 
     @Override
     public String toString() {
-        return courseNumber + ", " + descriptiveName + ", " + units;
+        return courseNumber + ", " + descriptiveName + ", " + units + "," + grade;
     }
 }
 

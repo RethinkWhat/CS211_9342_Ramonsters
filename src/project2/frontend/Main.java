@@ -89,12 +89,10 @@ public class Main {
 
     public static void addStudent(String studentID, String firstName, String lastName, LinkedList<Year> yearList){
         studentLinkedList.insert(new Student(studentID, firstName, lastName, yearList));
-        System.out.println(studentLinkedList.getSize());
     }
 
     public static void removeStudent(String studentID){
         studentLinkedList.delete(search(studentID));
-        System.out.println(studentLinkedList.getSize());
     }
 
     private java.util.LinkedList<Course> populateChecklist(int year, int sem) {

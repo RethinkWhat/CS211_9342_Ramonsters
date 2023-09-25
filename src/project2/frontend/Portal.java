@@ -1,10 +1,9 @@
 package project2.frontend;
 
+import project2.backend.LinkedList;
 import project2.backend.Node;
 import project2.course.BSCS.CourseUtility;
-import project2.referenceclasses.Admin;
-import project2.referenceclasses.Course;
-import project2.referenceclasses.Student;
+import project2.referenceclasses.*;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -24,7 +23,6 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.EventObject;
-import java.util.LinkedList;
 
 import project2.referenceclasses.Student;
 
@@ -50,10 +48,13 @@ public class Portal extends JFrame {
      */
     private JButton homeButton;
 
+    private Student studentSearched;
     /**
      * TODO: Documentation
      */
     private JButton scheduleButton;
+
+    private JPanel cardPanel = new JPanel();
 
     /**
      * TODO: Documentation
@@ -120,7 +121,6 @@ public class Portal extends JFrame {
         // !! Center Panel Components
 
         // !! Card Panel
-        JPanel cardPanel = new JPanel();
         cardPanel.setLayout(cardLayout1);
         cardPanel.setBackground(resources.antiflashWhite);
         centerPanel.add(cardPanel);
@@ -770,13 +770,21 @@ public class Portal extends JFrame {
         buttonsPanel1.add(nextTorButton);
 
         // Action Listeners
-        searchButton.addActionListener(e-> {
-            updateStudentShown(Main.search(idTextField.getText()));
-            if (!studentNameLabel.getText().equalsIgnoreCase("ID Number")
-                    && !studentIdLabel.getText().equalsIgnoreCase("Last Name, First Name")) {
-                nextTorButton.setVisible(true);
+        searchButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                studentSearched = Main.search(idTextField.getText());
+                updateStudentShown(studentSearched);
+//                JPanel torPanel = populateTorPanel();
+ //               cardPanel.add(torPanel, "tor");
+                if (!studentNameLabel.getText().equalsIgnoreCase("ID Number")
+                        && !studentIdLabel.getText().equalsIgnoreCase("Last Name, First Name")) {
+                    nextTorButton.setVisible(true);
+                }
+
             }
         });
+
 
 
         clearButton.addActionListener(e -> {
@@ -938,17 +946,12 @@ public class Portal extends JFrame {
         bodyPanel.add(tablePanel, BorderLayout.CENTER);
 
         // !!!!! Table Panel Components
-        String[] columnNames = {"Course Number" , "Descriptive Title" , "Grade" , "Units"};
-        String [][] data = {
-                {"CS211", "Data Structures" , "99" , "3"}
-        };
-
         JTable table = new JTable(new DefaultTableModel(
                 new Object[]{"Course Number","Descriptive Title","Units","Grade"},0));
         table.getColumnModel().getColumn(0).setPreferredWidth(130);
-        table.getColumnModel().getColumn(1).setPreferredWidth(501);
+        table.getColumnModel().getColumn(1).setPreferredWidth(541);
         table.getColumnModel().getColumn(2).setPreferredWidth(80);
-        table.getColumnModel().getColumn(3).setPreferredWidth(80);
+        table.getColumnModel().getColumn(2).setPreferredWidth(80);
         table.getTableHeader().setResizingAllowed(false);
         table.getTableHeader().setReorderingAllowed(false);
         table.getTableHeader().setFont(resources.montserratBold.deriveFont(12f));
@@ -957,7 +960,301 @@ public class Portal extends JFrame {
         table.setOpaque(false);
         table.setBackground(Color.WHITE);
         table.setForeground(Color.BLACK);
-        table.setFont(resources.montserrat.deriveFont(10f));
+        table.setFont(resources.montserrat.deriveFont(14f));
+
+        /*
+        DefaultTableModel model = (DefaultTableModel) table.getModel();
+        Node<Course> pointer = studentSearched.getYearList().getHead().getData().getFirstSemSemesterList().getHead();
+        for (int x =0;  x<studentSearched.getYearList().getHead().getData().getFirstSemSemesterList().getSize();x++) {
+            model.addRow(new Object[]{pointer.getData().getCourseNumber(),
+                    pointer.getData().getCourseNumber(),
+                    pointer.getData().getCourseNumber(),
+                    pointer.getData().getGrade()
+            });
+        } // end of for
+
+         */
+        DefaultTableModel model = (DefaultTableModel) table.getModel();
+        nextTorButton.addActionListener(e -> {
+            cardLayout1.show(torPanel,"2");
+            Node<Course> pointer = studentSearched.getYearList().getHead().getData().getFirstSemSemesterList().getHead();
+            for (int x =0; pointer!=null;x++) {
+                model.addRow(new Object[]{pointer.getData().getCourseNumber(),
+                        pointer.getData().getDescriptiveName(),
+                        pointer.getData().getUnits(),
+                        pointer.getData().getGrade()
+                });
+                pointer = pointer.getNext();
+            } // end of for
+        });
+
+
+        // Action Listeners
+
+        nextButton.addActionListener(e -> {
+            sem++;
+            if (sem > 3) {
+                sem = 1;
+                year++;
+                if (year > 4) {
+                    sem = 1;
+                    year = 1;
+                } // end of if
+            } // end of if
+            yearLabel.setText("   Year " + year + ", " + "Semester " + sem);
+
+            ((DefaultTableModel) table.getModel()).setRowCount(0);
+            switch (year) {
+                case 1 -> {
+                    switch (sem) {
+                        case 1 -> {
+                            Node<Course> pointer = studentSearched.getYearList().getHead().getData().getFirstSemSemesterList().getHead();
+                            while (pointer!=null) {
+                                model.addRow(new Object[]{pointer.getData().getCourseNumber(),
+                                        pointer.getData().getDescriptiveName(),
+                                        pointer.getData().getUnits(),
+                                        pointer.getData().getGrade()
+                                });
+                                pointer = pointer.getNext();
+                            } // end of for
+                        } // end of case for sem 1
+                        case 2 -> {
+                            Node<Course> pointer = studentSearched.getYearList().getHead().getData().getSecondSemSemesterList().getHead();
+                            while (pointer!=null) {
+                                model.addRow(new Object[]{pointer.getData().getCourseNumber(),
+                                        pointer.getData().getDescriptiveName(),
+                                        pointer.getData().getUnits(),
+                                        pointer.getData().getGrade()
+                                });
+                                pointer = pointer.getNext();
+                            } // end of for
+                        } // end of case for sem 2
+                        case 3 -> {
+                            Node<Course> pointer = studentSearched.getYearList().getHead().getData().getShortTerm().getHead();
+                            while (pointer!=null) {
+                                model.addRow(new Object[]{pointer.getData().getCourseNumber(),
+                                        pointer.getData().getDescriptiveName(),
+                                        pointer.getData().getUnits(),
+                                        pointer.getData().getGrade()
+                                });
+                                pointer = pointer.getNext();
+                            } // end of for
+                        } // end of case for sem 3
+                    } // end of switch-case for sem
+                } // end of case for year 1
+                case 2 -> {
+                    switch (sem) {
+                        case 1 -> {
+                            Node<Course> pointer = studentSearched.getYearList().getHead().getNext().getData().getFirstSemSemesterList().getHead();
+                            while (pointer != null) {
+                                model.addRow(new Object[]{pointer.getData().getCourseNumber(),
+                                        pointer.getData().getDescriptiveName(),
+                                        pointer.getData().getUnits(),
+                                        pointer.getData().getGrade()
+                                });
+                                pointer = pointer.getNext();
+                            } // end of for
+                        }
+                        case 2 -> {
+                            Node<Course> pointer = studentSearched.getYearList().getHead().getNext().getData().getSecondSemSemesterList().getHead();
+                            while (pointer != null) {
+                                model.addRow(new Object[]{pointer.getData().getCourseNumber(),
+                                        pointer.getData().getDescriptiveName(),
+                                        pointer.getData().getUnits(),
+                                        pointer.getData().getGrade()
+                                });
+                                pointer = pointer.getNext();
+                            } // end of for
+                        } // end of case for sem 2
+                        case 3 -> {
+                            Node<Course> pointer = studentSearched.getYearList().getHead().getNext().getData().getShortTerm().getHead();
+                            while (pointer != null) {
+                                model.addRow(new Object[]{pointer.getData().getCourseNumber(),
+                                        pointer.getData().getDescriptiveName(),
+                                        pointer.getData().getUnits(),
+                                        pointer.getData().getGrade()
+                                });
+                                pointer = pointer.getNext();
+                            } // end of for
+                        } // end of case for sem 3
+                    } // end of switch-case for sem
+                } // end of case for year 2
+                case 3 -> {
+                    switch (sem) {
+                        case 1 -> {
+                            Node<Course> pointer = studentSearched.getYearList().getHead().getNext().getNext().getData().getFirstSemSemesterList().getHead();
+                            while (pointer != null) {
+                                model.addRow(new Object[]{pointer.getData().getCourseNumber(),
+                                        pointer.getData().getDescriptiveName(),
+                                        pointer.getData().getUnits(),
+                                        pointer.getData().getGrade()
+                                });
+                                pointer = pointer.getNext();
+                            } // end of while
+                        } // end of case for sem 1
+                        case 2 -> {
+                            Node<Course> pointer = studentSearched.getYearList().getHead().getNext().getNext().getData().getSecondSemSemesterList().getHead();
+                            while (pointer != null) {
+                                model.addRow(new Object[]{pointer.getData().getCourseNumber(),
+                                        pointer.getData().getDescriptiveName(),
+                                        pointer.getData().getUnits(),
+                                        pointer.getData().getGrade()
+                                });
+                                pointer = pointer.getNext();
+                            } // end of while
+                        } // end of case for sem 2
+                        case 3 -> {
+                            Node<Course> pointer = studentSearched.getYearList().getHead().getNext().getNext().getData().getShortTerm().getHead();
+                            while (pointer != null) {
+                                model.addRow(new Object[]{pointer.getData().getCourseNumber(),
+                                        pointer.getData().getDescriptiveName(),
+                                        pointer.getData().getUnits(),
+                                        pointer.getData().getGrade()
+                                });
+                                pointer = pointer.getNext();
+                            } // end of while
+                        } // end of case for sem 3
+                    } // end of switch-case for sem
+                } // end of case for year 3
+                case 4 -> {
+                    switch (sem) {
+                        case 1 -> {
+                            Node<Course> pointer = studentSearched.getYearList().getHead().getNext().getNext().getNext().getData().getFirstSemSemesterList().getHead();
+                            while (pointer != null) {
+                                model.addRow(new Object[]{pointer.getData().getCourseNumber(),
+                                        pointer.getData().getDescriptiveName(),
+                                        pointer.getData().getUnits(),
+                                        pointer.getData().getGrade()
+                                });
+                                pointer = pointer.getNext();
+                            } // end of while
+                        } // end of case for sem 1
+                        case 2 -> {
+                            Node<Course> pointer = studentSearched.getYearList().getHead().getNext().getNext().getNext().getData().getSecondSemSemesterList().getHead();
+                            while (pointer != null) {
+                                model.addRow(new Object[]{pointer.getData().getCourseNumber(),
+                                        pointer.getData().getDescriptiveName(),
+                                        pointer.getData().getUnits(),
+                                        pointer.getData().getGrade()
+                                });
+                                pointer = pointer.getNext();
+                            } // end of while
+                        } // end of case for sem 2
+                    } // end of switch-case for sem
+                } // end of case for year 4
+            } // end of switch-case for year
+        });
+
+        prevButton.addActionListener(e -> {
+            sem--;
+            if (sem < 1) {
+                sem = 1;
+                year--;
+                if (year < 1) {
+                    sem = 3;
+                    year = 4;
+                } // end of if
+            } // end of if
+            yearLabel.setText("   Year " + year + ", " + "Semester " + sem);
+
+            ((DefaultTableModel) table.getModel()).setRowCount(0);
+            switch (year) {
+                case 1 -> {
+                    switch (sem) {
+                        case 1 -> {
+                            for (Course course : courseChecklist.year1Sem1) {
+                                model.addRow(new Object[]{course.getCourseNumber(),
+                                        course.getDescriptiveName(),
+                                        course.getUnits()});
+                            } // end of for
+                        } // end of case for sem 1
+                        case 2 -> {
+                            for (Course course : courseChecklist.year1Sem2) {
+                                model.addRow(new Object[]{course.getCourseNumber(),
+                                        course.getDescriptiveName(),
+                                        course.getUnits()});
+                            } // end of for
+                        } // end of case for sem 2
+                        case 3 -> {
+                            for (Course course : courseChecklist.year1Sem3) {
+                                model.addRow(new Object[]{course.getCourseNumber(),
+                                        course.getDescriptiveName(),
+                                        course.getUnits()});
+                            } // end of for
+                        } // end of case for sem 3
+                    } // end of switch-case for sem
+                } // end of case for year 1
+                case 2 -> {
+                    switch (sem) {
+                        case 1 -> {
+                            for (Course course : courseChecklist.year2Sem1) {
+                                model.addRow(new Object[]{course.getCourseNumber(),
+                                        course.getDescriptiveName(),
+                                        course.getUnits()});
+                            } // end of for
+                        } // end of case for sem 1
+                        case 2 -> {
+                            for (Course course : courseChecklist.year2Sem2) {
+                                model.addRow(new Object[]{course.getCourseNumber(),
+                                        course.getDescriptiveName(),
+                                        course.getUnits()});
+                            } // end of for
+                        } // end of case for sem 2
+                        case 3 -> {
+                            for (Course course : courseChecklist.year2Sem3) {
+                                model.addRow(new Object[]{course.getCourseNumber(),
+                                        course.getDescriptiveName(),
+                                        course.getUnits()});
+                            } // end of for
+                        } // end of case for sem 3
+                    } // end of switch-case for sem
+                } // end of case for year 2
+                case 3 -> {
+                    switch (sem) {
+                        case 1 -> {
+                            for (Course course : courseChecklist.year3Sem1) {
+                                model.addRow(new Object[]{course.getCourseNumber(),
+                                        course.getDescriptiveName(),
+                                        course.getUnits()});
+                            } // end of for
+                        } // end of case for sem 1
+                        case 2 -> {
+                            for (Course course : courseChecklist.year3Sem2) {
+                                model.addRow(new Object[]{course.getCourseNumber(),
+                                        course.getDescriptiveName(),
+                                        course.getUnits()});
+                            } // end of for
+                        } // end of case for sem 2
+                        case 3 -> {
+                            for (Course course : courseChecklist.year3Sem3) {
+                                model.addRow(new Object[]{course.getCourseNumber(),
+                                        course.getDescriptiveName(),
+                                        course.getUnits()});
+                            } // end of for
+                        } // end of case for sem 3
+                    } // end of switch-case for sem
+                } // end of case for year 3
+                case 4 -> {
+                    switch (sem) {
+                        case 1 -> {
+                            for (Course course : courseChecklist.year4Sem1) {
+                                model.addRow(new Object[]{course.getCourseNumber(),
+                                        course.getDescriptiveName(),
+                                        course.getUnits()});
+                            } // end of for
+                        } // end of case for sem 1
+                        case 2 -> {
+                            for (Course course : courseChecklist.year4Sem2) {
+                                model.addRow(new Object[]{course.getCourseNumber(),
+                                        course.getDescriptiveName(),
+                                        course.getUnits()});
+                            } // end of for
+                        } // end of case for sem 2
+                    } // end of switch-case for sem
+                } // end of case for year 4
+            } // end of switch-case for year
+        });
+
 
         table.setDefaultEditor(Object.class, new DefaultCellEditor(new JTextField()) {
             @Override
@@ -996,6 +1293,31 @@ public class Portal extends JFrame {
         editButton.setFocusable(false);
         editButton.setFocusPainted(false);
         crudButtons.add(editButton);
+
+        editButton.addActionListener(new ActionListener() {
+                                         @Override
+                                         public void actionPerformed(ActionEvent e) {
+                                             if (editButton.getText() != "Done") {
+                                                 table.setDefaultEditor(Object.class, new DefaultCellEditor(new JTextField()) {
+                                                     @Override
+                                                     public boolean isCellEditable(EventObject e) {
+                                                         return true;
+                                                     }
+                                                 });
+                                                 editButton.setText("Done");
+                                             } else {
+                                                 table.setDefaultEditor(Object.class, new DefaultCellEditor(new JTextField()) {
+                                                     @Override
+                                                     public boolean isCellEditable(EventObject e) {
+                                                         return false;
+                                                     }
+                                                 });
+                                             }
+                                         }
+
+                                         ;
+                                     });
+
 
         // !!!!!! Delete Button
         ImageIcon deleteIcon = new ImageIcon("icons/delete-icon-black.png");

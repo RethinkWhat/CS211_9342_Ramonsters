@@ -55,26 +55,6 @@ public class Main {
         resources.loadFonts();
 
         Student studentObj = new Student("2233293", "Rithik", "Tank", computerScience);
-        Node<Course> pointer = studentObj.getYearList().getHead().getData().getFirstSemSemesterList().getHead();
-        pointer.getData().setGrade(94);
-        pointer = pointer.getNext();
-        pointer.getData().setGrade(92);
-        pointer = pointer.getNext();
-        pointer.getData().setGrade(97);
-        pointer = pointer.getNext();
-        pointer.getData().setGrade(91);
-        pointer = pointer.getNext();
-        pointer.getData().setGrade(94);
-        pointer = pointer.getNext();
-        pointer.getData().setGrade(99);
-        pointer = pointer.getNext();
-        pointer.getData().setGrade(93);
-        pointer = pointer.getNext();
-        pointer.getData().setGrade(97);
-        pointer = pointer.getNext();
-        pointer.getData().setGrade(91);
-        pointer = pointer.getNext();
-        pointer.getData().setGrade(94);
         Student studentObj1 = new Student("2233375", "Johan Rickardo", "Roxas", computerScience);
         Student studentObj2 = new Student("2230153", "Marvin Patrick", "Lacanilao", computerScience);
         Student studentObj3 = new Student("2230748", "Ramon Emmiel", "Jasmin", computerScience);

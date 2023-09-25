@@ -7,6 +7,7 @@ import project2.referenceclasses.*;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
@@ -43,6 +44,10 @@ public class Portal extends JFrame {
      */
     private final CourseUtility courseChecklist = new CourseUtility();
 
+    private boolean editable = false;
+
+    private JTextField idTextField;
+
     /**
      * TODO: Documentation
      */
@@ -60,6 +65,8 @@ public class Portal extends JFrame {
      * TODO: Documentation
      */
     private JButton torButton;
+
+    private JButton nextTorButton;
 
     /**
      * TODO: Documentation
@@ -88,6 +95,8 @@ public class Portal extends JFrame {
     private int year;
 
     private int sem;
+
+    private JPanel torPanel;
 
     /**
      * Constructs an object of Portal.
@@ -136,7 +145,7 @@ public class Portal extends JFrame {
         cardPanel.add(schedulePanel, "schedule");
 
         // !!! TOR Panel
-        JPanel torPanel = populateTorPanel();
+        torPanel = populateTorPanel();
         cardPanel.add(torPanel, "tor");
 
         // !!! Checklist Panel
@@ -166,6 +175,11 @@ public class Portal extends JFrame {
             personalDetailsButton.setForeground(Color.BLACK);
         });
         torButton.addActionListener(e -> {
+            studentNameLabel.setForeground(resources.antiflashWhite);
+            studentIdLabel.setText("ID Number");
+            studentNameLabel.setText("Last Name, First Name");
+            idTextField.setText("ID Number");
+            nextTorButton.setVisible(false);
             cardLayout1.show(cardPanel, "tor");
             cardLayout1.show(torPanel, "1");
             homeButton.setForeground(Color.BLACK);
@@ -632,6 +646,7 @@ public class Portal extends JFrame {
     public JLabel studentIdLabel = new JLabel();
     public JLabel studentNameLabel = new JLabel();
     private JPanel populateTorPanel() {
+
         // Transcript of Records Panel
         JPanel torPanel = new JPanel();
         torPanel.setLayout(cardLayout1);
@@ -693,7 +708,7 @@ public class Portal extends JFrame {
         studentPanel.add(studentNameLabel, BorderLayout.CENTER);
 
         // !!! ID Text Field
-        JTextField idTextField = new JTextField(5);
+        idTextField = new JTextField(5);
         idTextField.setText("ID Number");
         idTextField.setFont(resources.montserrat.deriveFont(12f));
         idTextField.setPreferredSize(new Dimension(10,10));
@@ -756,7 +771,7 @@ public class Portal extends JFrame {
         buttonsPanel1.add(clearButton);
 
         ImageIcon nextIcon = new ImageIcon("icons/arrow_forward-icon-black.png");
-        JButton nextTorButton = new JButton();
+        nextTorButton = new JButton();
         nextTorButton.setText("Next");
         nextTorButton.setIcon(nextIcon);
         nextTorButton.setFont(resources.montserrat.deriveFont(15f));
@@ -774,9 +789,8 @@ public class Portal extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 studentSearched = Main.search(idTextField.getText());
+                System.out.println(studentSearched);
                 updateStudentShown(studentSearched);
-//                JPanel torPanel = populateTorPanel();
- //               cardPanel.add(torPanel, "tor");
                 if (!studentNameLabel.getText().equalsIgnoreCase("ID Number")
                         && !studentIdLabel.getText().equalsIgnoreCase("Last Name, First Name")) {
                     nextTorButton.setVisible(true);
@@ -962,20 +976,27 @@ public class Portal extends JFrame {
         table.setForeground(Color.BLACK);
         table.setFont(resources.montserrat.deriveFont(14f));
 
-        /*
-        DefaultTableModel model = (DefaultTableModel) table.getModel();
-        Node<Course> pointer = studentSearched.getYearList().getHead().getData().getFirstSemSemesterList().getHead();
-        for (int x =0;  x<studentSearched.getYearList().getHead().getData().getFirstSemSemesterList().getSize();x++) {
-            model.addRow(new Object[]{pointer.getData().getCourseNumber(),
-                    pointer.getData().getCourseNumber(),
-                    pointer.getData().getCourseNumber(),
-                    pointer.getData().getGrade()
-            });
-        } // end of for
-
-         */
+        table.getModel().addTableModelListener(new TableModelListener() {
+            @Override
+            public void tableChanged(TableModelEvent e) {
+                if (e.getType()==TableModelEvent.UPDATE) {
+                    if (year == 1) {
+                        if (sem == 1) {
+                            Node<Course> pointer = studentSearched.getYearList().getHead().getData().getFirstSemSemesterList().getHead();
+                            for (int x =0; x<=e.getLastRow(); x++) {
+                                if (x== e.getFirstRow()) {
+                                    pointer.getData().setGrade(Integer.valueOf((String) (table.getValueAt(x,3))));
+                                }
+                                pointer = pointer.getNext();
+                            }
+                        }
+                    }
+                }
+            }
+        });
         DefaultTableModel model = (DefaultTableModel) table.getModel();
         nextTorButton.addActionListener(e -> {
+            ((DefaultTableModel) table.getModel()).setRowCount(0);
             cardLayout1.show(torPanel,"2");
             Node<Course> pointer = studentSearched.getYearList().getHead().getData().getFirstSemSemesterList().getHead();
             for (int x =0; pointer!=null;x++) {
@@ -1001,14 +1022,14 @@ public class Portal extends JFrame {
                     year = 1;
                 } // end of if
             } // end of if
-            yearLabel.setText("   Year " + year + ", " + "Semester " + sem);
+            yearLabel.setText("   Year " + studentSearched.getFirstName() + ", " + "Semester " + sem);
 
-            ((DefaultTableModel) table.getModel()).setRowCount(0);
             switch (year) {
                 case 1 -> {
                     switch (sem) {
                         case 1 -> {
                             Node<Course> pointer = studentSearched.getYearList().getHead().getData().getFirstSemSemesterList().getHead();
+                            System.out.println(pointer);
                             while (pointer!=null) {
                                 model.addRow(new Object[]{pointer.getData().getCourseNumber(),
                                         pointer.getData().getDescriptiveName(),
@@ -1145,6 +1166,7 @@ public class Portal extends JFrame {
             } // end of switch-case for year
         });
 
+
         prevButton.addActionListener(e -> {
             sem--;
             if (sem < 1) {
@@ -1255,7 +1277,6 @@ public class Portal extends JFrame {
             } // end of switch-case for year
         });
 
-
         table.setDefaultEditor(Object.class, new DefaultCellEditor(new JTextField()) {
             @Override
             public boolean isCellEditable(EventObject e) {
@@ -1295,25 +1316,29 @@ public class Portal extends JFrame {
         crudButtons.add(editButton);
 
         editButton.addActionListener(new ActionListener() {
-                                         @Override
-                                         public void actionPerformed(ActionEvent e) {
-                                             if (editButton.getText() != "Done") {
-                                                 table.setDefaultEditor(Object.class, new DefaultCellEditor(new JTextField()) {
-                                                     @Override
-                                                     public boolean isCellEditable(EventObject e) {
-                                                         return true;
-                                                     }
-                                                 });
-                                                 editButton.setText("Done");
-                                             } else {
-                                                 table.setDefaultEditor(Object.class, new DefaultCellEditor(new JTextField()) {
-                                                     @Override
-                                                     public boolean isCellEditable(EventObject e) {
-                                                         return false;
-                                                     }
-                                                 });
-                                             }
-                                         }
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (editable) {
+                    table.setDefaultEditor(Object.class, new DefaultCellEditor(new JTextField()) {
+                        @Override
+                        public boolean isCellEditable(EventObject e) {
+                            return false;
+                        }
+                    });
+
+                    editButton.setText("Edit");
+                    editable = false;
+                } else {
+                    table.setDefaultEditor(Object.class, new DefaultCellEditor(new JTextField()) {
+                        @Override
+                        public boolean isCellEditable(EventObject e) {
+                            return true;
+                        }
+                    });
+                    editButton.setText("Done");
+                    editable = true;
+                }
+            }
 
                                          ;
                                      });

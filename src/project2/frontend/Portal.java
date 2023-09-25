@@ -1371,7 +1371,7 @@ public class Portal extends JFrame {
                     idLabel.setForeground(Color.WHITE);
                     confirmIdLabel.setForeground(Color.WHITE);
                     errorLabel.setVisible(false);
-
+                    Main.removeStudent(idText);
                     removeStudentFrame.dispose();
                 }
             }
@@ -1419,7 +1419,7 @@ public class Portal extends JFrame {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         confirmDialogFrame.dispose();
-                        addStudentFrame.dispose();
+                        removeStudentFrame.dispose();
                     }
                 });
 

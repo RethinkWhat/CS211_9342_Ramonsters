@@ -84,10 +84,9 @@ public class LinkedList<T> implements ListInterface<T> {
      * Delete the first occurrence of an element from the linked list based on the provided data.
      *
      * @param data The data of the element to be deleted.
-     * @return True if an element with the provided data is found and deleted, false otherwise.
      */
     @Override
-    public boolean delete(T data) {
+    public void delete(T data) {
         Node<T> curr = this.head;
         Node<T> prev = null;
 
@@ -98,12 +97,12 @@ public class LinkedList<T> implements ListInterface<T> {
                 } else {
                     prev.setNext(curr.getNext());
                 }
-                return true;
+                --this.size;
+                return;
             }
             prev = curr;
-            curr = curr.next;
+            curr = curr.getNext();
         }
-        return false;
     }
 
     /**

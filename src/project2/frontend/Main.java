@@ -30,7 +30,7 @@ public class Main {
     /**
      * TODO: Documentation
      */
-    public static LinkedList<Student> studentLinkedList = new LinkedList<Student>();
+    public static LinkedList<Student> studentLinkedList = new LinkedList();
 
     /**
      * Main entry point of the program.
@@ -75,21 +75,24 @@ public class Main {
         Node<Student> curr = studentLinkedList.getHead();
 
         for (int i = 0; i < studentLinkedList.getSize(); i++) {
-            if (curr.getData().getIdNumber().equals(studentID)) {
+            if (curr != null && curr.getData().getIdNumber().equals(studentID)) {
                 return curr.getData();
             }
-            curr = curr.getNext();
+            if (curr != null) {
+                curr = curr.getNext();
+            }
         } // end of for
         return null;
-
-    } // end of search method
+    } // end of search
 
     public static void addStudent(String studentID, String firstName, String lastName, LinkedList<Year> yearList){
         studentLinkedList.insert(new Student(studentID, firstName, lastName, yearList));
+        System.out.println(studentLinkedList.getSize());
     }
 
-    public static boolean removeStudent(String studentID){
-        return studentLinkedList.delete(search(studentID));
+    public static void removeStudent(String studentID){
+        studentLinkedList.delete(search(studentID));
+        System.out.println(studentLinkedList.getSize());
     }
 
     private java.util.LinkedList<Course> populateChecklist(int year, int sem) {

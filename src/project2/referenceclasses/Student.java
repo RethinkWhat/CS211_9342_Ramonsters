@@ -1,6 +1,7 @@
 package project2.referenceclasses;
 
 import project2.backend.LinkedList;
+import project2.backend.Node;
 
 import java.util.Objects;
 
@@ -16,7 +17,6 @@ public class Student {
         this.lastName = lastName;
         this.yearList = yearList;
     }
-
 
     public String getIdNumber() {
         return idNumber;

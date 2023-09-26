@@ -1,13 +1,13 @@
 package project2.frontend;
 
+import project2.backend.LinkedList;
 import project2.backend.Node;
 import project2.course.BSCS.CourseUtility;
-import project2.referenceclasses.Admin;
-import project2.referenceclasses.Course;
-import project2.referenceclasses.Student;
+import project2.referenceclasses.*;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
@@ -24,7 +24,6 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.EventObject;
-import java.util.LinkedList;
 
 import project2.referenceclasses.Student;
 
@@ -45,20 +44,29 @@ public class Portal extends JFrame {
      */
     private final CourseUtility courseChecklist = new CourseUtility();
 
+    private boolean editable = false;
+
+    private JTextField idTextField;
+
     /**
      * TODO: Documentation
      */
     private JButton homeButton;
 
+    private Student studentSearched;
     /**
      * TODO: Documentation
      */
     private JButton scheduleButton;
 
+    private JPanel cardPanel = new JPanel();
+
     /**
      * TODO: Documentation
      */
     private JButton torButton;
+
+    private JButton nextTorButton;
 
     /**
      * TODO: Documentation
@@ -87,6 +95,8 @@ public class Portal extends JFrame {
     private int year;
 
     private int sem;
+
+    private JPanel torPanel;
 
     /**
      * Constructs an object of Portal.
@@ -120,7 +130,6 @@ public class Portal extends JFrame {
         // !! Center Panel Components
 
         // !! Card Panel
-        JPanel cardPanel = new JPanel();
         cardPanel.setLayout(cardLayout1);
         cardPanel.setBackground(resources.antiflashWhite);
         centerPanel.add(cardPanel);
@@ -136,7 +145,7 @@ public class Portal extends JFrame {
         cardPanel.add(schedulePanel, "schedule");
 
         // !!! TOR Panel
-        JPanel torPanel = populateTorPanel();
+        torPanel = populateTorPanel();
         cardPanel.add(torPanel, "tor");
 
         // !!! Checklist Panel
@@ -166,6 +175,11 @@ public class Portal extends JFrame {
             personalDetailsButton.setForeground(Color.BLACK);
         });
         torButton.addActionListener(e -> {
+            studentNameLabel.setForeground(resources.antiflashWhite);
+            studentIdLabel.setText("ID Number");
+            studentNameLabel.setText("Last Name, First Name");
+            idTextField.setText("ID Number");
+            nextTorButton.setVisible(false);
             cardLayout1.show(cardPanel, "tor");
             cardLayout1.show(torPanel, "1");
             homeButton.setForeground(Color.BLACK);
@@ -632,6 +646,7 @@ public class Portal extends JFrame {
     public JLabel studentIdLabel = new JLabel();
     public JLabel studentNameLabel = new JLabel();
     private JPanel populateTorPanel() {
+
         // Transcript of Records Panel
         JPanel torPanel = new JPanel();
         torPanel.setLayout(cardLayout1);
@@ -693,7 +708,7 @@ public class Portal extends JFrame {
         studentPanel.add(studentNameLabel, BorderLayout.CENTER);
 
         // !!! ID Text Field
-        JTextField idTextField = new JTextField(5);
+        idTextField = new JTextField(5);
         idTextField.setText("ID Number");
         idTextField.setFont(resources.montserrat.deriveFont(12f));
         idTextField.setPreferredSize(new Dimension(10,10));
@@ -756,7 +771,7 @@ public class Portal extends JFrame {
         buttonsPanel1.add(clearButton);
 
         ImageIcon nextIcon = new ImageIcon("icons/arrow_forward-icon-black.png");
-        JButton nextTorButton = new JButton();
+        nextTorButton = new JButton();
         nextTorButton.setText("Next");
         nextTorButton.setIcon(nextIcon);
         nextTorButton.setFont(resources.montserrat.deriveFont(15f));
@@ -770,13 +785,19 @@ public class Portal extends JFrame {
         buttonsPanel1.add(nextTorButton);
 
         // Action Listeners
-        searchButton.addActionListener(e-> {
-            updateStudentShown(Main.search(idTextField.getText()));
-            if (!studentNameLabel.getText().equalsIgnoreCase("ID Number")
-                    && !studentIdLabel.getText().equalsIgnoreCase("Last Name, First Name")) {
-                nextTorButton.setVisible(true);
+        searchButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                studentSearched = Main.search(idTextField.getText());
+                updateStudentShown(studentSearched);
+                if (!studentNameLabel.getText().equalsIgnoreCase("ID Number")
+                        && !studentIdLabel.getText().equalsIgnoreCase("Last Name, First Name")) {
+                    nextTorButton.setVisible(true);
+                }
+
             }
         });
+
 
 
         clearButton.addActionListener(e -> {
@@ -938,15 +959,10 @@ public class Portal extends JFrame {
         bodyPanel.add(tablePanel, BorderLayout.CENTER);
 
         // !!!!! Table Panel Components
-        String[] columnNames = {"Course Number" , "Descriptive Title" , "Grade" , "Units"};
-        String [][] data = {
-                {"CS211", "Data Structures" , "99" , "3"}
-        };
-
         JTable table = new JTable(new DefaultTableModel(
                 new Object[]{"Course Number","Descriptive Title","Units","Grade"},0));
         table.getColumnModel().getColumn(0).setPreferredWidth(130);
-        table.getColumnModel().getColumn(1).setPreferredWidth(501);
+        table.getColumnModel().getColumn(1).setPreferredWidth(541);
         table.getColumnModel().getColumn(2).setPreferredWidth(80);
         table.getColumnModel().getColumn(3).setPreferredWidth(80);
         table.getTableHeader().setResizingAllowed(false);
@@ -957,7 +973,495 @@ public class Portal extends JFrame {
         table.setOpaque(false);
         table.setBackground(Color.WHITE);
         table.setForeground(Color.BLACK);
-        table.setFont(resources.montserrat.deriveFont(10f));
+        table.setFont(resources.montserrat.deriveFont(14f));
+
+        table.getModel().addTableModelListener(new TableModelListener() {
+            @Override
+            public void tableChanged(TableModelEvent e) {
+                if (e.getType() == TableModelEvent.UPDATE) {
+                    if (year == 1) {
+                        if (sem == 1) {
+                            Node<Course> pointer = studentSearched.getYearList().getHead().getData().getFirstSemSemesterList().getHead();
+                            for (int x = 0; x <= e.getLastRow(); x++) {
+                                if (x == e.getFirstRow()) {
+                                    pointer.getData().setGrade(Integer.valueOf((String) (table.getValueAt(x, 3))));
+                                }
+                                pointer = pointer.getNext();
+                            }
+                        }
+                        if (sem == 2) {
+                            Node<Course> pointer = studentSearched.getYearList().getHead().getData().getSecondSemSemesterList().getHead();
+                            for (int x = 0; x <= e.getLastRow(); x++) {
+                                if (x == e.getFirstRow()) {
+                                    pointer.getData().setGrade(Integer.valueOf((String) (table.getValueAt(x, 3))));
+                                }
+                                pointer = pointer.getNext();
+                            }
+                        }
+                        if (sem == 3) {
+                            Node<Course> pointer = studentSearched.getYearList().getHead().getData().getShortTerm().getHead();
+                            for (int x = 0; x <= e.getLastRow(); x++) {
+                                if (x == e.getFirstRow()) {
+                                    pointer.getData().setGrade(Integer.valueOf((String) (table.getValueAt(x, 3))));
+                                }
+                                pointer = pointer.getNext();
+                            }
+                        }
+                    }
+                    if (year == 2) {
+                        if (sem == 1) {
+                            Node<Course> pointer = studentSearched.getYearList().getHead().getNext().getData().getFirstSemSemesterList().getHead();
+                            for (int x = 0; x <= e.getLastRow(); x++) {
+                                if (x == e.getFirstRow()) {
+                                    pointer.getData().setGrade(Integer.valueOf((String) (table.getValueAt(x, 3))));
+                                }
+                                pointer = pointer.getNext();
+                            }
+                        }
+                        if (sem == 2) {
+                            Node<Course> pointer = studentSearched.getYearList().getHead().getNext().getData().getSecondSemSemesterList().getHead();
+                            for (int x = 0; x <= e.getLastRow(); x++) {
+                                if (x == e.getFirstRow()) {
+                                    pointer.getData().setGrade(Integer.valueOf((String) (table.getValueAt(x, 3))));
+                                }
+                                pointer = pointer.getNext();
+                            }
+                        }
+                        if (sem == 3) {
+                            Node<Course> pointer = studentSearched.getYearList().getHead().getNext().getData().getShortTerm().getHead();
+                            for (int x = 0; x <= e.getLastRow(); x++) {
+                                if (x == e.getFirstRow()) {
+                                    pointer.getData().setGrade(Integer.valueOf((String) (table.getValueAt(x, 3))));
+                                }
+                                pointer = pointer.getNext();
+                            }
+                        }
+                    }
+                    if (year == 3) {
+                        if (sem == 1) {
+                            Node<Course> pointer = studentSearched.getYearList().getHead().getNext().getNext().getData().getFirstSemSemesterList().getHead();
+                            for (int x = 0; x <= e.getLastRow(); x++) {
+                                if (x == e.getFirstRow()) {
+                                    pointer.getData().setGrade(Integer.valueOf((String) (table.getValueAt(x, 3))));
+                                }
+                                pointer = pointer.getNext();
+                            }
+                        }
+                        if (sem == 2) {
+                            Node<Course> pointer = studentSearched.getYearList().getHead().getNext().getNext().getData().getSecondSemSemesterList().getHead();
+                            for (int x = 0; x <= e.getLastRow(); x++) {
+                                if (x == e.getFirstRow()) {
+                                    pointer.getData().setGrade(Integer.valueOf((String) (table.getValueAt(x, 3))));
+                                }
+                                pointer = pointer.getNext();
+                            }
+                        }
+                        if (sem == 3) {
+                            Node<Course> pointer = studentSearched.getYearList().getHead().getNext().getNext().getData().getShortTerm().getHead();
+                            for (int x = 0; x <= e.getLastRow(); x++) {
+                                if (x == e.getFirstRow()) {
+                                    pointer.getData().setGrade(Integer.valueOf((String) (table.getValueAt(x, 3))));
+                                }
+                                pointer = pointer.getNext();
+                            }
+                        }
+                    }
+                    if (year == 4) {
+                        if (sem == 1) {
+                            Node<Course> pointer = studentSearched.getYearList().getHead().getNext().getNext().getNext().getData().getFirstSemSemesterList().getHead();
+                            for (int x = 0; x <= e.getLastRow(); x++) {
+                                if (x == e.getFirstRow()) {
+                                    pointer.getData().setGrade(Integer.valueOf((String) (table.getValueAt(x, 3))));
+                                }
+                                pointer = pointer.getNext();
+                            }
+                        }
+                        if (sem == 2) {
+                            Node<Course> pointer = studentSearched.getYearList().getHead().getNext().getNext().getNext().getData().getSecondSemSemesterList().getHead();
+                            for (int x = 0; x <= e.getLastRow(); x++) {
+                                if (x == e.getFirstRow()) {
+                                    pointer.getData().setGrade(Integer.valueOf((String) (table.getValueAt(x, 3))));
+                                }
+                                pointer = pointer.getNext();
+                            }
+                        }
+                    }
+                }
+            }
+
+        });
+        DefaultTableModel model = (DefaultTableModel) table.getModel();
+        nextTorButton.addActionListener(e -> {
+            ((DefaultTableModel) table.getModel()).setRowCount(0);
+            cardLayout1.show(torPanel,"2");
+            Node<Course> pointer = studentSearched.getYearList().getHead().getData().getFirstSemSemesterList().getHead();
+            while (pointer!=null) {
+                String grade = (pointer.getData().getGrade() != 0) ? String.valueOf(pointer.getData().getGrade()) : "NT";
+                model.addRow(new Object[]{pointer.getData().getCourseNumber(),
+                        pointer.getData().getDescriptiveName(),
+                        pointer.getData().getUnits(),
+                        grade
+                });
+                pointer = pointer.getNext();
+            } // end of for
+        });
+
+
+        // Action Listeners
+
+        nextButton.addActionListener(e -> {
+            if  (year == 4 && sem == 2) {
+                year = 1;
+                sem = 1;
+            } else {
+                sem++;
+                if (sem > 3) {
+                    sem = 1;
+                    year++;
+                    if (year > 4) {
+                        sem = 1;
+                        year = 1;
+                    } // end of if
+                } // end of if
+            }
+            String semInString = "";
+            switch (sem) {
+                case 1 -> semInString = "First Semester";
+                case 2 -> semInString = "Second Semester";
+                case 3 -> semInString = "Short Term";
+            }
+            yearLabel.setText("   Year " + year + ", " + semInString);
+            ((DefaultTableModel) table.getModel()).setRowCount(0);
+
+            switch (year) {
+                case 1 -> {
+                    switch (sem) {
+                        case 1 -> {
+                            Node<Course> pointer = studentSearched.getYearList().getHead().getData().getFirstSemSemesterList().getHead();
+                            while (pointer!=null) {
+                                String grade = (pointer.getData().getGrade() != 0) ? String.valueOf(pointer.getData().getGrade()) : "NT";
+                                model.addRow(new Object[]{pointer.getData().getCourseNumber(),
+                                        pointer.getData().getDescriptiveName(),
+                                        pointer.getData().getUnits(),
+                                        grade
+                                });
+                                pointer = pointer.getNext();
+                            } // end of for
+                        } // end of case for sem 1
+                        case 2 -> {
+                            Node<Course> pointer = studentSearched.getYearList().getHead().getData().getSecondSemSemesterList().getHead();
+                            while (pointer!=null) {
+                                String grade = (pointer.getData().getGrade() != 0) ? String.valueOf(pointer.getData().getGrade()) : "NT";
+                                model.addRow(new Object[]{pointer.getData().getCourseNumber(),
+                                        pointer.getData().getDescriptiveName(),
+                                        pointer.getData().getUnits(),
+                                        grade
+                                });
+                                pointer = pointer.getNext();
+                            } // end of for
+                        } // end of case for sem 2
+                        case 3 -> {
+                            Node<Course> pointer = studentSearched.getYearList().getHead().getData().getShortTerm().getHead();
+                            while (pointer!=null) {
+                                String grade = (pointer.getData().getGrade() != 0) ? String.valueOf(pointer.getData().getGrade()) : "NT";
+                                model.addRow(new Object[]{pointer.getData().getCourseNumber(),
+                                        pointer.getData().getDescriptiveName(),
+                                        pointer.getData().getUnits(),
+                                        grade
+                                });
+                                pointer = pointer.getNext();
+                            } // end of for
+                        } // end of case for sem 3
+                    } // end of switch-case for sem
+                } // end of case for year 1
+                case 2 -> {
+                    switch (sem) {
+                        case 1 -> {
+                            Node<Course> pointer = studentSearched.getYearList().getHead().getNext().getData().getFirstSemSemesterList().getHead();
+                            while (pointer != null) {
+                                String grade = (pointer.getData().getGrade() != 0) ? String.valueOf(pointer.getData().getGrade()) : "NT";
+                                model.addRow(new Object[]{pointer.getData().getCourseNumber(),
+                                        pointer.getData().getDescriptiveName(),
+                                        pointer.getData().getUnits(),
+                                        grade
+                                });
+                                pointer = pointer.getNext();
+                            } // end of for
+                        }
+                        case 2 -> {
+                            Node<Course> pointer = studentSearched.getYearList().getHead().getNext().getData().getSecondSemSemesterList().getHead();
+                            while (pointer != null) {
+                                String grade = (pointer.getData().getGrade() != 0) ? String.valueOf(pointer.getData().getGrade()) : "NT";
+                                model.addRow(new Object[]{pointer.getData().getCourseNumber(),
+                                        pointer.getData().getDescriptiveName(),
+                                        pointer.getData().getUnits(),
+                                        grade
+                                });
+                                pointer = pointer.getNext();
+                            } // end of for
+                        } // end of case for sem 2
+                        case 3 -> {
+                            Node<Course> pointer = studentSearched.getYearList().getHead().getNext().getData().getShortTerm().getHead();
+                            while (pointer != null) {
+                                String grade = (pointer.getData().getGrade() != 0) ? String.valueOf(pointer.getData().getGrade()) : "NT";
+                                model.addRow(new Object[]{pointer.getData().getCourseNumber(),
+                                        pointer.getData().getDescriptiveName(),
+                                        pointer.getData().getUnits(),
+                                        grade
+                                });
+                                pointer = pointer.getNext();
+                            } // end of for
+                        } // end of case for sem 3
+                    } // end of switch-case for sem
+                } // end of case for year 2
+                case 3 -> {
+                    switch (sem) {
+                        case 1 -> {
+                            Node<Course> pointer = studentSearched.getYearList().getHead().getNext().getNext().getData().getFirstSemSemesterList().getHead();
+                            while (pointer != null) {
+                                String grade = (pointer.getData().getGrade() != 0) ? String.valueOf(pointer.getData().getGrade()) : "NT";
+                                model.addRow(new Object[]{pointer.getData().getCourseNumber(),
+                                        pointer.getData().getDescriptiveName(),
+                                        pointer.getData().getUnits(),
+                                        grade
+                                });
+                                pointer = pointer.getNext();
+                            } // end of while
+                        } // end of case for sem 1
+                        case 2 -> {
+                            Node<Course> pointer = studentSearched.getYearList().getHead().getNext().getNext().getData().getSecondSemSemesterList().getHead();
+                            while (pointer != null) {
+                                String grade = (pointer.getData().getGrade() != 0) ? String.valueOf(pointer.getData().getGrade()) : "NT";
+                                model.addRow(new Object[]{pointer.getData().getCourseNumber(),
+                                        pointer.getData().getDescriptiveName(),
+                                        pointer.getData().getUnits(),
+                                        grade
+                                });
+                                pointer = pointer.getNext();
+                            } // end of while
+                        } // end of case for sem 2
+                        case 3 -> {
+                            Node<Course> pointer = studentSearched.getYearList().getHead().getNext().getNext().getData().getShortTerm().getHead();
+                            while (pointer != null) {
+                                String grade = (pointer.getData().getGrade() != 0) ? String.valueOf(pointer.getData().getGrade()) : "NT";
+                                model.addRow(new Object[]{pointer.getData().getCourseNumber(),
+                                        pointer.getData().getDescriptiveName(),
+                                        pointer.getData().getUnits(),
+                                        grade
+                                });
+                                pointer = pointer.getNext();
+                            } // end of while
+                        } // end of case for sem 3
+                    } // end of switch-case for sem
+                } // end of case for year 3
+                case 4 -> {
+                    switch (sem) {
+                        case 1 -> {
+                            Node<Course> pointer = studentSearched.getYearList().getHead().getNext().getNext().getNext().getData().getFirstSemSemesterList().getHead();
+                            while (pointer != null) {
+                                String grade = (pointer.getData().getGrade() != 0) ? String.valueOf(pointer.getData().getGrade()) : "NT";
+                                model.addRow(new Object[]{pointer.getData().getCourseNumber(),
+                                        pointer.getData().getDescriptiveName(),
+                                        pointer.getData().getUnits(),
+                                        grade
+                                });
+                                pointer = pointer.getNext();
+                            } // end of while
+                        } // end of case for sem 1
+                        case 2 -> {
+                            Node<Course> pointer = studentSearched.getYearList().getHead().getNext().getNext().getNext().getData().getSecondSemSemesterList().getHead();
+                            while (pointer != null) {
+                                String grade = (pointer.getData().getGrade() != 0) ? String.valueOf(pointer.getData().getGrade()) : "NT";
+                                model.addRow(new Object[]{pointer.getData().getCourseNumber(),
+                                        pointer.getData().getDescriptiveName(),
+                                        pointer.getData().getUnits(),
+                                        grade
+                                });
+                                pointer = pointer.getNext();
+                            } // end of while
+                        } // end of case for sem 2
+                    } // end of switch-case for sem
+                } // end of case for year 4
+            } // end of switch-case for year
+        });
+
+
+        prevButton.addActionListener(e -> {
+            if (year == 1 & sem ==1) {
+                year = 4;
+                sem = 2;
+            } else {
+                sem--;
+                if (sem < 1) {
+                    sem = 3;
+                    year--;
+                    if (year < 1) {
+                        sem = 3;
+                        year = 4;
+                    } // end of if
+                } // end of if
+            }
+
+            String semInString = "";
+            switch (sem) {
+                case 1 -> semInString = "First Semester";
+                case 2 -> semInString = "Second Semester";
+                case 3 -> semInString = "Short Term";
+            }
+            yearLabel.setText("   Year " + year + ", " + semInString);
+
+            ((DefaultTableModel) table.getModel()).setRowCount(0);
+            switch (year) {
+                case 1 -> {
+                    switch (sem) {
+                        case 1 -> {
+                            Node<Course> pointer = studentSearched.getYearList().getHead().getData().getFirstSemSemesterList().getHead();
+                            while (pointer!=null) {
+                                String grade = (pointer.getData().getGrade() != 0) ? String.valueOf(pointer.getData().getGrade()) : "NT";
+                                model.addRow(new Object[]{pointer.getData().getCourseNumber(),
+                                        pointer.getData().getDescriptiveName(),
+                                        pointer.getData().getUnits(),
+                                        grade
+                                });
+                                pointer = pointer.getNext();
+                            } // end of for
+                        } // end of case for sem 1
+                        case 2 -> {
+                            Node<Course> pointer = studentSearched.getYearList().getHead().getData().getSecondSemSemesterList().getHead();
+                            while (pointer!=null) {
+                                String grade = (pointer.getData().getGrade() != 0) ? String.valueOf(pointer.getData().getGrade()) : "NT";
+                                model.addRow(new Object[]{pointer.getData().getCourseNumber(),
+                                        pointer.getData().getDescriptiveName(),
+                                        pointer.getData().getUnits(),
+                                        grade
+                                });
+                                pointer = pointer.getNext();
+                            } // end of for
+                        } // end of case for sem 2
+                        case 3 -> {
+                            Node<Course> pointer = studentSearched.getYearList().getHead().getData().getShortTerm().getHead();
+                            while (pointer!=null) {
+                                String grade = (pointer.getData().getGrade() != 0) ? String.valueOf(pointer.getData().getGrade()) : "NT";
+                                model.addRow(new Object[]{pointer.getData().getCourseNumber(),
+                                        pointer.getData().getDescriptiveName(),
+                                        pointer.getData().getUnits(),
+                                        grade
+                                });
+                                pointer = pointer.getNext();
+                            } // end of for
+                        } // end of case for sem 3
+                    } // end of switch-case for sem
+                } // end of case for year 1
+                case 2 -> {
+                    switch (sem) {
+                        case 1 -> {
+                            Node<Course> pointer = studentSearched.getYearList().getHead().getNext().getData().getFirstSemSemesterList().getHead();
+                            while (pointer!=null) {
+                                String grade = (pointer.getData().getGrade() != 0) ? String.valueOf(pointer.getData().getGrade()) : "NT";
+                                model.addRow(new Object[]{pointer.getData().getCourseNumber(),
+                                        pointer.getData().getDescriptiveName(),
+                                        pointer.getData().getUnits(),
+                                        grade
+                                });
+                                pointer = pointer.getNext();
+                            } // end of for
+                        } // end of case for sem 1
+                        case 2 -> {
+                            Node<Course> pointer = studentSearched.getYearList().getHead().getData().getSecondSemSemesterList().getHead();
+                            while (pointer!=null) {
+                                String grade = (pointer.getData().getGrade() != 0) ? String.valueOf(pointer.getData().getGrade()) : "NT";
+                                model.addRow(new Object[]{pointer.getData().getCourseNumber(),
+                                        pointer.getData().getDescriptiveName(),
+                                        pointer.getData().getUnits(),
+                                        grade
+                                });
+                                pointer = pointer.getNext();
+                            } // end of for
+                        } // end of case for sem 2
+                        case 3 -> {
+                            Node<Course> pointer = studentSearched.getYearList().getHead().getData().getShortTerm().getHead();
+                            while (pointer!=null) {
+                                String grade = (pointer.getData().getGrade() != 0) ? String.valueOf(pointer.getData().getGrade()) : "NT";
+                                model.addRow(new Object[]{pointer.getData().getCourseNumber(),
+                                        pointer.getData().getDescriptiveName(),
+                                        pointer.getData().getUnits(),
+                                        grade
+                                });
+                                pointer = pointer.getNext();
+                            } // end of for
+                        } // end of case for sem 3
+                    } // end of switch-case for sem
+                } // end of case for year 2
+                case 3 -> {
+                    switch (sem) {
+                        case 1 -> {
+                            Node<Course> pointer = studentSearched.getYearList().getHead().getNext().getNext().getData().getFirstSemSemesterList().getHead();
+                            while (pointer!=null) {
+                                String grade = (pointer.getData().getGrade() != 0) ? String.valueOf(pointer.getData().getGrade()) : "NT";
+                                model.addRow(new Object[]{pointer.getData().getCourseNumber(),
+                                        pointer.getData().getDescriptiveName(),
+                                        pointer.getData().getUnits(),
+                                        grade
+                                });
+                                pointer = pointer.getNext();
+                            } // end of for
+                        } // end of case for sem 1
+                        case 2 -> {
+                            Node<Course> pointer = studentSearched.getYearList().getHead().getNext().getNext().getData().getSecondSemSemesterList().getHead();
+                            while (pointer!=null) {
+                                String grade = (pointer.getData().getGrade() != 0) ? String.valueOf(pointer.getData().getGrade()) : "NT";
+                                model.addRow(new Object[]{pointer.getData().getCourseNumber(),
+                                        pointer.getData().getDescriptiveName(),
+                                        pointer.getData().getUnits(),
+                                        grade
+                                });
+                                pointer = pointer.getNext();
+                            } // end of for
+                        } // end of case for sem 2
+                        case 3 -> {
+                            Node<Course> pointer = studentSearched.getYearList().getHead().getNext().getNext().getData().getShortTerm().getHead();
+                            while (pointer!=null) {
+                                String grade = (pointer.getData().getGrade() != 0) ? String.valueOf(pointer.getData().getGrade()) : "NT";
+                                model.addRow(new Object[]{pointer.getData().getCourseNumber(),
+                                        pointer.getData().getDescriptiveName(),
+                                        pointer.getData().getUnits(),
+                                        grade
+                                });
+                                pointer = pointer.getNext();
+                            } // end of for
+                        } // end of case for sem 3
+                    } // end of switch-case for sem
+                } // end of case for year 3
+                case 4 -> {
+                    switch (sem) {
+                        case 1 -> {
+                            Node<Course> pointer = studentSearched.getYearList().getHead().getNext().getNext().getNext().getData().getFirstSemSemesterList().getHead();
+                            while (pointer!=null) {
+                                String grade = (pointer.getData().getGrade() != 0) ? String.valueOf(pointer.getData().getGrade()) : "NT";
+                                model.addRow(new Object[]{pointer.getData().getCourseNumber(),
+                                        pointer.getData().getDescriptiveName(),
+                                        pointer.getData().getUnits(),
+                                        grade
+                                });
+                                pointer = pointer.getNext();
+                            } // end of for
+                        } // end of case for sem 1
+                        case 2 -> {
+                            Node<Course> pointer = studentSearched.getYearList().getHead().getNext().getNext().getNext().getData().getSecondSemSemesterList().getHead();
+                            while (pointer!=null) {
+                                String grade = (pointer.getData().getGrade() != 0) ? String.valueOf(pointer.getData().getGrade()) : "NT";
+                                model.addRow(new Object[]{pointer.getData().getCourseNumber(),
+                                        pointer.getData().getDescriptiveName(),
+                                        pointer.getData().getUnits(),
+                                        grade
+                                });
+                                pointer = pointer.getNext();
+                            } // end of for
+                        } // end of case for sem 2
+                    } // end of switch-case for sem
+                } // end of case for year 4
+            } // end of switch-case for year
+        });
 
         table.setDefaultEditor(Object.class, new DefaultCellEditor(new JTextField()) {
             @Override
@@ -996,6 +1500,35 @@ public class Portal extends JFrame {
         editButton.setFocusable(false);
         editButton.setFocusPainted(false);
         crudButtons.add(editButton);
+
+        editButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (editable) {
+                    table.setDefaultEditor(Object.class, new DefaultCellEditor(new JTextField()) {
+                        @Override
+                        public boolean isCellEditable(EventObject e) {
+                            return false;
+                        }
+                    });
+
+                    editButton.setText("Edit");
+                    editable = false;
+                } else {
+                    table.setDefaultEditor(Object.class, new DefaultCellEditor(new JTextField()) {
+                        @Override
+                        public boolean isCellEditable(EventObject e) {
+                            return true;
+                        }
+                    });
+                    editButton.setText("Done");
+                    editable = true;
+                }
+            }
+
+                                         ;
+                                     });
+
 
         // !!!!!! Delete Button
         ImageIcon deleteIcon = new ImageIcon("icons/delete-icon-black.png");
@@ -1495,7 +2028,7 @@ public class Portal extends JFrame {
         // !!!!! Year Label
         ImageIcon pinIcon = new ImageIcon("icons/pin-icon-black.png");
         JLabel yearLabel = new JLabel();
-        yearLabel.setText("   Year " + year + ", " + "Semester " + sem);
+        yearLabel.setText("   Year " + year + ", " + "First Semester");
         yearLabel.setIcon(pinIcon);
         yearLabel.setFont(resources.montserrat.deriveFont(13f));
         yearLabel.setForeground(Color.BLACK);
@@ -1575,16 +2108,27 @@ public class Portal extends JFrame {
         // Action Listeners
 
         nextButton.addActionListener(e -> {
-            sem++;
-            if (sem > 3) {
+            if  (year == 4 && sem == 2) {
+                year = 1;
                 sem = 1;
-                year++;
-                if (year > 4) {
+            } else {
+                sem++;
+                if (sem > 3) {
                     sem = 1;
-                    year = 1;
+                    year++;
+                    if (year > 4) {
+                        sem = 1;
+                        year = 1;
+                    } // end of if
                 } // end of if
-            } // end of if
-            yearLabel.setText("   Year " + year + ", " + "Semester " + sem);
+            }
+            String semInString = "";
+            switch (sem) {
+                case 1 -> semInString = "First Semester";
+                case 2 -> semInString = "Second Semester";
+                case 3 -> semInString = "Short Term";
+            }
+            yearLabel.setText("   Year " + year + ", " + semInString);
 
             ((DefaultTableModel) table.getModel()).setRowCount(0);
             switch (year) {
@@ -1685,16 +2229,28 @@ public class Portal extends JFrame {
         });
 
         prevButton.addActionListener(e -> {
-            sem--;
-            if (sem < 1) {
-                sem = 1;
-                year--;
-                if (year < 1) {
+            if (year == 1 & sem ==1) {
+                year = 4;
+                sem = 2;
+            } else {
+                sem--;
+                if (sem < 1) {
                     sem = 3;
-                    year = 4;
+                    year--;
+                    if (year < 1) {
+                        sem = 3;
+                        year = 4;
+                    } // end of if
                 } // end of if
-            } // end of if
-            yearLabel.setText("   Year " + year + ", " + "Semester " + sem);
+            }
+
+            String semInString = "";
+            switch (sem) {
+                case 1 -> semInString = "First Semester";
+                case 2 -> semInString = "Second Semester";
+                case 3 -> semInString = "Short Term";
+            }
+            yearLabel.setText("   Year " + year + ", " + semInString);
 
             ((DefaultTableModel) table.getModel()).setRowCount(0);
             switch (year) {

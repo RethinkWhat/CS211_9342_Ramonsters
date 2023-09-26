@@ -964,7 +964,7 @@ public class Portal extends JFrame {
         table.getColumnModel().getColumn(0).setPreferredWidth(130);
         table.getColumnModel().getColumn(1).setPreferredWidth(541);
         table.getColumnModel().getColumn(2).setPreferredWidth(80);
-        table.getColumnModel().getColumn(2).setPreferredWidth(80);
+        table.getColumnModel().getColumn(3).setPreferredWidth(80);
         table.getTableHeader().setResizingAllowed(false);
         table.getTableHeader().setReorderingAllowed(false);
         table.getTableHeader().setFont(resources.montserratBold.deriveFont(12f));
@@ -2235,7 +2235,7 @@ public class Portal extends JFrame {
             } else {
                 sem--;
                 if (sem < 1) {
-                    sem = 1;
+                    sem = 3;
                     year--;
                     if (year < 1) {
                         sem = 3;
@@ -2243,6 +2243,7 @@ public class Portal extends JFrame {
                     } // end of if
                 } // end of if
             }
+
             String semInString = "";
             switch (sem) {
                 case 1 -> semInString = "First Semester";

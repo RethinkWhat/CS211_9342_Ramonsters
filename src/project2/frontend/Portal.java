@@ -46,6 +46,8 @@ public class Portal extends JFrame {
 
     private boolean editable = false;
 
+    public boolean columnToEdit = false;
+
     private JTextField idTextField;
 
     /**
@@ -959,7 +961,16 @@ public class Portal extends JFrame {
 
         // !!!!! Table Panel Components
         JTable table = new JTable(new DefaultTableModel(
-                new Object[]{"Course Number","Descriptive Title","Units","Grade"},0));
+                new Object[]{"Course Number","Descriptive Title","Units","Grade"},0
+        ) {
+            public boolean isCellEditable ( int rowIndex, int columnIndex){
+                if (columnIndex ==3) {
+                    return true;
+                }
+                return false;
+            }
+        }
+        );
         table.getColumnModel().getColumn(0).setPreferredWidth(130);
         table.getColumnModel().getColumn(1).setPreferredWidth(541);
         table.getColumnModel().getColumn(2).setPreferredWidth(80);
@@ -974,6 +985,8 @@ public class Portal extends JFrame {
         table.setForeground(Color.BLACK);
         table.setFont(resources.montserrat.deriveFont(14f));
 
+
+
         table.getModel().addTableModelListener(new TableModelListener() {
             @Override
             public void tableChanged(TableModelEvent e) {
@@ -981,108 +994,114 @@ public class Portal extends JFrame {
                     if (year == 1) {
                         if (sem == 1) {
                             Node<Course> pointer = studentSearched.getYearList().getHead().getData().getFirstSemSemesterList().getHead();
+                            int input;
                             for (int x = 0; x <= e.getLastRow(); x++) {
                                 if (x == e.getFirstRow()) {
-                                    pointer.getData().setGrade(Integer.valueOf((String) (table.getValueAt(x, 3))));
-                                }
-                                pointer = pointer.getNext();
-                            }
-                        }
-                        if (sem == 2) {
-                            Node<Course> pointer = studentSearched.getYearList().getHead().getData().getSecondSemSemesterList().getHead();
-                            for (int x = 0; x <= e.getLastRow(); x++) {
-                                if (x == e.getFirstRow()) {
-                                    pointer.getData().setGrade(Integer.valueOf((String) (table.getValueAt(x, 3))));
-                                }
-                                pointer = pointer.getNext();
-                            }
-                        }
-                        if (sem == 3) {
-                            Node<Course> pointer = studentSearched.getYearList().getHead().getData().getShortTerm().getHead();
-                            for (int x = 0; x <= e.getLastRow(); x++) {
-                                if (x == e.getFirstRow()) {
-                                    pointer.getData().setGrade(Integer.valueOf((String) (table.getValueAt(x, 3))));
+                                    try {
+                                        input = Integer.valueOf((String) table.getValueAt(x, 3));
+                                        pointer.getData().setGrade(input);
+                                    } catch (NumberFormatException ex) {
+                                        table.clearSelection();
+                                    }
                                 }
                                 pointer = pointer.getNext();
                             }
                         }
                     }
-                    if (year == 2) {
-                        if (sem == 1) {
-                            Node<Course> pointer = studentSearched.getYearList().getHead().getNext().getData().getFirstSemSemesterList().getHead();
-                            for (int x = 0; x <= e.getLastRow(); x++) {
-                                if (x == e.getFirstRow()) {
-                                    pointer.getData().setGrade(Integer.valueOf((String) (table.getValueAt(x, 3))));
-                                }
-                                pointer = pointer.getNext();
+                    if (sem == 2) {
+                        Node<Course> pointer = studentSearched.getYearList().getHead().getData().getSecondSemSemesterList().getHead();
+                        for (int x = 0; x <= e.getLastRow(); x++) {
+                            if (x == e.getFirstRow()) {
+                                pointer.getData().setGrade(Integer.valueOf((String) (table.getValueAt(x, 3))));
                             }
-                        }
-                        if (sem == 2) {
-                            Node<Course> pointer = studentSearched.getYearList().getHead().getNext().getData().getSecondSemSemesterList().getHead();
-                            for (int x = 0; x <= e.getLastRow(); x++) {
-                                if (x == e.getFirstRow()) {
-                                    pointer.getData().setGrade(Integer.valueOf((String) (table.getValueAt(x, 3))));
-                                }
-                                pointer = pointer.getNext();
-                            }
-                        }
-                        if (sem == 3) {
-                            Node<Course> pointer = studentSearched.getYearList().getHead().getNext().getData().getShortTerm().getHead();
-                            for (int x = 0; x <= e.getLastRow(); x++) {
-                                if (x == e.getFirstRow()) {
-                                    pointer.getData().setGrade(Integer.valueOf((String) (table.getValueAt(x, 3))));
-                                }
-                                pointer = pointer.getNext();
-                            }
+                            pointer = pointer.getNext();
                         }
                     }
-                    if (year == 3) {
-                        if (sem == 1) {
-                            Node<Course> pointer = studentSearched.getYearList().getHead().getNext().getNext().getData().getFirstSemSemesterList().getHead();
-                            for (int x = 0; x <= e.getLastRow(); x++) {
-                                if (x == e.getFirstRow()) {
-                                    pointer.getData().setGrade(Integer.valueOf((String) (table.getValueAt(x, 3))));
-                                }
-                                pointer = pointer.getNext();
+                    if (sem == 3) {
+                        Node<Course> pointer = studentSearched.getYearList().getHead().getData().getShortTerm().getHead();
+                        for (int x = 0; x <= e.getLastRow(); x++) {
+                            if (x == e.getFirstRow()) {
+                                pointer.getData().setGrade(Integer.valueOf((String) (table.getValueAt(x, 3))));
                             }
-                        }
-                        if (sem == 2) {
-                            Node<Course> pointer = studentSearched.getYearList().getHead().getNext().getNext().getData().getSecondSemSemesterList().getHead();
-                            for (int x = 0; x <= e.getLastRow(); x++) {
-                                if (x == e.getFirstRow()) {
-                                    pointer.getData().setGrade(Integer.valueOf((String) (table.getValueAt(x, 3))));
-                                }
-                                pointer = pointer.getNext();
-                            }
-                        }
-                        if (sem == 3) {
-                            Node<Course> pointer = studentSearched.getYearList().getHead().getNext().getNext().getData().getShortTerm().getHead();
-                            for (int x = 0; x <= e.getLastRow(); x++) {
-                                if (x == e.getFirstRow()) {
-                                    pointer.getData().setGrade(Integer.valueOf((String) (table.getValueAt(x, 3))));
-                                }
-                                pointer = pointer.getNext();
-                            }
+                            pointer = pointer.getNext();
                         }
                     }
-                    if (year == 4) {
-                        if (sem == 1) {
-                            Node<Course> pointer = studentSearched.getYearList().getHead().getNext().getNext().getNext().getData().getFirstSemSemesterList().getHead();
-                            for (int x = 0; x <= e.getLastRow(); x++) {
-                                if (x == e.getFirstRow()) {
-                                    pointer.getData().setGrade(Integer.valueOf((String) (table.getValueAt(x, 3))));
-                                }
-                                pointer = pointer.getNext();
+                }
+                if (year == 2) {
+                    if (sem == 1) {
+                        Node<Course> pointer = studentSearched.getYearList().getHead().getNext().getData().getFirstSemSemesterList().getHead();
+                        for (int x = 0; x <= e.getLastRow(); x++) {
+                            if (x == e.getFirstRow()) {
+                                pointer.getData().setGrade(Integer.valueOf((String) (table.getValueAt(x, 3))));
                             }
+                            pointer = pointer.getNext();
                         }
-                        if (sem == 2) {
-                            Node<Course> pointer = studentSearched.getYearList().getHead().getNext().getNext().getNext().getData().getSecondSemSemesterList().getHead();
-                            for (int x = 0; x <= e.getLastRow(); x++) {
-                                if (x == e.getFirstRow()) {
-                                    pointer.getData().setGrade(Integer.valueOf((String) (table.getValueAt(x, 3))));
-                                }
-                                pointer = pointer.getNext();
+                    }
+                    if (sem == 2) {
+                        Node<Course> pointer = studentSearched.getYearList().getHead().getNext().getData().getSecondSemSemesterList().getHead();
+                        for (int x = 0; x <= e.getLastRow(); x++) {
+                            if (x == e.getFirstRow()) {
+                                pointer.getData().setGrade(Integer.valueOf((String) (table.getValueAt(x, 3))));
                             }
+                            pointer = pointer.getNext();
+                        }
+                    }
+                    if (sem == 3) {
+                        Node<Course> pointer = studentSearched.getYearList().getHead().getNext().getData().getShortTerm().getHead();
+                        for (int x = 0; x <= e.getLastRow(); x++) {
+                            if (x == e.getFirstRow()) {
+                                pointer.getData().setGrade(Integer.valueOf((String) (table.getValueAt(x, 3))));
+                            }
+                            pointer = pointer.getNext();
+                        }
+                    }
+                }
+                if (year == 3) {
+                    if (sem == 1) {
+                        Node<Course> pointer = studentSearched.getYearList().getHead().getNext().getNext().getData().getFirstSemSemesterList().getHead();
+                        for (int x = 0; x <= e.getLastRow(); x++) {
+                            if (x == e.getFirstRow()) {
+                                pointer.getData().setGrade(Integer.valueOf((String) (table.getValueAt(x, 3))));
+                            }
+                            pointer = pointer.getNext();
+                        }
+                    }
+                    if (sem == 2) {
+                        Node<Course> pointer = studentSearched.getYearList().getHead().getNext().getNext().getData().getSecondSemSemesterList().getHead();
+                        for (int x = 0; x <= e.getLastRow(); x++) {
+                            if (x == e.getFirstRow()) {
+                                pointer.getData().setGrade(Integer.valueOf((String) (table.getValueAt(x, 3))));
+                            }
+                            pointer = pointer.getNext();
+                        }
+                    }
+                    if (sem == 3) {
+                        Node<Course> pointer = studentSearched.getYearList().getHead().getNext().getNext().getData().getShortTerm().getHead();
+                        for (int x = 0; x <= e.getLastRow(); x++) {
+                            if (x == e.getFirstRow()) {
+                                pointer.getData().setGrade(Integer.valueOf((String) (table.getValueAt(x, 3))));
+                            }
+                            pointer = pointer.getNext();
+                        }
+                    }
+                }
+                if (year == 4) {
+                    if (sem == 1) {
+                        Node<Course> pointer = studentSearched.getYearList().getHead().getNext().getNext().getNext().getData().getFirstSemSemesterList().getHead();
+                        for (int x = 0; x <= e.getLastRow(); x++) {
+                            if (x == e.getFirstRow()) {
+                                pointer.getData().setGrade(Integer.valueOf((String) (table.getValueAt(x, 3))));
+                            }
+                            pointer = pointer.getNext();
+                        }
+                    }
+                    if (sem == 2) {
+                        Node<Course> pointer = studentSearched.getYearList().getHead().getNext().getNext().getNext().getData().getSecondSemSemesterList().getHead();
+                        for (int x = 0; x <= e.getLastRow(); x++) {
+                            if (x == e.getFirstRow()) {
+                                pointer.getData().setGrade(Integer.valueOf((String) (table.getValueAt(x, 3))));
+                            }
+                            pointer = pointer.getNext();
                         }
                     }
                 }
@@ -1462,12 +1481,6 @@ public class Portal extends JFrame {
             } // end of switch-case for year
         });
 
-        table.setDefaultEditor(Object.class, new DefaultCellEditor(new JTextField()) {
-            @Override
-            public boolean isCellEditable(EventObject e) {
-                return false;
-            }
-        });
 
         JScrollPane scrollPane = new JScrollPane(table);
         scrollPane.setBackground(Color.WHITE);
@@ -1500,9 +1513,17 @@ public class Portal extends JFrame {
         editButton.setFocusPainted(false);
         crudButtons.add(editButton);
 
+        table.setDefaultEditor(Object.class, new DefaultCellEditor(new JTextField()) {
+            @Override
+            public boolean isCellEditable(EventObject e) {
+                return false;
+            }
+        });
+
         editButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
                 if (editable) {
                     table.setDefaultEditor(Object.class, new DefaultCellEditor(new JTextField()) {
                         @Override
@@ -1523,10 +1544,9 @@ public class Portal extends JFrame {
                     editButton.setText("Done");
                     editable = true;
                 }
-            }
 
-                                         ;
-                                     });
+            };
+        });
 
 
         // !!!!!! Delete Button

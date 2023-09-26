@@ -790,11 +790,9 @@ public class Portal extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 studentSearched = Main.search(idTextField.getText());
                 updateStudentShown(studentSearched);
-                if (!studentNameLabel.getText().equalsIgnoreCase("ID Number")
-                        && !studentIdLabel.getText().equalsIgnoreCase("Last Name, First Name")) {
+                if (studentSearched!=null) {
                     nextTorButton.setVisible(true);
                 }
-
             }
         });
 
@@ -805,6 +803,7 @@ public class Portal extends JFrame {
             studentIdLabel.setText("ID Number");
             studentNameLabel.setText("Last Name, First Name");
             idTextField.setText("ID Number");
+            nextTorButton.setVisible(false);
         });
 
         // !! Buttons Panel 2

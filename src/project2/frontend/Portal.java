@@ -1924,6 +1924,44 @@ public class Portal extends JFrame {
                     confirmIdLabel.setForeground(Color.WHITE);
                     errorLabel.setVisible(false);
                     Main.removeStudent(idText);
+                    JFrame confirmDialogFrame = new JFrame("Student Removed Successfully");
+                    ImageIcon confirmCancelLogo = resources.scaleImage(resources.sluLogo, 25, 25);
+                    confirmDialogFrame.setIconImage(confirmCancelLogo.getImage());
+                    confirmDialogFrame.setSize(400, 150);
+                    confirmDialogFrame.setLocationRelativeTo(null);
+                    confirmDialogFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+                    JPanel confirmPanel = new JPanel();
+                    confirmPanel.setLayout(new BorderLayout());
+                    confirmPanel.setBackground(Color.darkGray);
+
+                    JLabel confirmLabel = new JLabel("Student Removed Successfully!");
+                    confirmLabel.setFont(new Font("Montserrat Bold", Font.BOLD, 16));
+                    confirmLabel.setForeground(Color.WHITE);
+                    confirmLabel.setHorizontalAlignment(JLabel.CENTER);
+                    confirmPanel.add(confirmLabel, BorderLayout.CENTER);
+
+                    JPanel buttonPanel = new JPanel();
+                    buttonPanel.setBackground(resources.yinmnBlue);
+                    JButton yesButton = new JButton("OK");
+
+                    yesButton.setFont(new Font("Montserrat Bold", Font.BOLD, 16));
+                    yesButton.setForeground(Color.BLACK);
+                    yesButton.setBackground(resources.uranianBlue);
+                    yesButton.setBorderPainted(false);
+
+                    buttonPanel.add(yesButton);
+
+                    yesButton.addActionListener(new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            confirmDialogFrame.dispose();
+                        }
+                    });
+
+                    confirmDialogFrame.add(confirmPanel, BorderLayout.CENTER);
+                    confirmDialogFrame.add(buttonPanel, BorderLayout.SOUTH);
+                    confirmDialogFrame.setVisible(true);
                     removeStudentFrame.dispose();
                 }
             }

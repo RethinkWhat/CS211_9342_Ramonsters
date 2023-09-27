@@ -1723,12 +1723,48 @@ public class Portal extends JFrame {
                     inputNeededLabel.setText("Make sure to check and input all needed details.");
                     idErrorLabel.setVisible(!validIdLength);
                 } else {
-                    // Handle the Add button click (add the student)
-                    // Add student to data
-                    addStudentFrame.dispose(); // Close the frame when done
-                }
+                    Main.addStudent(idText, firstNameText, lastNameText, Main.computerScience);
 
-                Main.addStudent(idText, firstNameText, lastNameText, Main.computerScience);
+                    JFrame addSuccessFrame = new JFrame("Add Student");
+                    ImageIcon addSuccessFrameLogo = resources.scaleImage(resources.sluLogo, 25, 25);
+                    addSuccessFrame.setIconImage(addSuccessFrameLogo.getImage());
+                    addSuccessFrame.setSize(400, 150);
+                    addSuccessFrame.setLocationRelativeTo(null);
+                    addSuccessFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+                    JPanel confirmPanel = new JPanel();
+                    confirmPanel.setLayout(new BorderLayout());
+                    confirmPanel.setBackground(Color.darkGray);
+
+                    JLabel confirmLabel = new JLabel("Student Added Successfully!");
+                    confirmLabel.setFont(new Font("Montserrat Bold", Font.BOLD, 16));
+                    confirmLabel.setForeground(Color.WHITE);
+                    confirmLabel.setHorizontalAlignment(JLabel.CENTER);
+                    confirmPanel.add(confirmLabel, BorderLayout.CENTER);
+
+                    JPanel buttonPanel = new JPanel();
+                    buttonPanel.setBackground(resources.yinmnBlue);
+                    JButton okButton = new JButton("OK");
+
+                    okButton.setFont(new Font("Montserrat Bold", Font.BOLD, 16));
+                    okButton.setForeground(Color.BLACK);
+                    okButton.setBackground(resources.uranianBlue);
+                    okButton.setBorderPainted(false);
+
+                    buttonPanel.add(okButton);
+
+                    okButton.addActionListener(new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            addSuccessFrame.dispose();
+                        }
+                    });
+
+                    addSuccessFrame.add(confirmPanel, BorderLayout.CENTER);
+                    addSuccessFrame.add(buttonPanel, BorderLayout.SOUTH);
+                    addSuccessFrame.setVisible(true);
+                    addStudentFrame.dispose();
+                }
 
             }
         });
@@ -1924,12 +1960,13 @@ public class Portal extends JFrame {
                     confirmIdLabel.setForeground(Color.WHITE);
                     errorLabel.setVisible(false);
                     Main.removeStudent(idText);
-                    JFrame confirmDialogFrame = new JFrame("Student Removed Successfully");
-                    ImageIcon confirmCancelLogo = resources.scaleImage(resources.sluLogo, 25, 25);
-                    confirmDialogFrame.setIconImage(confirmCancelLogo.getImage());
-                    confirmDialogFrame.setSize(400, 150);
-                    confirmDialogFrame.setLocationRelativeTo(null);
-                    confirmDialogFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+                    JFrame removeSuccessFrame = new JFrame("Remove Student");
+                    ImageIcon removeSuccessFrameLogo = resources.scaleImage(resources.sluLogo, 25, 25);
+                    removeSuccessFrame.setIconImage(removeSuccessFrameLogo.getImage());
+                    removeSuccessFrame.setSize(400, 150);
+                    removeSuccessFrame.setLocationRelativeTo(null);
+                    removeSuccessFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
                     JPanel confirmPanel = new JPanel();
                     confirmPanel.setLayout(new BorderLayout());
@@ -1943,25 +1980,25 @@ public class Portal extends JFrame {
 
                     JPanel buttonPanel = new JPanel();
                     buttonPanel.setBackground(resources.yinmnBlue);
-                    JButton yesButton = new JButton("OK");
+                    JButton okButton = new JButton("OK");
 
-                    yesButton.setFont(new Font("Montserrat Bold", Font.BOLD, 16));
-                    yesButton.setForeground(Color.BLACK);
-                    yesButton.setBackground(resources.uranianBlue);
-                    yesButton.setBorderPainted(false);
+                    okButton.setFont(new Font("Montserrat Bold", Font.BOLD, 16));
+                    okButton.setForeground(Color.BLACK);
+                    okButton.setBackground(resources.uranianBlue);
+                    okButton.setBorderPainted(false);
 
-                    buttonPanel.add(yesButton);
+                    buttonPanel.add(okButton);
 
-                    yesButton.addActionListener(new ActionListener() {
+                    okButton.addActionListener(new ActionListener() {
                         @Override
                         public void actionPerformed(ActionEvent e) {
-                            confirmDialogFrame.dispose();
+                            removeSuccessFrame.dispose();
                         }
                     });
 
-                    confirmDialogFrame.add(confirmPanel, BorderLayout.CENTER);
-                    confirmDialogFrame.add(buttonPanel, BorderLayout.SOUTH);
-                    confirmDialogFrame.setVisible(true);
+                    removeSuccessFrame.add(confirmPanel, BorderLayout.CENTER);
+                    removeSuccessFrame.add(buttonPanel, BorderLayout.SOUTH);
+                    removeSuccessFrame.setVisible(true);
                     removeStudentFrame.dispose();
                 }
             }

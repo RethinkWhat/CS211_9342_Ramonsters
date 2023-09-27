@@ -1,31 +1,21 @@
-# Comparison Of Algorithms
+# Comparison Of Algorithms & Saint Louis University's Admin Portal
 
 
 
 ## Description
 
+### Project 1
 This project aims to compare the Bubble Sort, Insertion Sort, and Selection Sort algorithms in different data sizes ranging from 10,000 to 1,000,000 inputs. The project will then compare the counts of statements executed in each algorithm within the respected input size.
-
-## Versions
-
-### Version 1
-In Version 1, the project's gitlab repository and code template was established.
-
-### Version 2
-In Version 2, the arrays are now populated with the dataset.
-
-### Version 3
-In Version 3, the vanilla version of the sorting algorithms are coded.
-
-### Version 4
-In Version 4, the sorting algorithms have their own counter to keep track of the execution counts.
-
-### Verison 5
-In Version, algorithms are fixed and tested, ready to run with the real dataset.
+### Project 2
+This project aims to emulate the Saint Louis University's portal in which it displays the utilization of nested linked lists.
 
 ## Dataset
 
-The study draws upon a dataset comprising 1,000,000 company names (Datablist, n.d.). To facilitate a comprehensive analysis of algorithmic performance, the dataset was subjected to sorting in various orders: random, ascending, and descending. These distinct orders allowed for the examination of average-case, best-case, and worst-case scenarios for each algorithm under analysis. The dataset was also split into 5 groups that differ in sizes, which are 10 thousand, 50 thousand, 200 thousand, 500 thousand, and 1 million, to facilitate the comparative analysis of the study. 
+### Project 1
+The study draws upon a dataset comprising 1,000,000 company names (Datablist, n.d.). To facilitate a comprehensive analysis of algorithmic performance, the dataset was subjected to sorting in various orders: random, ascending, and descending. These distinct orders allowed for the examination of average-case, best-case, and worst-case scenarios for each algorithm under analysis. The dataset was also split into 5 groups that differ in sizes, which are 10 thousand, 50 thousand, 200 thousand, 500 thousand, and 1 million, to facilitate the comparative analysis of the study.
+
+### Project 2
+This project has no dataset.
 
 ## Authors
 
@@ -43,4 +33,7 @@ The study draws upon a dataset comprising 1,000,000 company names (Datablist, n.
 This project is for academic purposes only.
 
 ## Project status
-The Project is fully developed.
+### Project 1
+Fully developed
+### Project 2
+Under development

@@ -199,7 +199,7 @@ public class Portal extends JFrame {
             personalDetailsButton.setForeground(Color.BLACK);
         });
         personalDetailsButton.addActionListener(e -> {
-            cardLayout1.show(cardPanel, "personalDetails");
+            cardLayout1.show(cardPanel, "personal");
             homeButton.setForeground(Color.BLACK);
             scheduleButton.setForeground(Color.BLACK);
             torButton.setForeground(Color.BLACK);
@@ -1693,12 +1693,12 @@ public class Portal extends JFrame {
 
         addButton.setFont(new Font("Montserrat Bold", Font.BOLD, 24));
         addButton.setBackground(resources.uranianBlue);
-        addButton.setForeground(Color.BLACK);
+        addButton.setForeground(Color.WHITE);
         addButton.setBorderPainted(false);
 
         cancelButton.setFont(new Font("Montserrat Bold", Font.BOLD, 24));
         cancelButton.setBackground(resources.uranianBlue);
-        cancelButton.setForeground(Color.BLACK);
+        cancelButton.setForeground(Color.WHITE);
         cancelButton.setBorderPainted(false);
 
         buttonPanel.setBackground(resources.yinmnBlue);
@@ -1723,12 +1723,48 @@ public class Portal extends JFrame {
                     inputNeededLabel.setText("Make sure to check and input all needed details.");
                     idErrorLabel.setVisible(!validIdLength);
                 } else {
-                    // Handle the Add button click (add the student)
-                    // Add student to data
-                    addStudentFrame.dispose(); // Close the frame when done
-                }
+                    Main.addStudent(idText, firstNameText, lastNameText, Main.computerScience);
 
-                Main.addStudent(idText, firstNameText, lastNameText, Main.computerScience);
+                    JFrame addSuccessFrame = new JFrame("Add Student");
+                    ImageIcon addSuccessFrameLogo = resources.scaleImage(resources.sluLogo, 25, 25);
+                    addSuccessFrame.setIconImage(addSuccessFrameLogo.getImage());
+                    addSuccessFrame.setSize(400, 150);
+                    addSuccessFrame.setLocationRelativeTo(null);
+                    addSuccessFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+                    JPanel confirmPanel = new JPanel();
+                    confirmPanel.setLayout(new BorderLayout());
+                    confirmPanel.setBackground(Color.darkGray);
+
+                    JLabel confirmLabel = new JLabel("Student Added Successfully!");
+                    confirmLabel.setFont(new Font("Montserrat Bold", Font.BOLD, 16));
+                    confirmLabel.setForeground(Color.WHITE);
+                    confirmLabel.setHorizontalAlignment(JLabel.CENTER);
+                    confirmPanel.add(confirmLabel, BorderLayout.CENTER);
+
+                    JPanel buttonPanel = new JPanel();
+                    buttonPanel.setBackground(resources.yinmnBlue);
+                    JButton okButton = new JButton("OK");
+
+                    okButton.setFont(new Font("Montserrat Bold", Font.BOLD, 16));
+                    okButton.setForeground(Color.WHITE);
+                    okButton.setBackground(resources.uranianBlue);
+                    okButton.setBorderPainted(false);
+
+                    buttonPanel.add(okButton);
+
+                    okButton.addActionListener(new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            addSuccessFrame.dispose();
+                        }
+                    });
+
+                    addSuccessFrame.add(confirmPanel, BorderLayout.CENTER);
+                    addSuccessFrame.add(buttonPanel, BorderLayout.SOUTH);
+                    addSuccessFrame.setVisible(true);
+                    addStudentFrame.dispose();
+                }
 
             }
         });
@@ -1760,12 +1796,12 @@ public class Portal extends JFrame {
                 JButton noButton = new JButton("No");
 
                 yesButton.setFont(new Font("Montserrat Bold", Font.BOLD, 16));
-                yesButton.setForeground(Color.BLACK);
+                yesButton.setForeground(Color.WHITE);
                 yesButton.setBackground(resources.uranianBlue);
                 yesButton.setBorderPainted(false);
 
                 noButton.setFont(new Font("Montserrat Bold", Font.BOLD, 16));
-                noButton.setForeground(Color.BLACK);
+                noButton.setForeground(Color.WHITE);
                 noButton.setBackground(resources.uranianBlue);
                 noButton.setBorderPainted(false);
 
@@ -1891,12 +1927,12 @@ public class Portal extends JFrame {
 
         removeButton.setFont(new Font("Montserrat Bold", Font.BOLD, 24));
         removeButton.setBackground(resources.uranianBlue);
-        removeButton.setForeground(Color.BLACK);
+        removeButton.setForeground(Color.WHITE);
         removeButton.setBorderPainted(false);
 
         cancelButton.setFont(new Font("Montserrat Bold", Font.BOLD, 24));
         cancelButton.setBackground(resources.uranianBlue);
-        cancelButton.setForeground(Color.BLACK);
+        cancelButton.setForeground(Color.WHITE);
         cancelButton.setBorderPainted(false);
 
         buttonPanel.setBackground(resources.yinmnBlue);
@@ -1924,6 +1960,45 @@ public class Portal extends JFrame {
                     confirmIdLabel.setForeground(Color.WHITE);
                     errorLabel.setVisible(false);
                     Main.removeStudent(idText);
+
+                    JFrame removeSuccessFrame = new JFrame("Remove Student");
+                    ImageIcon removeSuccessFrameLogo = resources.scaleImage(resources.sluLogo, 25, 25);
+                    removeSuccessFrame.setIconImage(removeSuccessFrameLogo.getImage());
+                    removeSuccessFrame.setSize(400, 150);
+                    removeSuccessFrame.setLocationRelativeTo(null);
+                    removeSuccessFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+                    JPanel confirmPanel = new JPanel();
+                    confirmPanel.setLayout(new BorderLayout());
+                    confirmPanel.setBackground(Color.darkGray);
+
+                    JLabel confirmLabel = new JLabel("Student Removed Successfully!");
+                    confirmLabel.setFont(new Font("Montserrat Bold", Font.BOLD, 16));
+                    confirmLabel.setForeground(Color.WHITE);
+                    confirmLabel.setHorizontalAlignment(JLabel.CENTER);
+                    confirmPanel.add(confirmLabel, BorderLayout.CENTER);
+
+                    JPanel buttonPanel = new JPanel();
+                    buttonPanel.setBackground(resources.yinmnBlue);
+                    JButton okButton = new JButton("OK");
+
+                    okButton.setFont(new Font("Montserrat Bold", Font.BOLD, 16));
+                    okButton.setForeground(Color.WHITE);
+                    okButton.setBackground(resources.uranianBlue);
+                    okButton.setBorderPainted(false);
+
+                    buttonPanel.add(okButton);
+
+                    okButton.addActionListener(new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            removeSuccessFrame.dispose();
+                        }
+                    });
+
+                    removeSuccessFrame.add(confirmPanel, BorderLayout.CENTER);
+                    removeSuccessFrame.add(buttonPanel, BorderLayout.SOUTH);
+                    removeSuccessFrame.setVisible(true);
                     removeStudentFrame.dispose();
                 }
             }
@@ -1955,12 +2030,12 @@ public class Portal extends JFrame {
                 JButton noButton = new JButton("No");
 
                 yesButton.setFont(new Font("Montserrat Bold", Font.BOLD, 16));
-                yesButton.setForeground(Color.BLACK);
+                yesButton.setForeground(Color.WHITE);
                 yesButton.setBackground(resources.uranianBlue);
                 yesButton.setBorderPainted(false);
 
                 noButton.setFont(new Font("Montserrat Bold", Font.BOLD, 16));
-                noButton.setForeground(Color.BLACK);
+                noButton.setForeground(Color.WHITE);
                 noButton.setBackground(resources.uranianBlue);
                 noButton.setBorderPainted(false);
 
@@ -2441,10 +2516,95 @@ public class Portal extends JFrame {
     private JPanel populatePersonalPanel() {
         JPanel personalPanel = new JPanel();
         personalPanel.setLayout(new BorderLayout());
-        personalPanel.setBackground(resources.uranianBlue);
-        personalPanel.setPreferredSize(new Dimension(910,700));
+        personalPanel.setBackground(Color.WHITE);
+        personalPanel.setPreferredSize(new Dimension(910, 700));
+
+        JPanel headingPanel = new JPanel();
+        headingPanel.setLayout(new BorderLayout());
+        headingPanel.setBorder(resources.thinPadding);
+        headingPanel.setBackground(resources.yinmnBlue);
+        headingPanel.setPreferredSize(new Dimension(910, 40));
+        personalPanel.add(headingPanel, BorderLayout.NORTH);
+
+        JLabel headingLabel = new JLabel();
+        headingLabel.setText("Personal Details");
+        headingLabel.setIcon(personalDetailsButton.getIcon());
+        headingLabel.setFont(resources.montserratBold.deriveFont(11f));
+        headingLabel.setForeground(resources.antiflashWhite);
+        headingLabel.setHorizontalAlignment(SwingConstants.LEFT);
+        headingPanel.add(headingLabel, BorderLayout.WEST);
+
+        JPanel bodyPanel = new JPanel(new BorderLayout());
+        bodyPanel.setBackground(resources.antiflashWhite);
+        bodyPanel.setBorder(resources.normalPadding);
+        personalPanel.add(bodyPanel, BorderLayout.CENTER);
+
+        JPanel imagePanel = new JPanel(new BorderLayout());
+        imagePanel.setPreferredSize(new Dimension(300, 300));
+
+        JPanel topImagePanel = new JPanel();
+        topImagePanel.setPreferredSize(new Dimension(300, 300));
+
+        ImageIcon imageIcon = new ImageIcon("icons/test-image-icon.png");
+        imageIcon = new ImageIcon(imageIcon.getImage().getScaledInstance(200, 200, Image.SCALE_SMOOTH));
+
+        JLabel imageLabel = new JLabel(imageIcon);
+        topImagePanel.add(imageLabel, BorderLayout.CENTER);
+        imagePanel.add(topImagePanel, BorderLayout.NORTH);
+
+        bodyPanel.add(imagePanel, BorderLayout.WEST);
+
+        JPanel topDetailsPanel = new JPanel(new GridBagLayout());
+        topDetailsPanel.setPreferredSize(new Dimension(610, 400));
+
+        addPersonalDetail(topDetailsPanel, "Name", "Johan Rickardo Roxas", 0);
+        addPersonalDetail(topDetailsPanel, "First Name", "Johan Rickardo", 1);
+        addPersonalDetail(topDetailsPanel, "Last Name", "Roxas", 2);
+        addPersonalDetail(topDetailsPanel, "Username", "rickardo", 3);
+        addPersonalDetail(topDetailsPanel, "Birthday", "November 07, 2003", 4);
+        addPersonalDetail(topDetailsPanel, "Citizenship", "Filipino", 5);
+        addPersonalDetail(topDetailsPanel, "Civil Status", "Single", 6);
+        addPersonalDetail(topDetailsPanel, "Birthplace", "Baguio City", 7);
+        addPersonalDetail(topDetailsPanel, "Institution", "Saint Louis University", 8);
+        addPersonalDetail(topDetailsPanel, "Employee Number", "1234567", 9);
+        addPersonalDetail(topDetailsPanel, "Email Address", "jrr@mailmail.com", 10);
+        addPersonalDetail(topDetailsPanel, "Contact Number", "+63 912 345 6789", 11);
+
+        JPanel detailsPanel = new JPanel(new GridBagLayout());
+        detailsPanel.setPreferredSize(new Dimension(610, 400));
+
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.anchor = GridBagConstraints.NORTH;
+        detailsPanel.add(topDetailsPanel, gbc);
+
+        bodyPanel.add(detailsPanel, BorderLayout.EAST);
+
         return personalPanel;
     }
+
+    private void addPersonalDetail(JPanel panel, String label, String value, int gridy) {
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = gridy;
+        gbc.anchor = GridBagConstraints.WEST;
+
+        JLabel labelComponent = new JLabel(label);
+        labelComponent.setFont(resources.montserratBold.deriveFont(18f));
+        labelComponent.setForeground(Color.BLACK);
+        panel.add(labelComponent, gbc);
+
+        gbc.gridx = 1;
+        JTextField valueField = new JTextField(value);
+        valueField.setFont(resources.montserrat.deriveFont(16f));
+        valueField.setForeground(Color.BLACK);
+        valueField.setEditable(false);
+        valueField.setBorder(null);
+        valueField.setBackground(panel.getBackground());
+        panel.add(valueField, gbc);
+    }
+
 
     /**
      * TODO: Documentation

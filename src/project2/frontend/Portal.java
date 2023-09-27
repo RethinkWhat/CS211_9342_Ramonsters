@@ -1747,7 +1747,7 @@ public class Portal extends JFrame {
                     JButton okButton = new JButton("OK");
 
                     okButton.setFont(new Font("Montserrat Bold", Font.BOLD, 16));
-                    okButton.setForeground(Color.BLACK);
+                    okButton.setForeground(Color.WHITE);
                     okButton.setBackground(resources.uranianBlue);
                     okButton.setBorderPainted(false);
 
@@ -1796,12 +1796,12 @@ public class Portal extends JFrame {
                 JButton noButton = new JButton("No");
 
                 yesButton.setFont(new Font("Montserrat Bold", Font.BOLD, 16));
-                yesButton.setForeground(Color.BLACK);
+                yesButton.setForeground(Color.WHITE);
                 yesButton.setBackground(resources.uranianBlue);
                 yesButton.setBorderPainted(false);
 
                 noButton.setFont(new Font("Montserrat Bold", Font.BOLD, 16));
-                noButton.setForeground(Color.BLACK);
+                noButton.setForeground(Color.WHITE);
                 noButton.setBackground(resources.uranianBlue);
                 noButton.setBorderPainted(false);
 
@@ -1983,7 +1983,7 @@ public class Portal extends JFrame {
                     JButton okButton = new JButton("OK");
 
                     okButton.setFont(new Font("Montserrat Bold", Font.BOLD, 16));
-                    okButton.setForeground(Color.BLACK);
+                    okButton.setForeground(Color.WHITE);
                     okButton.setBackground(resources.uranianBlue);
                     okButton.setBorderPainted(false);
 
@@ -2030,12 +2030,12 @@ public class Portal extends JFrame {
                 JButton noButton = new JButton("No");
 
                 yesButton.setFont(new Font("Montserrat Bold", Font.BOLD, 16));
-                yesButton.setForeground(Color.BLACK);
+                yesButton.setForeground(Color.WHITE);
                 yesButton.setBackground(resources.uranianBlue);
                 yesButton.setBorderPainted(false);
 
                 noButton.setFont(new Font("Montserrat Bold", Font.BOLD, 16));
-                noButton.setForeground(Color.BLACK);
+                noButton.setForeground(Color.WHITE);
                 noButton.setBackground(resources.uranianBlue);
                 noButton.setBorderPainted(false);
 

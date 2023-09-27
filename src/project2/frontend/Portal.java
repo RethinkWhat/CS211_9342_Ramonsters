@@ -1693,12 +1693,12 @@ public class Portal extends JFrame {
 
         addButton.setFont(new Font("Montserrat Bold", Font.BOLD, 24));
         addButton.setBackground(resources.uranianBlue);
-        addButton.setForeground(Color.BLACK);
+        addButton.setForeground(Color.WHITE);
         addButton.setBorderPainted(false);
 
         cancelButton.setFont(new Font("Montserrat Bold", Font.BOLD, 24));
         cancelButton.setBackground(resources.uranianBlue);
-        cancelButton.setForeground(Color.BLACK);
+        cancelButton.setForeground(Color.WHITE);
         cancelButton.setBorderPainted(false);
 
         buttonPanel.setBackground(resources.yinmnBlue);
@@ -1891,12 +1891,12 @@ public class Portal extends JFrame {
 
         removeButton.setFont(new Font("Montserrat Bold", Font.BOLD, 24));
         removeButton.setBackground(resources.uranianBlue);
-        removeButton.setForeground(Color.BLACK);
+        removeButton.setForeground(Color.WHITE);
         removeButton.setBorderPainted(false);
 
         cancelButton.setFont(new Font("Montserrat Bold", Font.BOLD, 24));
         cancelButton.setBackground(resources.uranianBlue);
-        cancelButton.setForeground(Color.BLACK);
+        cancelButton.setForeground(Color.WHITE);
         cancelButton.setBorderPainted(false);
 
         buttonPanel.setBackground(resources.yinmnBlue);

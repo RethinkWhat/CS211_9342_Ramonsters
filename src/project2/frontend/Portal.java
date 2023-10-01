@@ -43,46 +43,65 @@ public class Portal extends JFrame {
      * An object of CourseUtility that is used to invoke the LinkedLists of courses used in the curriculum checklist.
      */
     private final CourseUtility courseChecklist = new CourseUtility();
-
+    /**
+     * A boolean named editable set to false.
+     */
     private boolean editable = false;
-
+    /**
+     * Boolean named "columnToEdit" set to default.
+     */
     public boolean columnToEdit = false;
-
+    /**
+     * A JTextField variable named "idTextField" used to input or display text within the UI.
+     */
     private JTextField idTextField;
 
     /**
-     * TODO: Documentation
+     * A JButton named "homeButton" that serves as a home button
      */
     private JButton homeButton;
-
+    /**
+     * A variable named "studentSearched" it stores information about a student being searched inside the UI.
+     */
     private Student studentSearched;
     /**
-     * TODO: Documentation
+     * Declares a private button that serves as a schedule button.
      */
     private JButton scheduleButton;
-
+    /**
+     * Creates a new JPanel named "cardPanel".
+     */
     private JPanel cardPanel = new JPanel();
 
     /**
-     * TODO: Documentation
+     * Variable named torButton for the Transcript of Records.
      */
     private JButton torButton;
-
+    /**
+     * Variable named "nextTorButton" that proceeds to the Transcript of records if next button is pressed.
+     */
     private JButton nextTorButton;
 
     /**
-     * TODO: Documentation
+     * JButton named checklistButton that serves as the curriculum checklist.
      */
     private JButton checklistButton;
-
+    /**
+     * JLabel that shows the total of students.
+     */
     private JLabel studentCountLabel;
 
     /**
-     * TODO: Documentation
+     * JButton named "personalDetailsButton" that will show the personal details of the currently logged in student.
      */
     private JButton personalDetailsButton;
+    /**
+     * JButton that will add a student.
+     */
     private JFrame addStudentFrame;
-
+    /**
+     * JButton that will remove a student.
+     */
     private JFrame removeStudentFrame;
     /**
      * Card Layout used for the centerPanel
@@ -93,11 +112,17 @@ public class Portal extends JFrame {
      * Card Layout used for components inside centerPanel
      */
     private final CardLayout cardLayout2 = new CardLayout(10,20);
-
+    /**
+     * Integer named "year".
+     */
     private int year;
-
+    /**
+     * Integer named "sem" for semester.
+     */
     private int sem;
-
+    /**
+     * JPanel for Transcript of Records.
+     */
     private JPanel torPanel;
 
     /**
@@ -215,8 +240,9 @@ public class Portal extends JFrame {
     } // end of Portal constructor
 
     /**
-     * TODO: Documentation
-     * @return
+     * Creates and populates a JPanel representing the header section of the admin portal GUI.
+     * @param admin A Node containing admin information to display in the header.
+     * @return The populated header panel.
      */
     private JPanel populateHeader(Node<Admin> admin) {
         // Header panel
@@ -268,8 +294,8 @@ public class Portal extends JFrame {
     } // end of populateHeader method
 
     /**
-     * TODO: Documentation
-     * @return
+     * Creates and configures a sidebar panel with navigation buttons and labels.
+     * @return A JPanel representing the sidebar with navigation buttons.
      */
     private JPanel populateSidebar() {
         // Sidebar Panel
@@ -394,8 +420,8 @@ public class Portal extends JFrame {
     } // end of populateSidebar method
 
     /**
-     * TODO: Documentation
-     * @return
+     * Creates and populates a JPanel representing the sidebar section of the admin portal GUI.
+     * @return The populated sidebar panel.
      */
     private JPanel populateHomePanel() {
         // Home Panel
@@ -603,10 +629,9 @@ public class Portal extends JFrame {
     } // end of populateHomePanel method
 
     /**
-     * TODO: Documentation
-     * @return
+     * Updates the displayed student information based on the provided student object.
+     * @param studentObj The student object to display. Pass null if the student is not found.
      */
-
     private void updateStudentShown(Student studentObj) {
         if (studentObj==null) {
             studentIdLabel.setText("Student not found");
@@ -619,7 +644,10 @@ public class Portal extends JFrame {
             studentNameLabel.setText(studentObj.getLastName() + ", " + studentObj.getFirstName());
         }
     }
-
+    /**
+     * Creates and populates a JPanel representing a schedule panel with a "Not Available" message.
+     * @return A JPanel containing UI components representing the schedule panel.
+     */
     private JPanel populateSchedulePanel() {
         JPanel schedulePanel = new JPanel();
         schedulePanel.setLayout(new BorderLayout());
@@ -647,6 +675,11 @@ public class Portal extends JFrame {
 
     public JLabel studentIdLabel = new JLabel();
     public JLabel studentNameLabel = new JLabel();
+
+    /**
+     * TO DO:
+     *
+     */
     private JPanel populateTorPanel() {
 
         // Transcript of Records Panel
@@ -1582,9 +1615,11 @@ public class Portal extends JFrame {
 
     /**
      * @Author: LACANILAO
+     *  Creates and configures a JFrame for adding a student with input fields and validation.
+     *  Handles adding the student to the main application when valid details are provided.
+     *
      * TODO: add handling exceptions
      * TODO: add remove student frame
-     *
      */
     private void addStudentFrame() {
         addStudentFrame = new JFrame("Add Student");
@@ -1832,6 +1867,10 @@ public class Portal extends JFrame {
         addStudentFrame.setVisible(true);
     } // end of addStudentFrame
 
+    /**
+     * Creates and configures a JFrame for removing a student.
+     * Handles the removal of the student from the main application if valid details are provided.
+     */
     private void removeStudentFrame() {
         removeStudentFrame = new JFrame("Remove Student");
         ImageIcon sluStudLogo = resources.scaleImage(resources.sluLogo, 25, 25);
@@ -2067,8 +2106,10 @@ public class Portal extends JFrame {
         removeStudentFrame.setVisible(true);
     }
     /**
-     * TODO: Documentation
-     * @return
+     * Creates and populates a JPanel representing a curriculum checklist panel.
+     * This panel displays course information for a specific year and semester,
+     * allows navigation between years and semesters, and provides CRUD (create, read, update, delete).
+     * @return A JPanel containing UI components representing the curriculum checklist panel.
      */
     private JPanel populateChecklistPanel() {
         year = 1;
@@ -2512,13 +2553,19 @@ public class Portal extends JFrame {
 
         return checklistPanel;
     } // end of populateChecklistPanel method
-
+    /**
+     * Creates and populates a JPanel representing personal details.
+     * This panel displays personal information such as name, birthday, contact details, etc.
+     * @return A JPanel containing UI components representing the personal details panel.
+     */
     private JPanel populatePersonalPanel() {
+        // This creates a personalPanel to hold the personal details panel
         JPanel personalPanel = new JPanel();
         personalPanel.setLayout(new BorderLayout());
         personalPanel.setBackground(Color.WHITE);
         personalPanel.setPreferredSize(new Dimension(910, 700));
 
+        // This creates the headingPanel at the top of the personalPanel
         JPanel headingPanel = new JPanel();
         headingPanel.setLayout(new BorderLayout());
         headingPanel.setBorder(resources.thinPadding);
@@ -2526,6 +2573,7 @@ public class Portal extends JFrame {
         headingPanel.setPreferredSize(new Dimension(910, 40));
         personalPanel.add(headingPanel, BorderLayout.NORTH);
 
+        // This creates the headingLabel to display "Personal Details".
         JLabel headingLabel = new JLabel();
         headingLabel.setText("Personal Details");
         headingLabel.setIcon(personalDetailsButton.getIcon());
@@ -2534,6 +2582,7 @@ public class Portal extends JFrame {
         headingLabel.setHorizontalAlignment(SwingConstants.LEFT);
         headingPanel.add(headingLabel, BorderLayout.WEST);
 
+        // This creates the bodyPanel to hold personal information details
         JPanel bodyPanel = new JPanel(new BorderLayout());
         bodyPanel.setBackground(resources.antiflashWhite);
         bodyPanel.setBorder(resources.normalPadding);
@@ -2579,11 +2628,20 @@ public class Portal extends JFrame {
         gbc.anchor = GridBagConstraints.NORTH;
         detailsPanel.add(topDetailsPanel, gbc);
 
+        // Adds the detailsPanel to the bodyPanel
         bodyPanel.add(detailsPanel, BorderLayout.EAST);
 
+        // Returns the populated personalPanel
         return personalPanel;
     }
 
+    /**
+     * Adds a pair of label and value components representing a personal detail to a given JPanel.
+     * @param panel  The JPanel where the personal detail components will be added.
+     * @param label  The label text describing the personal detail.
+     * @param value  The value of the personal detail to be displayed.
+     * @param gridy  The grid position (vertical) where the components will be placed in the panel.
+     */
     private void addPersonalDetail(JPanel panel, String label, String value, int gridy) {
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = 0;
@@ -2604,10 +2662,5 @@ public class Portal extends JFrame {
         valueField.setBackground(panel.getBackground());
         panel.add(valueField, gbc);
     }
-
-
-    /**
-     * TODO: Documentation
-     */
 
 } // end of class Portal

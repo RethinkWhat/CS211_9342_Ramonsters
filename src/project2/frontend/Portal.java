@@ -6,6 +6,7 @@ import project2.course.BSCS.CourseUtility;
 import project2.referenceclasses.*;
 
 import javax.swing.*;
+import javax.swing.border.AbstractBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
@@ -16,13 +17,9 @@ import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DocumentFilter;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.awt.event.*;
+import java.awt.geom.RoundRectangle2D;
+import java.io.*;
 import java.util.EventObject;
 
 import project2.referenceclasses.Student;
@@ -183,7 +180,19 @@ public class Portal extends JFrame {
         JPanel personalPanel = populatePersonalPanel();
         cardPanel.add(personalPanel, "personal");
 
-        // Action Listeners
+        // Action Listeners and Mouse Listeners
+        homeButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                setCursor(resources.handCursor);
+            } // end of mouseEntered method
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                setCursor(resources.defaultCursor);
+            } // end of mouseExited method
+        });
+
         homeButton.addActionListener(e -> {
             cardLayout1.show(cardPanel, "home");
             studentCountLabel.setText(String.valueOf(Main.studentLinkedList.getSize())); // use getter or similar method to count nodes of students
@@ -193,6 +202,19 @@ public class Portal extends JFrame {
             checklistButton.setForeground(Color.BLACK);
             personalDetailsButton.setForeground(Color.BLACK);
         });
+
+        scheduleButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                setCursor(resources.handCursor);
+            } // end of mouseEntered method
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                setCursor(resources.defaultCursor);
+            } // end of mouseExited method
+        });
+
         scheduleButton.addActionListener(e -> {
             cardLayout1.show(cardPanel, "schedule");
             homeButton.setForeground(Color.BLACK);
@@ -201,6 +223,19 @@ public class Portal extends JFrame {
             checklistButton.setForeground(Color.BLACK);
             personalDetailsButton.setForeground(Color.BLACK);
         });
+
+        torButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                setCursor(resources.handCursor);
+            } // end of mouseEntered method
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                setCursor(resources.defaultCursor);
+            } // end of mouseExited method
+        });
+
         torButton.addActionListener(e -> {
             studentNameLabel.setForeground(resources.antiflashWhite);
             studentIdLabel.setText("ID Number");
@@ -215,6 +250,19 @@ public class Portal extends JFrame {
             checklistButton.setForeground(Color.BLACK);
             personalDetailsButton.setForeground(Color.BLACK);
         });
+
+        checklistButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                setCursor(resources.handCursor);
+            } // end of mouseEntered method
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                setCursor(resources.defaultCursor);
+            } // end of mouseExited method
+        });
+
         checklistButton.addActionListener(e -> {
             cardLayout1.show(cardPanel, "checklist");
             homeButton.setForeground(Color.BLACK);
@@ -223,6 +271,19 @@ public class Portal extends JFrame {
             checklistButton.setForeground(resources.antiflashWhite);
             personalDetailsButton.setForeground(Color.BLACK);
         });
+
+        personalDetailsButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                setCursor(resources.handCursor);
+            } // end of mouseEntered method
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                setCursor(resources.defaultCursor);
+            } // end of mouseExited method
+        });
+
         personalDetailsButton.addActionListener(e -> {
             cardLayout1.show(cardPanel, "personal");
             homeButton.setForeground(Color.BLACK);
@@ -349,7 +410,7 @@ public class Portal extends JFrame {
         homeButton.setForeground(resources.antiflashWhite);
         homeButton.setHorizontalAlignment(SwingConstants.LEFT);
         homeButton.setFont(resources.montserratBold.deriveFont(15f));
-        homeButton.setBorderPainted(true);
+        homeButton.setBorderPainted(false);
         homeButton.setOpaque(false);
         homeButton.setContentAreaFilled(false);
         homeButton.setFocusable(false);
@@ -790,6 +851,18 @@ public class Portal extends JFrame {
         searchButton.setFocusPainted(false);
         buttonsPanel1.add(searchButton);
 
+        searchButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                setCursor(resources.handCursor);
+            } // end of mouseEntered method
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                setCursor(resources.defaultCursor);
+            } // end of mouseExited method
+        });
+
         // !!! Clear Button
         ImageIcon clearIcon = new ImageIcon("icons/clear_all-icon-black.png");
 
@@ -805,6 +878,18 @@ public class Portal extends JFrame {
         clearButton.setFocusPainted(false);
         buttonsPanel1.add(clearButton);
 
+        clearButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                setCursor(resources.handCursor);
+            } // end of mouseEntered method
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                setCursor(resources.defaultCursor);
+            } // end of mouseExited method
+        });
+
         ImageIcon nextIcon = new ImageIcon("icons/arrow_forward-icon-black.png");
         nextTorButton = new JButton();
         nextTorButton.setText("Next");
@@ -819,6 +904,18 @@ public class Portal extends JFrame {
         nextTorButton.setVisible(false);
         buttonsPanel1.add(nextTorButton);
 
+        nextTorButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                setCursor(resources.handCursor);
+            } // end of mouseEntered method
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                setCursor(resources.defaultCursor);
+            } // end of mouseExited method
+        });
+
         // Action Listeners
         searchButton.addActionListener(new ActionListener() {
             @Override
@@ -830,8 +927,6 @@ public class Portal extends JFrame {
                 }
             }
         });
-
-
 
         clearButton.addActionListener(e -> {
             studentNameLabel.setForeground(resources.antiflashWhite);
@@ -864,6 +959,18 @@ public class Portal extends JFrame {
         addStudentButton.setFocusPainted(false);
         buttonsPanel2.add(addStudentButton);
 
+        addStudentButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                setCursor(resources.handCursor);
+            } // end of mouseEntered method
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                setCursor(resources.defaultCursor);
+            } // end of mouseExited method
+        });
+
         addStudentButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -884,6 +991,19 @@ public class Portal extends JFrame {
         removeStudentButton.setFocusable(false);
         removeStudentButton.setFocusPainted(false);
         buttonsPanel2.add(removeStudentButton);
+
+        removeStudentButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                setCursor(resources.handCursor);
+            } // end of mouseEntered method
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                setCursor(resources.defaultCursor);
+            } // end of mouseExited method
+        });
+
         removeStudentButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -972,6 +1092,18 @@ public class Portal extends JFrame {
         prevButton.setFocusPainted(false);
         navButtonPanel.add(prevButton);
 
+        prevButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                setCursor(resources.handCursor);
+            } // end of mouseEntered method
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                setCursor(resources.defaultCursor);
+            } // end of mouseExited method
+        });
+
         // !!!!!! Next Button
         ImageIcon scaledNextIcon = resources.scaleImage(nextIcon, 15, 15);
         JButton nextButton = new JButton();
@@ -984,6 +1116,18 @@ public class Portal extends JFrame {
         nextButton.setFocusable(false);
         nextButton.setFocusPainted(false);
         navButtonPanel.add(nextButton);
+
+        nextButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                setCursor(resources.handCursor);
+            } // end of mouseEntered method
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                setCursor(resources.defaultCursor);
+            } // end of mouseExited method
+        });
 
         // !!!! Table Panel
         JPanel tablePanel = new JPanel();
@@ -1157,9 +1301,7 @@ public class Portal extends JFrame {
             } // end of for
         });
 
-
         // Action Listeners
-
         nextButton.addActionListener(e -> {
             if  (year == 4 && sem == 2) {
                 year = 1;
@@ -1335,7 +1477,6 @@ public class Portal extends JFrame {
                 } // end of case for year 4
             } // end of switch-case for year
         });
-
 
         prevButton.addActionListener(e -> {
             if (year == 1 & sem ==1) {
@@ -1546,6 +1687,18 @@ public class Portal extends JFrame {
         editButton.setFocusPainted(false);
         crudButtons.add(editButton);
 
+        editButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                setCursor(resources.handCursor);
+            } // end of mouseEntered method
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                setCursor(resources.defaultCursor);
+            } // end of mouseExited method
+        });
+
         table.setDefaultEditor(Object.class, new DefaultCellEditor(new JTextField()) {
             @Override
             public boolean isCellEditable(EventObject e) {
@@ -1577,7 +1730,6 @@ public class Portal extends JFrame {
                     editButton.setText("Done");
                     editable = true;
                 }
-
             };
         });
 
@@ -1596,6 +1748,18 @@ public class Portal extends JFrame {
         deleteButton.setFocusPainted(false);
         crudButtons.add(deleteButton);
 
+        deleteButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                setCursor(resources.handCursor);
+            } // end of mouseEntered method
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                setCursor(resources.defaultCursor);
+            } // end of mouseExited method
+        });
+
         // !!!!!! Export Button
         ImageIcon exportIcon = new ImageIcon("icons/export-icon-black.png");
         JButton exportButton = new JButton();
@@ -1609,6 +1773,24 @@ public class Portal extends JFrame {
         exportButton.setFocusable(false);
         exportButton.setFocusPainted(false);
         crudButtons.add(exportButton);
+
+        exportButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                setCursor(resources.handCursor);
+            } // end of mouseEntered method
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                setCursor(resources.defaultCursor);
+            } // end of mouseExited method
+        });
+
+        exportButton.addActionListener(e -> {
+            JFrame fileChooser = populateFileChooser(year, sem);
+            fileChooser.requestFocus();
+            fileChooser.setAlwaysOnTop(true);
+        });
 
         return torPanel;
     } // end of populateTorPanel
@@ -1731,10 +1913,34 @@ public class Portal extends JFrame {
         addButton.setForeground(Color.WHITE);
         addButton.setBorderPainted(false);
 
+        addButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                setCursor(resources.handCursor);
+            } // end of mouseEntered method
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                setCursor(resources.defaultCursor);
+            } // end of mouseExited method
+        });
+
         cancelButton.setFont(new Font("Montserrat Bold", Font.BOLD, 24));
         cancelButton.setBackground(resources.uranianBlue);
         cancelButton.setForeground(Color.WHITE);
         cancelButton.setBorderPainted(false);
+
+        cancelButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                setCursor(resources.handCursor);
+            } // end of mouseEntered method
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                setCursor(resources.defaultCursor);
+            } // end of mouseExited method
+        });
 
         buttonPanel.setBackground(resources.yinmnBlue);
         buttonPanel.add(addButton);
@@ -1742,7 +1948,6 @@ public class Portal extends JFrame {
 
         frameContent.add(bottomPanel, BorderLayout.CENTER);
         frameContent.add(buttonPanel, BorderLayout.SOUTH);
-
 
         addButton.addActionListener(new ActionListener() {
             @Override
@@ -1793,6 +1998,18 @@ public class Portal extends JFrame {
                         public void actionPerformed(ActionEvent e) {
                             addSuccessFrame.dispose();
                         }
+                    });
+
+                    okButton.addMouseListener(new MouseAdapter() {
+                        @Override
+                        public void mouseEntered(MouseEvent e) {
+                            setCursor(resources.handCursor);
+                        } // end of mouseEntered method
+
+                        @Override
+                        public void mouseExited(MouseEvent e) {
+                            setCursor(resources.defaultCursor);
+                        } // end of mouseExited method
                     });
 
                     addSuccessFrame.add(confirmPanel, BorderLayout.CENTER);
@@ -1850,11 +2067,36 @@ public class Portal extends JFrame {
                         addStudentFrame.dispose();
                     }
                 });
+
+                yesButton.addMouseListener(new MouseAdapter() {
+                    @Override
+                    public void mouseEntered(MouseEvent e) {
+                        setCursor(resources.handCursor);
+                    } // end of mouseEntered method
+
+                    @Override
+                    public void mouseExited(MouseEvent e) {
+                        setCursor(resources.defaultCursor);
+                    } // end of mouseExited method
+                });
+
                 noButton.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         confirmDialogFrame.dispose();
                     }
+                });
+
+                noButton.addMouseListener(new MouseAdapter() {
+                    @Override
+                    public void mouseEntered(MouseEvent e) {
+                        setCursor(resources.handCursor);
+                    } // end of mouseEntered method
+
+                    @Override
+                    public void mouseExited(MouseEvent e) {
+                        setCursor(resources.defaultCursor);
+                    } // end of mouseExited method
                 });
 
                 confirmDialogFrame.add(confirmPanel, BorderLayout.CENTER);
@@ -2043,6 +2285,18 @@ public class Portal extends JFrame {
             }
         });
 
+        removeButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                setCursor(resources.handCursor);
+            } // end of mouseEntered method
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                setCursor(resources.defaultCursor);
+            } // end of mouseExited method
+        });
+
         cancelButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -2100,6 +2354,18 @@ public class Portal extends JFrame {
                 confirmDialogFrame.add(buttonPanel, BorderLayout.SOUTH);
                 confirmDialogFrame.setVisible(true);
             }
+        });
+
+        cancelButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                setCursor(resources.handCursor);
+            } // end of mouseEntered method
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                setCursor(resources.defaultCursor);
+            } // end of mouseExited method
         });
 
         removeStudentFrame.setContentPane(frameContent);
@@ -2195,6 +2461,18 @@ public class Portal extends JFrame {
         prevButton.setFocusPainted(false);
         navButtonPanel.add(prevButton);
 
+        prevButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                setCursor(resources.handCursor);
+            } // end of mouseEntered method
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                setCursor(resources.defaultCursor);
+            } // end of mouseExited method
+        });
+
         // !!!!!! Next Button
         ImageIcon nextIcon = new ImageIcon("icons/arrow_forward-icon-black.png");
         ImageIcon scaledNextIcon = resources.scaleImage(nextIcon, 15, 15);
@@ -2208,6 +2486,18 @@ public class Portal extends JFrame {
         nextButton.setFocusable(false);
         nextButton.setFocusPainted(false);
         navButtonPanel.add(nextButton);
+
+        nextButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                setCursor(resources.handCursor);
+            } // end of mouseEntered method
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                setCursor(resources.defaultCursor);
+            } // end of mouseExited method
+        });
 
         // !!!! Table Panel
         JPanel tablePanel = new JPanel();
@@ -2497,60 +2787,6 @@ public class Portal extends JFrame {
         scrollPane.setOpaque(false);
         tablePanel.add(scrollPane);
 
-
-        // !!!!! CRUD Button Panel
-        JPanel crudButtons = new JPanel();
-        crudButtons.setLayout(new FlowLayout());
-        crudButtons.setBackground(Color.WHITE);
-        crudButtons.setPreferredSize(new Dimension(910, 40));
-        bodyPanel.add(crudButtons, BorderLayout.SOUTH);
-
-        // !!!!!! CRUD Button Components
-
-        // !!!!!! Add Button
-
-        // !!!!!! Edit Button
-        ImageIcon editIcon = new ImageIcon("icons/edit-icon-black.png");
-        JButton editButton = new JButton();
-        editButton.setText("Edit");
-        editButton.setIcon(editIcon);
-        editButton.setFont(resources.montserrat.deriveFont(11f));
-        editButton.setOpaque(true);
-        editButton.setBorderPainted(false);
-        editButton.setBackground(resources.uranianBlue);
-        editButton.setForeground(Color.BLACK);
-        editButton.setFocusable(false);
-        editButton.setFocusPainted(false);
-        crudButtons.add(editButton);
-
-        // !!!!!! Delete Button
-        ImageIcon deleteIcon = new ImageIcon("icons/delete-icon-black.png");
-        JButton deleteButton = new JButton();
-        deleteButton.setText("Delete");
-        deleteButton.setIcon(deleteIcon);
-        deleteButton.setFont(resources.montserrat.deriveFont(11f));
-        deleteButton.setOpaque(true);
-        deleteButton.setBorderPainted(false);
-        deleteButton.setBackground(resources.uranianBlue);
-        deleteButton.setForeground(Color.BLACK);
-        deleteButton.setFocusable(false);
-        deleteButton.setFocusPainted(false);
-        crudButtons.add(deleteButton);
-
-        // !!!!!! Export Button
-        ImageIcon exportIcon = new ImageIcon("icons/export-icon-black.png");
-        JButton exportButton = new JButton();
-        exportButton.setText("Export as CSV");
-        exportButton.setIcon(exportIcon);
-        exportButton.setFont(resources.montserrat.deriveFont(11f));
-        exportButton.setOpaque(true);
-        exportButton.setBorderPainted(false);
-        exportButton.setBackground(resources.uranianBlue);
-        exportButton.setForeground(Color.BLACK);
-        exportButton.setFocusable(false);
-        exportButton.setFocusPainted(false);
-        crudButtons.add(exportButton);
-
         return checklistPanel;
     } // end of populateChecklistPanel method
     /**
@@ -2606,7 +2842,6 @@ public class Portal extends JFrame {
         JPanel topDetailsPanel = new JPanel(new GridBagLayout());
         topDetailsPanel.setPreferredSize(new Dimension(610, 400));
 
-        addPersonalDetail(topDetailsPanel, "Name", "Johan Rickardo Roxas", 0);
         addPersonalDetail(topDetailsPanel, "First Name", "Johan Rickardo", 1);
         addPersonalDetail(topDetailsPanel, "Last Name", "Roxas", 2);
         addPersonalDetail(topDetailsPanel, "Username", "rickardo", 3);
@@ -2663,4 +2898,164 @@ public class Portal extends JFrame {
         panel.add(valueField, gbc);
     }
 
+    /**
+     *
+     * @param year
+     * @param sem
+     * @return
+     */
+    private JFrame populateFileChooser(int year, int sem) {
+        JFrame fileChooserFrame = new JFrame();
+        fileChooserFrame.setIconImage(resources.sluLogo.getImage());
+        BufferedWriter outputStream;
+        File records = new File(studentSearched.getIdNumber());
+
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Save Transcript of Records");
+        fileChooser.setSelectedFile(new File(studentSearched.getIdNumber() + ".csv"));
+
+        int userSelection = fileChooser.showSaveDialog(fileChooserFrame);
+
+        if (userSelection == JFileChooser.APPROVE_OPTION) {
+            try {
+                outputStream = new BufferedWriter(new FileWriter(fileChooser.getSelectedFile()));
+                outputStream.write("Course Number,Descriptive Title,Units,Grade");
+                outputStream.newLine();
+                switch (year) {
+                    case 1 -> {
+                        switch (sem) {
+                            case 1 -> {
+                                Node<Course> pointer = studentSearched.getYearList().getHead().getData().
+                                        getFirstSemSemesterList().getHead();
+                                while (pointer != null) {
+                                    outputStream.write(pointer.toString());
+                                    outputStream.newLine();
+                                    pointer = pointer.getNext();
+                                } // end of while
+                                outputStream.close();
+                            } // end of case for sem 1
+                            case 2 -> {
+                                Node<Course> pointer = studentSearched.getYearList().getHead().getData().
+                                        getSecondSemSemesterList().getHead();
+                                while (pointer != null) {
+                                    outputStream.write(pointer.toString());
+                                    outputStream.newLine();
+                                    pointer = pointer.getNext();
+                                } // end of while
+                                outputStream.close();
+                            } // end of case for sem 2
+                            case 3 -> {
+                                Node<Course> pointer = studentSearched.getYearList().getHead().getData().
+                                        getShortTerm().getHead();
+                                while (pointer != null) {
+                                    outputStream.write(pointer.toString());
+                                    outputStream.newLine();
+                                    pointer = pointer.getNext();
+                                } // end of while
+                                outputStream.close();
+                            } // end of case for sem 3
+                        } // end of switch-case for sem
+                    } // end of case for year 1
+                    case 2 -> {
+                        switch (sem) {
+                            case 1 -> {
+                                Node<Course> pointer = studentSearched.getYearList().getHead().getData().
+                                        getFirstSemSemesterList().getHead();
+                                while (pointer != null) {
+                                    outputStream.write(pointer.toString());
+                                    outputStream.newLine();
+                                    pointer = pointer.getNext();
+                                } // end of while
+                                outputStream.close();
+                            } // end of case for sem 1
+                            case 2 -> {
+                                Node<Course> pointer = studentSearched.getYearList().getHead().getData().
+                                        getSecondSemSemesterList().getHead();
+                                while (pointer != null) {
+                                    outputStream.write(pointer.toString());
+                                    outputStream.newLine();
+                                    pointer = pointer.getNext();
+                                } // end of while
+                                outputStream.close();
+                            } // end of case for sem 2
+                            case 3 -> {
+                                Node<Course> pointer = studentSearched.getYearList().getHead().getData().
+                                        getShortTerm().getHead();
+                                while (pointer != null) {
+                                    outputStream.write(pointer.toString());
+                                    outputStream.newLine();
+                                    pointer = pointer.getNext();
+                                } // end of while
+                                outputStream.close();
+                            } // end of case for sem 3
+                        } // end of switch-case for sem
+                    } // end of case for year 2
+                    case 3 -> {
+                        switch (sem) {
+                            case 1 -> {
+                                Node<Course> pointer = studentSearched.getYearList().getHead().getData().
+                                        getFirstSemSemesterList().getHead();
+                                while (pointer != null) {
+                                    outputStream.write(pointer.toString());
+                                    outputStream.newLine();
+                                    pointer = pointer.getNext();
+                                } // end of while
+                                outputStream.close();
+                            } // end of case for sem 1
+                            case 2 -> {
+                                Node<Course> pointer = studentSearched.getYearList().getHead().getData().
+                                        getSecondSemSemesterList().getHead();
+                                while (pointer != null) {
+                                    outputStream.write(pointer.toString());
+                                    outputStream.newLine();
+                                    pointer = pointer.getNext();
+                                } // end of while
+                                outputStream.close();
+                            } // end of case for sem 2
+                            case 3 -> {
+                                Node<Course> pointer = studentSearched.getYearList().getHead().getData().
+                                        getShortTerm().getHead();
+                                while (pointer != null) {
+                                    outputStream.write(pointer.toString());
+                                    outputStream.newLine();
+                                    pointer = pointer.getNext();
+                                } // end of while
+                                outputStream.close();
+                            } // end of case for sem 3
+                        } // end of switch-case for sem
+                    } // end of case for year 3
+                    case 4 -> {
+                        switch (sem) {
+                            case 1 -> {
+                                Node<Course> pointer = studentSearched.getYearList().getHead().getData().
+                                        getFirstSemSemesterList().getHead();
+                                while (pointer != null) {
+                                    outputStream.write(pointer.toString());
+                                    outputStream.newLine();
+                                    pointer = pointer.getNext();
+                                } // end of while
+                                outputStream.close();
+                            } // end of case for sem 1
+                            case 2 -> {
+                                Node<Course> pointer = studentSearched.getYearList().getHead().getData().
+                                        getSecondSemSemesterList().getHead();
+                                while (pointer != null) {
+                                    outputStream.write(pointer.toString());
+                                    outputStream.newLine();
+                                    pointer = pointer.getNext();
+                                } // end of while
+                                outputStream.close();
+                            } // end of case for sem 2
+                        } // end of switch-case for sem
+                    } // end of case for year 4
+                } // end of switch-case for year
+            } catch (IOException e) {
+                e.printStackTrace();
+            } // end of try-catch
+            records = fileChooser.getSelectedFile();
+            System.out.println("Save as file: " + records.getAbsolutePath());
+        } // end of if
+
+        return fileChooserFrame;
+    } // end of populateFileChooser method
 } // end of class Portal

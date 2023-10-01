@@ -8,10 +8,19 @@ import project2.referenceclasses.Year;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
-
+/**
+ * Handles data and course information with utility methods
+ */
 public class StudentUtility {
-
+    /**
+     * Used to read files
+     */
     static Scanner fileReader;
+
+    /**
+     * Reads information from a file and creates a 'Course' linked list object
+     * @return a linked list containing 'Course' object
+     */
     public static LinkedList<Course> createCourseList(File fileLocation) {
         LinkedList<Course> courseLinkedList = new LinkedList<Course>();
         Course courseObj;
@@ -29,9 +38,19 @@ public class StudentUtility {
         return courseLinkedList;
     }
 
+     /**
+     * Constructs 'File' object from 1st to 4th year courses and semesters
+     * @return a 'File' object of a specified course file
+     */
+
     public static File getFile(String course, int year, String sem) {
         return new File("src/project2/course/" + course + "/" + course + year + "/" + sem);
     }
+
+    /**
+     * Reads course data from 1st to 4th years and creates a linked list of 'Year' objects.
+     * @return a linked list of 'Year' objects
+     */
 
     public static LinkedList<Year> createYearLinkedList(String course) {
         LinkedList<Course> firstYearFirstSem = StudentUtility.createCourseList(StudentUtility.getFile(course,1,"firstSem"));

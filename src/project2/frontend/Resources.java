@@ -1,6 +1,7 @@
 package project2.frontend;
 
 import javax.swing.*;
+import javax.swing.border.AbstractBorder;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.io.File;

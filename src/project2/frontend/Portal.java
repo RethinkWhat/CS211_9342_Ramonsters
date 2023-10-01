@@ -1733,33 +1733,6 @@ public class Portal extends JFrame {
             };
         });
 
-
-        // !!!!!! Delete Button
-        ImageIcon deleteIcon = new ImageIcon("icons/delete-icon-black.png");
-        JButton deleteButton = new JButton();
-        deleteButton.setText("Delete");
-        deleteButton.setIcon(deleteIcon);
-        deleteButton.setFont(resources.montserrat.deriveFont(11f));
-        deleteButton.setOpaque(true);
-        deleteButton.setBorderPainted(false);
-        deleteButton.setBackground(resources.uranianBlue);
-        deleteButton.setForeground(Color.BLACK);
-        deleteButton.setFocusable(false);
-        deleteButton.setFocusPainted(false);
-        crudButtons.add(deleteButton);
-
-        deleteButton.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                setCursor(resources.handCursor);
-            } // end of mouseEntered method
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-                setCursor(resources.defaultCursor);
-            } // end of mouseExited method
-        });
-
         // !!!!!! Export Button
         ImageIcon exportIcon = new ImageIcon("icons/export-icon-black.png");
         JButton exportButton = new JButton();

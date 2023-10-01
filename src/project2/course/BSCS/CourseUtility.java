@@ -14,62 +14,62 @@ import java.util.LinkedList;
  */
 public class CourseUtility {
     /**
-     * TODO: Documentation
+     * Holds a linked list of 'Course' objects representing courses for the first semester of first year BSCS students.
      */
     public LinkedList<Course> year1Sem1 = populateChecklist(1,1);
 
     /**
-     * TODO: Documentation
+     * Holds a linked list of 'Course' objects representing courses for the second semester of first year BSCS students.
      */
     public LinkedList<Course> year1Sem2 = populateChecklist(1,2);
 
     /**
-     * TODO: Documentation
+     * Holds a linked list of 'Course' objects representing courses for the third semester (short-term) of first year BSCS students.
      */
     public LinkedList<Course> year1Sem3 = populateChecklist(1,3);
 
     /**
-     * TODO: Documentation
+     * Holds a linked list of 'Course' objects representing courses for the first semester of second year BSCS students.
      */
     public LinkedList<Course> year2Sem1 = populateChecklist(2,1);
 
     /**
-     * TODO: Documentation
+     * Holds a linked list of 'Course' objects representing courses for the second semester of second year BSCS students.
      */
     public LinkedList<Course> year2Sem2 = populateChecklist(2,2);
 
     /**
-     * TODO: Documentation
+     * Holds a linked list of 'Course' objects representing courses for the third semester (short-term) of second year BSCS students.
      */
     public LinkedList<Course> year2Sem3 = populateChecklist(2,3);
 
     /**
-     * TODO: Documentation
+     * Holds a linked list of 'Course' objects representing courses for the first semester of third year BSCS students.
      */
     public LinkedList<Course> year3Sem1 = populateChecklist(3,1);
 
     /**
-     * TODO: Documentation
+     * Holds a linked list of 'Course' objects representing courses for the second semester of third year BSCS students.
      */
     public LinkedList<Course> year3Sem2 = populateChecklist(3,2);
 
     /**
-     * TODO: Documentation
+     * Holds a linked list of 'Course' objects representing courses for the third semester (short-term) of third year BSCS students.
      */
     public LinkedList<Course> year3Sem3 = populateChecklist(3,3);
 
     /**
-     * TODO: Documentation
+     * Holds a linked list of 'Course' objects representing courses for the first semester of fourth year BSCS students.
      */
     public LinkedList<Course> year4Sem1 = populateChecklist(4,1);
 
     /**
-     * TODO: Documentation
+     * Holds a linked list of 'Course' objects representing courses for the second semester of fourth year BSCS students.
      */
     public LinkedList<Course> year4Sem2 = populateChecklist(4,2);
 
     /**
-     * @TODO: Documentation
+     * Populates a linked list of courses based on the specified academic year and semester.
      * @param year
      * @param sem
      * @return LinkedList with data of Course
@@ -110,7 +110,7 @@ public class CourseUtility {
     } // end of populateChecklist method
 
     /**
-     * TODO: Documentation
+     * Reads course data from the given file and creates Course objects.
      * @param file given file name
      * @return course object with course number, descriptive title, and units.
      */

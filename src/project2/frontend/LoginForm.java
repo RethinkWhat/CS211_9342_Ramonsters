@@ -8,7 +8,10 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.*;
 
+
 /**
+ * The `LoginForm` class represents a graphical user interface for user login. It allows users to enter their
+ * username and password and provides a login button to authenticate and access the SLU Portal.
  * @author ROXAS, Johan Rickardo
  * @version 2.00 (16 September 2023)
  * Template for object LoginForm.
@@ -22,13 +25,22 @@ public class LoginForm extends JFrame {
     private final Resources resources = new Resources();
 
     /**
-     * Constructs an object of LoginForm.
-     * Contains the components of the login and signup form.
+     * JLabel used to display error messages, such as incorrect password.
      */
-
     public JLabel errorLabel = new JLabel();
+    /**
+     * JButton used to initiate the login process.
+     */
     JButton loginButton = new JButton();
+
+    /**
+     * Node of Admin to validate user login credentials.
+     */
     Node<Admin> isValid;
+
+    /**
+     * Constructs an object of the `LoginForm` class. It sets up the graphical user interface for user login.
+     */
     public LoginForm() {
         super("SLU Portal Login Form");
 

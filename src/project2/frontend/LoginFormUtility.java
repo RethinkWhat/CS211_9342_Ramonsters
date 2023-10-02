@@ -12,9 +12,10 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 /**
+ * The `LoginFormUtility` class is a utility class for validating user login credentials. It reads admin data from a
+ * file, creates an admin linked list, and checks if the provided username and password match any admin account.
  * @author ROXAS, Johan Rickardo
  * @version 1.00 (16 September 2023)
- * Template for LoginFormUtility object.
  */
 public class LoginFormUtility {
     public static Node<Admin> validate(String userName, char[] password){

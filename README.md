@@ -36,4 +36,4 @@ This project is for academic purposes only.
 ### Project 1
 Fully developed
 ### Project 2
-Under development
+Fully developed

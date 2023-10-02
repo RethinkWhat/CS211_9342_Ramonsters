@@ -51,7 +51,6 @@ public class StudentUtility {
      * Reads course data from 1st to 4th years and creates a linked list of 'Year' objects.
      * @return a linked list of 'Year' objects
      */
-
     public static LinkedList<Year> createYearLinkedList(String course) {
         LinkedList<Course> firstYearFirstSem = StudentUtility.createCourseList(StudentUtility.getFile(course,1,"firstSem"));
         LinkedList<Course> firstYearSecondSem = StudentUtility.createCourseList(StudentUtility.getFile(course,1,"secondSem"));

@@ -2872,10 +2872,11 @@ public class Portal extends JFrame {
     }
 
     /**
-     *
-     * @param year
-     * @param sem
-     * @return
+     * This method creates a file chooser dialog to save a transcript of records
+     * as a CSV file based on the selected year and semester.
+     * @param year The selected year (1, 2, 3, or 4).
+     * @param sem  The selected semester (1, 2, or 3).
+     * @return A JFrame used to display the file chooser dialog.
      */
     private JFrame populateFileChooser(int year, int sem) {
         JFrame fileChooserFrame = new JFrame();

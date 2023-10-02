@@ -23,12 +23,12 @@ public class Main {
     private final Resources resources = new Resources();
 
     /**
-     * TODO: Documentation
+     * A linked list to store computer science year data.
      */
     public static LinkedList<Year> computerScience = StudentUtility.createYearLinkedList("BSCS");
 
     /**
-     * TODO: Documentation
+     * A linked list to store student data.
      */
     public static LinkedList<Student> studentLinkedList = new LinkedList();
 
@@ -69,9 +69,9 @@ public class Main {
     } // end of run method
 
     /**
-     * @TODO: Documentation
-     * @param studentID
-     * @return
+     * Searches a student by their ID number.
+     * @param studentID the ID number of the student to search for
+     * @return the student object if found, or null if not found
      */
     public static Student search(String studentID) {
         Node<Student> curr = studentLinkedList.getHead();
@@ -87,14 +87,31 @@ public class Main {
         return null;
     } // end of search
 
+    /**
+     * Adds new student to the studentLinkedList.
+     * @param studentID  the ID number of the new student
+     * @param firstName  the first name of the new student
+     * @param lastName   the last name of the new student
+     * @param yearList   a linked list containing the year data of the new student
+     */
     public static void addStudent(String studentID, String firstName, String lastName, LinkedList<Year> yearList){
         studentLinkedList.insert(new Student(studentID, firstName, lastName, yearList));
     }
 
+    /**
+     * Removes student from the studentLinkedList by their ID number.
+     * @param studentID the ID number of the student to remove.
+     */
     public static void removeStudent(String studentID){
         studentLinkedList.delete(search(studentID));
     }
 
+    /**
+     * Populates checklist of courses based on the specified year and semester.
+     * @param year the year for which to populate the checklist.
+     * @param sem  the semester for which to populate the checklist.
+     * @return a linked list of Course objects representing the courses for the specified year and semester.
+     */
     private java.util.LinkedList<Course> populateChecklist(int year, int sem) {
         java.util.LinkedList<Course> courses = new java.util.LinkedList<>();
         BufferedReader bufferedReader;

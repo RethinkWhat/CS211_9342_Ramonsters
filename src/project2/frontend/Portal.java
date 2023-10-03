@@ -1205,30 +1205,50 @@ public class Portal extends JFrame {
                     }
                 }
                 if (year == 2) {
-                    if (sem == 1) {
-                        Node<Course> pointer = studentSearched.getYearList().getHead().getNext().getData().getFirstSemSemesterList().getHead();
-                        for (int x = 0; x <= e.getLastRow(); x++) {
-                            if (x == e.getFirstRow()) {
-                                pointer.getData().setGrade(Integer.valueOf((String) (table.getValueAt(x, 3))));
+                        if (sem == 1) {
+                            Node<Course> pointer = studentSearched.getYearList().getHead().getNext().getData().getFirstSemSemesterList().getHead();
+                            for (int x = 0; x <= e.getLastRow(); x++) {
+                                if (x == e.getFirstRow() && x >= 0 && x < table.getRowCount()) {
+
+                                    try {
+                                        pointer.getData().setGrade(Integer.valueOf((String) (table.getValueAt(x, 3))));
+                                    } catch (NumberFormatException ex) {
+                                    }
+                                }
+                                if (pointer ==null)
+                                    break;
+                                pointer = pointer.getNext();
                             }
-                            pointer = pointer.getNext();
                         }
-                    }
+
+
                     if (sem == 2) {
                         Node<Course> pointer = studentSearched.getYearList().getHead().getNext().getData().getSecondSemSemesterList().getHead();
                         for (int x = 0; x <= e.getLastRow(); x++) {
-                            if (x == e.getFirstRow()) {
-                                pointer.getData().setGrade(Integer.valueOf((String) (table.getValueAt(x, 3))));
+                            if (x == e.getFirstRow() && x >= 0 && x < table.getRowCount()) {
+
+                                try {
+                                    pointer.getData().setGrade(Integer.valueOf((String) (table.getValueAt(x, 3))));
+                                } catch (NumberFormatException ex) {
+                                }
                             }
+                            if (pointer ==null)
+                                break;
                             pointer = pointer.getNext();
                         }
                     }
                     if (sem == 3) {
                         Node<Course> pointer = studentSearched.getYearList().getHead().getNext().getData().getShortTerm().getHead();
                         for (int x = 0; x <= e.getLastRow(); x++) {
-                            if (x == e.getFirstRow()) {
-                                pointer.getData().setGrade(Integer.valueOf((String) (table.getValueAt(x, 3))));
+                            if (x == e.getFirstRow() && x >= 0 && x < table.getRowCount()) {
+
+                                try {
+                                    pointer.getData().setGrade(Integer.valueOf((String) (table.getValueAt(x, 3))));
+                                } catch (NumberFormatException ex) {
+                                }
                             }
+                            if (pointer ==null)
+                                break;
                             pointer = pointer.getNext();
                         }
                     }
@@ -1237,27 +1257,45 @@ public class Portal extends JFrame {
                     if (sem == 1) {
                         Node<Course> pointer = studentSearched.getYearList().getHead().getNext().getNext().getData().getFirstSemSemesterList().getHead();
                         for (int x = 0; x <= e.getLastRow(); x++) {
-                            if (x == e.getFirstRow()) {
-                                pointer.getData().setGrade(Integer.valueOf((String) (table.getValueAt(x, 3))));
+                            if (x == e.getFirstRow() && x >= 0 && x < table.getRowCount()) {
+
+                                try {
+                                    pointer.getData().setGrade(Integer.valueOf((String) (table.getValueAt(x, 3))));
+                                } catch (NumberFormatException ex) {
+                                }
                             }
+                            if (pointer ==null)
+                                break;
                             pointer = pointer.getNext();
                         }
                     }
                     if (sem == 2) {
                         Node<Course> pointer = studentSearched.getYearList().getHead().getNext().getNext().getData().getSecondSemSemesterList().getHead();
                         for (int x = 0; x <= e.getLastRow(); x++) {
-                            if (x == e.getFirstRow()) {
-                                pointer.getData().setGrade(Integer.valueOf((String) (table.getValueAt(x, 3))));
+                            if (x == e.getFirstRow() && x >= 0 && x < table.getRowCount()) {
+
+                                try {
+                                    pointer.getData().setGrade(Integer.valueOf((String) (table.getValueAt(x, 3))));
+                                } catch (NumberFormatException ex) {
+                                }
                             }
+                            if (pointer ==null)
+                                break;
                             pointer = pointer.getNext();
                         }
                     }
                     if (sem == 3) {
                         Node<Course> pointer = studentSearched.getYearList().getHead().getNext().getNext().getData().getShortTerm().getHead();
                         for (int x = 0; x <= e.getLastRow(); x++) {
-                            if (x == e.getFirstRow()) {
-                                pointer.getData().setGrade(Integer.valueOf((String) (table.getValueAt(x, 3))));
+                            if (x == e.getFirstRow() && x >= 0 && x < table.getRowCount()) {
+
+                                try {
+                                    pointer.getData().setGrade(Integer.valueOf((String) (table.getValueAt(x, 3))));
+                                } catch (NumberFormatException ex) {
+                                }
                             }
+                            if (pointer ==null)
+                                break;
                             pointer = pointer.getNext();
                         }
                     }
@@ -1266,18 +1304,30 @@ public class Portal extends JFrame {
                     if (sem == 1) {
                         Node<Course> pointer = studentSearched.getYearList().getHead().getNext().getNext().getNext().getData().getFirstSemSemesterList().getHead();
                         for (int x = 0; x <= e.getLastRow(); x++) {
-                            if (x == e.getFirstRow()) {
-                                pointer.getData().setGrade(Integer.valueOf((String) (table.getValueAt(x, 3))));
+                            if (x == e.getFirstRow() && x >= 0 && x < table.getRowCount()) {
+
+                                try {
+                                    pointer.getData().setGrade(Integer.valueOf((String) (table.getValueAt(x, 3))));
+                                } catch (NumberFormatException ex) {
+                                }
                             }
+                            if (pointer ==null)
+                                break;
                             pointer = pointer.getNext();
                         }
                     }
                     if (sem == 2) {
                         Node<Course> pointer = studentSearched.getYearList().getHead().getNext().getNext().getNext().getData().getSecondSemSemesterList().getHead();
                         for (int x = 0; x <= e.getLastRow(); x++) {
-                            if (x == e.getFirstRow()) {
-                                pointer.getData().setGrade(Integer.valueOf((String) (table.getValueAt(x, 3))));
+                            if (x == e.getFirstRow() && x >= 0 && x < table.getRowCount()) {
+
+                                try {
+                                    pointer.getData().setGrade(Integer.valueOf((String) (table.getValueAt(x, 3))));
+                                } catch (NumberFormatException ex) {
+                                }
                             }
+                            if (pointer ==null)
+                                break;
                             pointer = pointer.getNext();
                         }
                     }
